@@ -2,9 +2,41 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250701_021649_086_1754152193224.webp";
 
+// Animation hook for scroll-triggered fade-ins
+function useScrollAnimation() {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
 export default function Landing() {
+  const heroAnimation = useScrollAnimation();
+  const howItWorksAnimation = useScrollAnimation();
+  const statsAnimation = useScrollAnimation();
+  const tiersAnimation = useScrollAnimation();
+  const ctaAnimation = useScrollAnimation();
+
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
       {/* Header */}
@@ -13,23 +45,25 @@ export default function Landing() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <img src={logoPath} alt="Shticky" className="h-10 w-10 rounded-lg object-cover" />
-              <h1 className="text-2xl font-bold" style={{color: '#1D2915'}}>Shticky</h1>
+              <h1 className="text-xl font-semibold tracking-tight" style={{color: '#1D2915'}}>Shticky</h1>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex space-x-2">
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={() => window.location.href = '/login'}
-                className="border-2 hover:bg-white/10"
+                className="border-2 hover:bg-white/10 text-sm"
                 style={{borderColor: '#686346', color: '#686346'}}
               >
                 Sign In
               </Button>
               <Button 
+                size="sm"
                 onClick={() => window.location.href = '/application'}
-                className="text-white hover:opacity-90"
+                className="text-white hover:opacity-90 text-sm"
                 style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
               >
-                Apply to Join
+                Apply
               </Button>
             </div>
           </div>
@@ -39,7 +73,12 @@ export default function Landing() {
       {/* Hero Section */}
       <section className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div 
+            ref={heroAnimation.ref}
+            className={`text-center transition-all duration-1000 ${
+              heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <Badge className="mb-6 text-white border-none" style={{backgroundColor: '#686346'}}>
               Earn $0.01 per scan
             </Badge>
@@ -61,7 +100,7 @@ export default function Landing() {
               <Button 
                 size="lg"
                 onClick={() => window.location.href = '/application'}
-                className="text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse hover:opacity-90"
+                className="text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90"
                 style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
               >
                 START EARNING NOW
@@ -83,7 +122,12 @@ export default function Landing() {
       {/* Stats Section */}
       <section className="py-16 backdrop-blur-sm" style={{backgroundColor: 'rgba(239, 239, 238, 0.6)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div 
+            ref={statsAnimation.ref}
+            className={`grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-1000 ${
+              statsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <div className="text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
                 <DollarSign className="h-8 w-8" style={{color: '#9A7B60'}} />
@@ -112,7 +156,12 @@ export default function Landing() {
       {/* How It Works */}
       <section id="how-it-works" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div 
+            ref={howItWorksAnimation.ref}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              howItWorksAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h2 className="text-4xl md:text-6xl font-black mb-6" style={{color: '#1D2915'}}>
               <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>HOW</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>SHTICKY</span>{" "}
@@ -163,7 +212,12 @@ export default function Landing() {
       {/* Tier System */}
       <section className="py-20 backdrop-blur-sm" style={{backgroundColor: 'rgba(239, 239, 238, 0.6)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div 
+            ref={tiersAnimation.ref}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              tiersAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <h2 className="text-4xl md:text-6xl font-black mb-6" style={{color: '#1D2915'}}>
               <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>TIER</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>PROGRESSION</span>{" "}
@@ -234,7 +288,12 @@ export default function Landing() {
 
       {/* CTA Section */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div 
+          ref={ctaAnimation.ref}
+          className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center transition-all duration-1000 ${
+            ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-4xl md:text-6xl font-black mb-6" style={{color: '#1D2915'}}>
             <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>READY</span>{" "}
             <span className="drop-shadow-lg" style={{color: '#A89182'}}>TO</span>{" "}
