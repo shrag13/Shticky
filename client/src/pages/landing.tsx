@@ -270,7 +270,7 @@ export default function Landing() {
               {/* Starter Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-2deg)',
                     backgroundImage: `url(${starterStickerPath})`,
@@ -299,25 +299,23 @@ export default function Landing() {
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold mb-1" style={{color: '#1D2915'}}>
                         1 STICKER
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                        Start & prove strategy
                       </p>
                     </div>
                   </div>
-                </div>
-                
-                {/* Tier Description */}
-                <div className="mt-2 text-center">
-                  <p className="text-white font-bold text-xs drop-shadow-lg">
-                    Start & prove strategy
-                  </p>
                 </div>
               </div>
 
               {/* Pro Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(1deg)',
                     backgroundImage: `url(${proStickerPath})`,
@@ -352,25 +350,23 @@ export default function Landing() {
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold mb-1" style={{color: '#1D2915'}}>
                         2 STICKERS
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                        Scale earnings strategically
                       </p>
                     </div>
                   </div>
-                </div>
-                
-                {/* Tier Description */}
-                <div className="mt-2 text-center">
-                  <p className="text-white font-bold text-xs drop-shadow-lg">
-                    Scale earnings strategically
-                  </p>
                 </div>
               </div>
 
               {/* Elite Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-1deg)',
                     backgroundImage: `url(${eliteStickerPath})`,
@@ -411,18 +407,16 @@ export default function Landing() {
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold mb-1" style={{color: '#1D2915'}}>
                         3 STICKERS
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
+                        Maximum tier performer
                       </p>
                     </div>
                   </div>
-                </div>
-                
-                {/* Tier Description */}
-                <div className="mt-2 text-center">
-                  <p className="text-white font-bold text-xs drop-shadow-lg">
-                    Maximum tier performer
-                  </p>
                 </div>
               </div>
               
