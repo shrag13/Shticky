@@ -266,13 +266,12 @@ export default function Landing() {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center py-8 px-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+              <CardHeader className="text-center py-4 px-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
                   <Star className="h-8 w-8" style={{color: '#9A7B60'}} />
                 </div>
                 <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>STARTER</CardTitle>
-                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>1</div>
-                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKER</div>
+                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>1 STICKER</div>
               </CardHeader>
               <CardContent className="text-center px-6 pb-8">
                 <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Perfect for testing your placement strategy</p>
@@ -297,13 +296,12 @@ export default function Landing() {
               <div className="absolute top-0 left-0 right-0 text-center py-2 text-white font-bold text-sm" style={{backgroundColor: '#A89182'}}>
                 MOST POPULAR
               </div>
-              <CardHeader className="text-center py-8 px-6 pt-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+              <CardHeader className="text-center py-4 px-6 pt-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
                   <Star className="h-8 w-8" style={{color: '#A89182'}} />
                 </div>
                 <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>PRO</CardTitle>
-                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>2</div>
-                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKERS</div>
+                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>2 STICKERS</div>
               </CardHeader>
               <CardContent className="text-center px-6 pb-8">
                 <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Expand after proving success</p>
@@ -325,13 +323,12 @@ export default function Landing() {
             </Card>
             
             <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center py-8 px-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+              <CardHeader className="text-center py-4 px-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
                   <Star className="h-8 w-8" style={{color: '#686346'}} />
                 </div>
                 <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>ELITE</CardTitle>
-                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>3</div>
-                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKERS</div>
+                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>3 STICKERS</div>
               </CardHeader>
               <CardContent className="text-center px-6 pb-8">
                 <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Maximum tier for top performers</p>
