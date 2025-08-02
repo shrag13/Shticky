@@ -252,157 +252,159 @@ export default function Landing() {
             </p>
           </div>
           
-          <div className="flex flex-row items-start justify-center gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto overflow-x-auto pb-4">
-            <div className="flex flex-row gap-4 sm:gap-6 lg:gap-8 min-w-fit">
-            {/* Starter Tier Sticker */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0" style={{transform: 'rotate(-2deg)'}}>
-              <svg width="220" height="200" viewBox="0 0 220 200" className="drop-shadow-2xl">
+          <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 max-w-5xl mx-auto overflow-x-auto pb-6 scrollbar-hide">
+              <div className="flex flex-row gap-6 sm:gap-8 lg:gap-12 min-w-max px-4">
+              {/* Starter Tier Sticker */}
+              <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0" style={{transform: 'rotate(-2deg)'}}>
+                <svg width="240" height="220" viewBox="0 0 240 220" className="drop-shadow-2xl w-[180px] sm:w-[200px] lg:w-[240px] h-auto">
                 {/* Sticker shadow */}
-                <ellipse cx="110" cy="195" rx="100" ry="6" fill="rgba(0,0,0,0.4)" />
+                <ellipse cx="120" cy="210" rx="110" ry="8" fill="rgba(0,0,0,0.4)" />
                 
                 {/* Realistic paper texture background */}
                 <defs>
-                  <pattern id="starterTexture" patternUnits="userSpaceOnUse" width="220" height="180">
-                    <image href={stickerTexturePath} x="0" y="0" width="220" height="180" opacity="0.8"/>
+                  <pattern id="starterTexture" patternUnits="userSpaceOnUse" width="240" height="200">
+                    <image href={stickerTexturePath} x="0" y="0" width="240" height="200" opacity="0.8"/>
                   </pattern>
                 </defs>
                 
                 {/* Main sticker body with wrinkled edges */}
-                <path d="M15 25 Q12 15 25 12 L195 15 Q208 18 205 30 L200 170 Q203 183 195 185 L25 183 Q12 180 15 167 Z" 
+                <path d="M18 30 Q15 18 30 15 L210 18 Q225 21 222 35 L218 185 Q221 200 210 202 L30 200 Q15 197 18 182 Z" 
                       fill="url(#starterTexture)" stroke="#D1D1D1" strokeWidth="2"/>
                 
                 {/* Overlay for better text contrast */}
-                <path d="M15 25 Q12 15 25 12 L195 15 Q208 18 205 30 L200 170 Q203 183 195 185 L25 183 Q12 180 15 167 Z" 
-                      fill="rgba(255,255,255,0.8)"/>
+                <path d="M18 30 Q15 18 30 15 L210 18 Q225 21 222 35 L218 185 Q221 200 210 202 L30 200 Q15 197 18 182 Z" 
+                      fill="rgba(255,255,255,0.85)"/>
                 
                 {/* Star icon background */}
-                <circle cx="110" cy="50" r="18" fill="#9A7B60" fillOpacity="0.2"/>
+                <circle cx="120" cy="55" r="20" fill="#9A7B60" fillOpacity="0.2"/>
                 
                 {/* Star icon */}
-                <path d="M110 35 L112 42 L120 42 L114 47 L116 54 L110 51 L104 54 L106 47 L100 42 L108 42 Z" 
+                <path d="M120 38 L123 48 L133 48 L125 55 L128 65 L120 60 L112 65 L115 55 L107 48 L117 48 Z" 
                       fill="#9A7B60" stroke="#9A7B60" strokeWidth="1"/>
                 
                 {/* Title */}
-                <text x="110" y="80" textAnchor="middle" fontSize="18" fontWeight="900" fill="#1D2915">STARTER</text>
+                <text x="120" y="92" textAnchor="middle" fontSize="22" fontWeight="900" fill="#1D2915">STARTER</text>
                 
                 {/* Sticker count */}
-                <text x="110" y="100" textAnchor="middle" fontSize="20" fontWeight="900" fill="#1D2915">1 STICKER</text>
+                <text x="120" y="115" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">1 STICKER</text>
                 
                 {/* Description */}
-                <text x="110" y="120" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">Perfect for testing</text>
-                <text x="110" y="132" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">placement strategy</text>
+                <text x="120" y="138" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Perfect for testing your</text>
+                <text x="120" y="152" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">placement strategy</text>
                 
                 {/* Features */}
-                <circle cx="65" cy="150" r="2" fill="#9A7B60"/>
-                <text x="75" y="154" fontSize="9" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                <circle cx="75" cy="172" r="3" fill="#9A7B60"/>
+                <text x="85" y="177" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
                 
-                <circle cx="65" cy="165" r="2" fill="#9A7B60"/>
-                <text x="75" y="169" fontSize="9" fontWeight="600" fill="#1D2915">Monthly payouts</text>
-              </svg>
-            </div>
-            
-            {/* Pro Tier Sticker */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative flex-shrink-0" style={{transform: 'rotate(1deg)'}}>
-              <svg width="220" height="200" viewBox="0 0 220 200" className="drop-shadow-2xl">
+                <circle cx="75" cy="190" r="3" fill="#9A7B60"/>
+                <text x="85" y="195" fontSize="11" fontWeight="600" fill="#1D2915">Monthly payouts</text>
+                </svg>
+              </div>
+              
+              {/* Pro Tier Sticker */}
+              <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative flex-shrink-0" style={{transform: 'rotate(1deg)'}}>
+                <svg width="240" height="220" viewBox="0 0 240 220" className="drop-shadow-2xl w-[180px] sm:w-[200px] lg:w-[240px] h-auto">
                 {/* Sticker shadow */}
-                <ellipse cx="110" cy="195" rx="100" ry="6" fill="rgba(0,0,0,0.5)" />
+                <ellipse cx="120" cy="210" rx="110" ry="8" fill="rgba(0,0,0,0.5)" />
                 
                 {/* Realistic paper texture background */}
                 <defs>
-                  <pattern id="proTexture" patternUnits="userSpaceOnUse" width="220" height="180">
-                    <image href={stickerTexturePath} x="-50" y="0" width="220" height="180" opacity="0.8"/>
+                  <pattern id="proTexture" patternUnits="userSpaceOnUse" width="240" height="200">
+                    <image href={stickerTexturePath} x="-60" y="0" width="240" height="200" opacity="0.8"/>
                   </pattern>
                 </defs>
                 
                 {/* Main sticker body with wrinkled edges */}
-                <path d="M12 28 Q10 12 28 10 L192 12 Q210 15 207 32 L202 168 Q205 185 192 187 L28 185 Q10 182 12 165 Z" 
+                <path d="M15 32 Q12 15 32 12 L208 15 Q228 18 225 35 L220 182 Q223 200 208 202 L32 200 Q12 197 15 180 Z" 
                       fill="url(#proTexture)" stroke="#A89182" strokeWidth="3"/>
                 
                 {/* Overlay for better text contrast */}
-                <path d="M12 28 Q10 12 28 10 L192 12 Q210 15 207 32 L202 168 Q205 185 192 187 L28 185 Q10 182 12 165 Z" 
-                      fill="rgba(255,255,255,0.8)"/>
+                <path d="M15 32 Q12 15 32 12 L208 15 Q228 18 225 35 L220 182 Q223 200 208 202 L32 200 Q12 197 15 180 Z" 
+                      fill="rgba(255,255,255,0.85)"/>
                 
                 {/* Double star icon background */}
-                <circle cx="95" cy="50" r="15" fill="#A89182" fillOpacity="0.2"/>
-                <circle cx="125" cy="50" r="15" fill="#A89182" fillOpacity="0.2"/>
+                <circle cx="105" cy="55" r="18" fill="#A89182" fillOpacity="0.2"/>
+                <circle cx="135" cy="55" r="18" fill="#A89182" fillOpacity="0.2"/>
                 
                 {/* Double star icons */}
-                <path d="M95 38 L97 44 L103 44 L98 48 L100 54 L95 51 L90 54 L92 48 L87 44 L93 44 Z" 
+                <path d="M105 40 L107 47 L115 47 L109 52 L111 59 L105 56 L99 59 L101 52 L95 47 L103 47 Z" 
                       fill="#A89182" stroke="#A89182" strokeWidth="1"/>
-                <path d="M125 38 L127 44 L133 44 L128 48 L130 54 L125 51 L120 54 L122 48 L117 44 L123 44 Z" 
+                <path d="M135 40 L137 47 L145 47 L139 52 L141 59 L135 56 L129 59 L131 52 L125 47 L133 47 Z" 
                       fill="#A89182" stroke="#A89182" strokeWidth="1"/>
                 
                 {/* Title */}
-                <text x="110" y="80" textAnchor="middle" fontSize="20" fontWeight="900" fill="#1D2915">PRO</text>
+                <text x="120" y="92" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">PRO</text>
                 
                 {/* Sticker count */}
-                <text x="110" y="100" textAnchor="middle" fontSize="20" fontWeight="900" fill="#1D2915">2 STICKERS</text>
+                <text x="120" y="115" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">2 STICKERS</text>
                 
                 {/* Description */}
-                <text x="110" y="120" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">Scale your earnings with</text>
-                <text x="110" y="132" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">strategic placement</text>
+                <text x="120" y="138" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Scale your earnings with</text>
+                <text x="120" y="152" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">strategic placement</text>
                 
                 {/* Features */}
-                <circle cx="60" cy="150" r="2" fill="#A89182"/>
-                <text x="70" y="154" fontSize="9" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                <circle cx="70" cy="172" r="3" fill="#A89182"/>
+                <text x="80" y="177" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
                 
-                <circle cx="60" cy="165" r="2" fill="#A89182"/>
-                <text x="70" y="169" fontSize="9" fontWeight="600" fill="#1D2915">2x earning potential</text>
-              </svg>
-            </div>
-            
-            {/* Elite Tier Sticker */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0" style={{transform: 'rotate(-1.5deg)'}}>
-              <svg width="220" height="200" viewBox="0 0 220 200" className="drop-shadow-2xl">
+                <circle cx="70" cy="190" r="3" fill="#A89182"/>
+                <text x="80" y="195" fontSize="11" fontWeight="600" fill="#1D2915">2x earning potential</text>
+                </svg>
+              </div>
+              
+              {/* Elite Tier Sticker */}
+              <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer flex-shrink-0" style={{transform: 'rotate(-1.5deg)'}}>
+                <svg width="240" height="220" viewBox="0 0 240 220" className="drop-shadow-2xl w-[180px] sm:w-[200px] lg:w-[240px] h-auto">
                 {/* Sticker shadow */}
-                <ellipse cx="110" cy="195" rx="100" ry="6" fill="rgba(0,0,0,0.4)" />
+                <ellipse cx="120" cy="210" rx="110" ry="8" fill="rgba(0,0,0,0.4)" />
                 
                 {/* Realistic paper texture background */}
                 <defs>
-                  <pattern id="eliteTexture" patternUnits="userSpaceOnUse" width="220" height="180">
-                    <image href={stickerTexturePath} x="-100" y="0" width="220" height="180" opacity="0.8"/>
+                  <pattern id="eliteTexture" patternUnits="userSpaceOnUse" width="240" height="200">
+                    <image href={stickerTexturePath} x="-120" y="0" width="240" height="200" opacity="0.8"/>
                   </pattern>
                 </defs>
                 
                 {/* Main sticker body with weathered edges */}
-                <path d="M16 30 Q15 16 30 14 L190 16 Q205 18 203 33 L198 167 Q200 182 190 184 L30 182 Q15 179 16 164 Z" 
+                <path d="M18 35 Q16 18 35 15 L205 18 Q225 21 222 38 L218 180 Q221 197 205 200 L35 197 Q16 194 18 177 Z" 
                       fill="url(#eliteTexture)" stroke="#686346" strokeWidth="2"/>
                 
                 {/* Overlay for better text contrast */}
-                <path d="M16 30 Q15 16 30 14 L190 16 Q205 18 203 33 L198 167 Q200 182 190 184 L30 182 Q15 179 16 164 Z" 
-                      fill="rgba(255,255,255,0.8)"/>
+                <path d="M18 35 Q16 18 35 15 L205 18 Q225 21 222 38 L218 180 Q221 197 205 200 L35 197 Q16 194 18 177 Z" 
+                      fill="rgba(255,255,255,0.85)"/>
                 
                 {/* Triple star icon backgrounds */}
-                <circle cx="85" cy="50" r="12" fill="#686346" fillOpacity="0.2"/>
-                <circle cx="110" cy="50" r="12" fill="#686346" fillOpacity="0.2"/>
-                <circle cx="135" cy="50" r="12" fill="#686346" fillOpacity="0.2"/>
+                <circle cx="95" cy="55" r="15" fill="#686346" fillOpacity="0.2"/>
+                <circle cx="120" cy="55" r="15" fill="#686346" fillOpacity="0.2"/>
+                <circle cx="145" cy="55" r="15" fill="#686346" fillOpacity="0.2"/>
                 
                 {/* Triple star icons */}
-                <path d="M85 40 L87 46 L93 46 L88 50 L90 56 L85 53 L80 56 L82 50 L77 46 L83 46 Z" 
+                <path d="M95 43 L97 49 L103 49 L98 53 L100 59 L95 56 L90 59 L92 53 L87 49 L93 49 Z" 
                       fill="#686346" stroke="#686346" strokeWidth="1"/>
-                <path d="M110 40 L112 46 L118 46 L113 50 L115 56 L110 53 L105 56 L107 50 L102 46 L108 46 Z" 
+                <path d="M120 43 L122 49 L128 49 L123 53 L125 59 L120 56 L115 59 L117 53 L112 49 L118 49 Z" 
                       fill="#686346" stroke="#686346" strokeWidth="1"/>
-                <path d="M135 40 L137 46 L143 46 L138 50 L140 56 L135 53 L130 56 L132 50 L127 46 L133 46 Z" 
+                <path d="M145 43 L147 49 L153 49 L148 53 L150 59 L145 56 L140 59 L142 53 L137 49 L143 49 Z" 
                       fill="#686346" stroke="#686346" strokeWidth="1"/>
                 
                 {/* Title */}
-                <text x="110" y="80" textAnchor="middle" fontSize="18" fontWeight="900" fill="#1D2915">ELITE</text>
+                <text x="120" y="92" textAnchor="middle" fontSize="22" fontWeight="900" fill="#1D2915">ELITE</text>
                 
                 {/* Sticker count */}
-                <text x="110" y="100" textAnchor="middle" fontSize="20" fontWeight="900" fill="#1D2915">3 STICKERS</text>
+                <text x="120" y="115" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">3 STICKERS</text>
                 
                 {/* Description */}
-                <text x="110" y="120" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">Maximum tier for</text>
-                <text x="110" y="132" textAnchor="middle" fontSize="10" fontWeight="600" fill="#686346">top performers</text>
+                <text x="120" y="138" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Maximum tier for</text>
+                <text x="120" y="152" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">top performers</text>
                 
                 {/* Features */}
-                <circle cx="60" cy="150" r="2" fill="#686346"/>
-                <text x="70" y="154" fontSize="9" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                <circle cx="70" cy="172" r="3" fill="#686346"/>
+                <text x="80" y="177" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
                 
-                <circle cx="60" cy="165" r="2" fill="#686346"/>
-                <text x="70" y="169" fontSize="9" fontWeight="600" fill="#1D2915">3x earning potential</text>
-              </svg>
-            </div>
+                <circle cx="70" cy="190" r="3" fill="#686346"/>
+                <text x="80" y="195" fontSize="11" fontWeight="600" fill="#1D2915">3x earning potential</text>
+                </svg>
+              </div>
+              </div>
             </div>
           </div>
         </div>
