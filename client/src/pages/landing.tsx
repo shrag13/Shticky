@@ -255,11 +255,11 @@ export default function Landing() {
           </div>
           
           {/* Horizontal Stickers Container - All Visible */}
-          <div className="flex justify-center items-center w-full max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full px-4">
+          <div className="flex justify-center items-center w-full">
+            <div className="flex flex-row justify-center items-stretch gap-3 sm:gap-4 lg:gap-6 w-full max-w-7xl px-4">
               
               {/* Starter Tier - Simple Card with Sticker Effect */}
-              <div className="w-full max-w-[360px] mx-auto">
+              <div className="flex-1 min-w-0 max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]">
                 <div 
                   className="bg-white rounded-lg p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
                   style={{
@@ -319,7 +319,7 @@ export default function Landing() {
               </div>
 
               {/* Pro Tier - Simple Card with Sticker Effect */}
-              <div className="w-full max-w-[360px] mx-auto">
+              <div className="flex-1 min-w-0 max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]">
                 <div 
                   className="bg-white rounded-lg p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
                   style={{
@@ -385,7 +385,7 @@ export default function Landing() {
               </div>
 
               {/* Elite Tier - Simple Card with Sticker Effect */}
-              <div className="w-full max-w-[360px] mx-auto">
+              <div className="flex-1 min-w-0 max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]">
                 <div 
                   className="bg-white rounded-lg p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
                   style={{
