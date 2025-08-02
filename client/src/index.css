@@ -63,7 +63,7 @@
   height: auto;
   overflow: visible;
   pointer-events: none;
-  padding: 12px;
+  padding: 14px;
 }
 
 .liquid-glass-distortion-layer {
@@ -123,7 +123,7 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
-  max-width: 440px;
+  max-width: 460px;
   margin: 0 auto;
   overflow: hidden;
   background: radial-gradient(ellipse at top, 

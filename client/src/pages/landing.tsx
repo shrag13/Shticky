@@ -76,8 +76,8 @@ export default function Landing() {
       {/* Apple-Style Floating Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         
-        <div className="liquid-glass-content flex items-center justify-between px-4 py-1">
-          <div className="liquid-glass-brand flex items-center space-x-2">
+        <div className="liquid-glass-content flex items-center justify-between px-5 py-1.5">
+          <div className="liquid-glass-brand flex items-center space-x-2.5">
             <div className="liquid-glass-logo-morph">
               <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-lg object-cover" />
             </div>
@@ -86,18 +86,18 @@ export default function Landing() {
             </span>
           </div>
           
-          <div className="liquid-glass-buttons flex items-center space-x-2">
+          <div className="liquid-glass-buttons flex items-center space-x-2.5">
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-3 py-1 h-auto text-sm"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm"
               onClick={() => window.location.href = '/login'}
             >
               Sign In
             </Button>
             <Button 
               size="sm" 
-              className="liquid-glass-btn-morph bg-[#9A7B60] hover:bg-[#A89182] text-white px-3 py-1 h-auto text-sm"
+              className="liquid-glass-btn-morph bg-[#9A7B60] hover:bg-[#A89182] text-white px-4 py-1.5 h-auto text-sm"
               onClick={() => window.location.href = '/application'}
             >
               Apply
