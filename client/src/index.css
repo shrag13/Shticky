@@ -180,34 +180,21 @@
   position: relative;
   padding: 1.5px;
   border-radius: 12px;
-  background: radial-gradient(circle at 30% 30%,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    rgba(255, 255, 255, 0.1) 70%,
-    rgba(255, 255, 255, 0.35) 100%
-  );
+  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(3px) saturate(150%) brightness(118%) contrast(103%);
   -webkit-backdrop-filter: blur(3px) saturate(150%) brightness(118%) contrast(103%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
-    /* Inner highlight curve */
-    0 3px 0 rgba(255, 255, 255, 0.9) inset,
-    /* Outer rim light */
-    0 0 0 1px rgba(255, 255, 255, 0.4),
-    /* 3D depth shadow */
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 2px 6px rgba(0, 0, 0, 0.1),
-    /* Bottom inner shadow for curve */
-    0 -1px 0 rgba(255, 255, 255, 0.2) inset;
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  transform: perspective(400px) rotateX(2deg) translateZ(2px);
 }
 
 .liquid-glass-logo-morph:hover {
   transform: scale(1.05);
   box-shadow: 
-    0 4px 12px rgba(29, 41, 21, 0.08),
-    0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 /* Liquid Glass Text - Subtle */
@@ -226,70 +213,39 @@
   border-radius: 20px;
   font-weight: 600;
   font-size: 12px;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.3s ease;
   backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
   -webkit-backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
   cursor: pointer;
-  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 
-    /* Inner highlight curve like water droplet */
-    0 2px 0 rgba(255, 255, 255, 0.8) inset,
-    /* Outer rim glow */
-    0 0 0 1px rgba(255, 255, 255, 0.3),
-    /* Deep 3D shadow */
-    0 4px 16px rgba(0, 0, 0, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    /* Bottom inner curve shadow */
-    0 -1px 0 rgba(255, 255, 255, 0.2) inset;
-  transform: perspective(300px) rotateX(2deg) translateZ(1px);
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .liquid-glass-btn-morph:hover {
-  transform: translateY(-2px);
-  filter: brightness(105%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .liquid-glass-btn-outline {
-  background: radial-gradient(ellipse at top,
-    rgba(255, 255, 255, 0.35) 0%,
-    rgba(255, 255, 255, 0.18) 40%,
-    rgba(255, 255, 255, 0.12) 70%,
-    rgba(255, 255, 255, 0.28) 100%
-  );
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   color: #1D2915;
   font-weight: 600;
   box-shadow: 
-    /* Strong inner highlight like water surface */
-    0 3px 0 rgba(255, 255, 255, 0.9) inset,
-    /* Outer luminous glow */
-    0 0 0 1px rgba(255, 255, 255, 0.4),
-    /* 3D depth shadows */
-    0 5px 20px rgba(0, 0, 0, 0.12),
-    0 2px 8px rgba(0, 0, 0, 0.08),
-    /* Bottom curve shadow */
-    0 -1px 0 rgba(255, 255, 255, 0.3) inset;
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .liquid-glass-btn-outline:hover {
-  background: radial-gradient(ellipse at top,
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(255, 255, 255, 0.25) 40%,
-    rgba(255, 255, 255, 0.18) 70%,
-    rgba(255, 255, 255, 0.38) 100%
-  );
-  transform: translateY(-2px) scale(1.03) perspective(300px) rotateX(1deg) translateZ(2px);
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
   box-shadow: 
-    /* Enhanced inner highlight */
-    0 4px 0 rgba(255, 255, 255, 0.95) inset,
-    /* Stronger outer glow */
-    0 0 0 1.5px rgba(255, 255, 255, 0.5),
-    /* Deeper 3D shadows */
-    0 8px 30px rgba(0, 0, 0, 0.18),
-    0 4px 15px rgba(0, 0, 0, 0.12),
-    /* Enhanced curve shadow */
-    0 -1px 0 rgba(255, 255, 255, 0.4) inset;
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .liquid-glass-btn-primary {
