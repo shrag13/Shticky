@@ -226,60 +226,62 @@ export default function Landing() {
 
       {/* Tier Progression System - Brick Wall Background */}
       <section 
-        className="relative overflow-hidden py-12"
+        className="relative overflow-hidden"
         style={{
           backgroundImage: `url(${brickWallPath})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          height: '60vh',
-          minHeight: '500px'
+          width: '100vw',
+          height: '50vh',
+          minHeight: '400px',
+          maxHeight: '500px'
         }}
       >
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
-        <div className="relative z-10 h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+        <div className="relative z-10 h-full px-2 sm:px-4 lg:px-6 flex flex-col justify-center py-4">
           {/* Header */}
           <div 
             ref={tiersAnimation.ref}
-            className={`text-center mb-8 transition-all duration-1000 ${
+            className={`text-center mb-4 transition-all duration-1000 ${
               tiersAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-3 text-white drop-shadow-2xl tracking-wide">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-black mb-2 text-white drop-shadow-2xl tracking-wide">
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>TIER</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>PROGRESSION</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>SYSTEM</span>
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl font-bold max-w-2xl mx-auto text-white drop-shadow-lg">
+            <p className="text-sm sm:text-base lg:text-lg font-bold max-w-xl mx-auto text-white drop-shadow-lg">
               Prove your strategy works and unlock more earning potential
             </p>
           </div>
           
           {/* Horizontal Stickers on Brick Wall */}
           <div className="flex justify-center items-center flex-1">
-            <div className="flex flex-row justify-center items-center gap-6 sm:gap-8 lg:gap-12 w-full max-w-5xl">
+            <div className="flex flex-row justify-center items-center gap-3 sm:gap-4 lg:gap-6 w-full max-w-6xl px-2">
               
               {/* Starter Tier */}
               <div className="flex-1 min-w-0 max-w-xs">
                 <div 
-                  className="w-32 h-40 sm:w-36 h-48 lg:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(-2deg)',
                     backgroundImage: `url(${starterStickerPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    filter: 'drop-shadow(0 15px 20px rgba(0, 0, 0, 0.3))'
+                    filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3))'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Star Badge */}
                       <div className="flex justify-center mb-1">
                         <div 
-                          className="w-5 h-5 lg:w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-lg"
+                          className="w-4 h-4 lg:w-5 h-5 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#9A7B60'}}
                         >
                           ⭐
@@ -287,40 +289,29 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         STARTER
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         1 STICKER
                       </p>
                     </div>
                     
                     {/* Features */}
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#9A7B60'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
-                      </div>
-                      <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#9A7B60'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>Test strategy</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Tier Description */}
-                <div className="mt-3 text-center">
-                  <p className="text-white font-bold text-sm drop-shadow-lg">
-                    Start here and prove your placement strategy
+                <div className="mt-2 text-center">
+                  <p className="text-white font-bold text-xs drop-shadow-lg">
+                    Start & prove strategy
                   </p>
                 </div>
               </div>
@@ -328,28 +319,28 @@ export default function Landing() {
               {/* Pro Tier */}
               <div className="flex-1 min-w-0 max-w-xs">
                 <div 
-                  className="w-32 h-40 sm:w-36 h-48 lg:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(1deg)',
                     backgroundImage: `url(${proStickerPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    filter: 'drop-shadow(0 15px 20px rgba(0, 0, 0, 0.3))'
+                    filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3))'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Double Stars */}
                       <div className="flex justify-center gap-0.5 mb-1">
                         <div 
-                          className="w-4 h-4 lg:w-5 h-5 rounded-full flex items-center justify-center text-xs shadow-lg"
+                          className="w-3 h-3 lg:w-4 h-4 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#A89182'}}
                         >
                           ⭐
                         </div>
                         <div 
-                          className="w-4 h-4 lg:w-5 h-5 rounded-full flex items-center justify-center text-xs shadow-lg"
+                          className="w-3 h-3 lg:w-4 h-4 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#A89182'}}
                         >
                           ⭐
@@ -357,40 +348,29 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         PRO
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         2 STICKERS
                       </p>
                     </div>
                     
                     {/* Features */}
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#A89182'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
-                      </div>
-                      <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#A89182'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>2x potential</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Tier Description */}
-                <div className="mt-3 text-center">
-                  <p className="text-white font-bold text-sm drop-shadow-lg">
-                    Scale your earnings with strategic placement
+                <div className="mt-2 text-center">
+                  <p className="text-white font-bold text-xs drop-shadow-lg">
+                    Scale earnings strategically
                   </p>
                 </div>
               </div>
@@ -398,17 +378,17 @@ export default function Landing() {
               {/* Elite Tier */}
               <div className="flex-1 min-w-0 max-w-xs">
                 <div 
-                  className="w-32 h-40 sm:w-36 h-48 lg:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(-1deg)',
                     backgroundImage: `url(${eliteStickerPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    filter: 'drop-shadow(0 15px 20px rgba(0, 0, 0, 0.3))'
+                    filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3))'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Triple Stars */}
                       <div className="flex justify-center gap-0.5 mb-1">
@@ -433,40 +413,29 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         ELITE
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm lg:text-base font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
                         3 STICKERS
                       </p>
                     </div>
                     
                     {/* Features */}
-                    <div className="space-y-1">
+                    <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#686346'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
-                      </div>
-                      <div className="flex items-center justify-center text-xs">
-                        <div 
-                          className="w-1 h-1 rounded-full mr-1"
-                          style={{backgroundColor: '#686346'}}
-                        ></div>
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>3x potential</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Tier Description */}
-                <div className="mt-3 text-center">
-                  <p className="text-white font-bold text-sm drop-shadow-lg">
-                    Maximum tier for top performers
+                <div className="mt-2 text-center">
+                  <p className="text-white font-bold text-xs drop-shadow-lg">
+                    Maximum tier performer
                   </p>
                 </div>
               </div>
