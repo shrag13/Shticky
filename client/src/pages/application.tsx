@@ -19,6 +19,8 @@ export default function Application() {
   const form = useForm<InsertApplication>({
     resolver: zodResolver(insertApplicationSchema),
     defaultValues: {
+      email: "",
+      passwordHash: "",
       fullName: "",
       address: "",
       city: "",
@@ -100,17 +102,55 @@ export default function Application() {
           </CardHeader>
           <CardContent>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Full Name */}
-              <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name *</Label>
-                <Input
-                  id="fullName"
-                  {...form.register("fullName")}
-                  placeholder="Enter your full name"
-                />
-                {form.formState.errors.fullName && (
-                  <p className="text-sm text-red-600">{form.formState.errors.fullName.message}</p>
-                )}
+              {/* Account Information */}
+              <div className="space-y-4 p-4 bg-blue-50 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900">Account Information</h3>
+                
+                {/* Email */}
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...form.register("email")}
+                    placeholder="Enter your email address"
+                  />
+                  {form.formState.errors.email && (
+                    <p className="text-sm text-red-600">{form.formState.errors.email.message}</p>
+                  )}
+                </div>
+
+                {/* Password */}
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password *</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    {...form.register("passwordHash")}
+                    placeholder="Create a password"
+                  />
+                  {form.formState.errors.passwordHash && (
+                    <p className="text-sm text-red-600">{form.formState.errors.passwordHash.message}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Personal Information */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
+                
+                {/* Full Name */}
+                <div className="space-y-2">
+                  <Label htmlFor="fullName">Full Name *</Label>
+                  <Input
+                    id="fullName"
+                    {...form.register("fullName")}
+                    placeholder="Enter your full name"
+                  />
+                  {form.formState.errors.fullName && (
+                    <p className="text-sm text-red-600">{form.formState.errors.fullName.message}</p>
+                  )}
+                </div>
               </div>
 
               {/* Address */}

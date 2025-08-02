@@ -25,10 +25,11 @@ export const sessions = pgTable(
   (table) => [index("IDX_session_expire").on(table.expire)],
 );
 
-// User storage table (required for Replit Auth)
+// User storage table
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  email: varchar("email").unique(),
+  email: varchar("email").unique().notNull(),
+  passwordHash: varchar("password_hash").notNull(),
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
@@ -43,7 +44,8 @@ export const applicationStatusEnum = pgEnum('application_status', ['pending', 'a
 // Applications table
 export const applications = pgTable("applications", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull().references(() => users.id),
+  email: varchar("email").notNull(),
+  passwordHash: varchar("password_hash").notNull(),
   fullName: text("full_name").notNull(),
   address: text("address").notNull(),
   city: varchar("city").notNull(),
@@ -54,6 +56,7 @@ export const applications = pgTable("applications", {
   submittedAt: timestamp("submitted_at").defaultNow(),
   reviewedAt: timestamp("reviewed_at"),
   reviewedBy: varchar("reviewed_by").references(() => users.id),
+  userId: varchar("user_id").references(() => users.id),
 });
 
 // Payment method enum
@@ -124,6 +127,8 @@ export const insertApplicationSchema = createInsertSchema(applications).omit({
   submittedAt: true,
   reviewedAt: true,
   reviewedBy: true,
+  userId: true,
+  status: true,
 });
 
 export const insertPaymentMethodSchema = createInsertSchema(paymentMethods).omit({
@@ -144,10 +149,11 @@ export const insertScanSchema = createInsertSchema(scans).omit({
 });
 
 // Types
-export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
-export type Application = typeof applications.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
+
 export type InsertApplication = z.infer<typeof insertApplicationSchema>;
+export type Application = typeof applications.$inferSelect;
 export type PaymentMethod = typeof paymentMethods.$inferSelect;
 export type InsertPaymentMethod = z.infer<typeof insertPaymentMethodSchema>;
 export type QrCode = typeof qrCodes.$inferSelect;

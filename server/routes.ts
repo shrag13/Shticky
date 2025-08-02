@@ -1,20 +1,62 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { getSession, isAuthenticated, hashPassword, verifyPassword } from "./auth";
 import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
-  await setupAuth(app);
+  // Session middleware
+  app.use(getSession());
 
   // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  app.post('/api/auth/login', async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
+      const { email, password } = req.body;
+      
+      if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+      }
+
+      const user = await storage.getUserByEmail(email);
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      const isValidPassword = await verifyPassword(password, user.passwordHash);
+      if (!isValidPassword) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      req.session.userId = user.id;
+      res.json({ message: "Login successful", user: { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName } });
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post('/api/auth/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Failed to logout" });
+      }
+      res.json({ message: "Logout successful" });
+    });
+  });
+
+  app.get('/api/auth/user', async (req, res) => {
+    try {
+      if (!req.session?.userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const user = await storage.getUser(req.session.userId);
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
+      }
+
+      res.json({ id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName });
     } catch (error) {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
@@ -22,21 +64,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Application routes
-  app.post('/api/applications', isAuthenticated, async (req: any, res) => {
+  app.post('/api/applications', async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const applicationData = insertApplicationSchema.parse({
-        ...req.body,
-        userId,
-      });
+      const applicationData = insertApplicationSchema.parse(req.body);
       
-      // Check if user already has an application
-      const existingApplication = await storage.getApplicationByUserId(userId);
-      if (existingApplication) {
-        return res.status(400).json({ message: "Application already submitted" });
+      // Check if email already exists
+      const existingUser = await storage.getUserByEmail(applicationData.email);
+      if (existingUser) {
+        return res.status(400).json({ message: "An account with this email already exists" });
       }
       
-      const application = await storage.submitApplication(applicationData);
+      // Hash the password
+      const hashedPassword = await hashPassword(applicationData.passwordHash);
+      
+      const application = await storage.submitApplication({
+        ...applicationData,
+        passwordHash: hashedPassword,
+      });
+      
       res.json(application);
     } catch (error) {
       console.error("Error submitting application:", error);
@@ -44,9 +89,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/applications/me', isAuthenticated, async (req: any, res) => {
+  app.get('/api/applications/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const application = await storage.getApplicationByUserId(userId);
       res.json(application);
     } catch (error) {
@@ -56,7 +101,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin routes
-  app.get('/api/admin/applications', isAuthenticated, async (req: any, res) => {
+  app.get('/api/admin/applications', isAuthenticated, async (req, res) => {
     try {
       // TODO: Add admin role check
       const applications = await storage.getPendingApplications();
@@ -67,18 +112,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch('/api/admin/applications/:id/review', isAuthenticated, async (req: any, res) => {
+  app.patch('/api/admin/applications/:id/review', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
-      const reviewedBy = req.user.claims.sub;
+      const reviewedBy = req.session.userId;
       
       if (!['approved', 'rejected'].includes(status)) {
         return res.status(400).json({ message: "Invalid status" });
       }
       
-      const application = await storage.reviewApplication(id, status, reviewedBy);
-      res.json(application);
+      // Get the application first
+      const applications = await storage.getPendingApplications();
+      const application = applications.find(app => app.id === id);
+      
+      if (!application) {
+        return res.status(404).json({ message: "Application not found" });
+      }
+      
+      // Review the application
+      const reviewedApplication = await storage.reviewApplication(id, status, reviewedBy);
+      
+      // If approved, create the user account
+      if (status === 'approved') {
+        const newUser = await storage.createUser({
+          email: application.email,
+          passwordHash: application.passwordHash,
+          firstName: application.fullName.split(' ')[0],
+          lastName: application.fullName.split(' ').slice(1).join(' ') || '',
+          profileImageUrl: null,
+          lastDismissedAt: null,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+        
+        // You could update the application with the new userId here if needed
+      }
+      
+      res.json(reviewedApplication);
     } catch (error) {
       console.error("Error reviewing application:", error);
       res.status(500).json({ message: "Failed to review application" });
@@ -86,9 +157,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Payment method routes
-  app.post('/api/payment-methods', isAuthenticated, async (req: any, res) => {
+  app.post('/api/payment-methods', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const paymentMethodData = insertPaymentMethodSchema.parse({
         ...req.body,
         userId,
@@ -102,9 +173,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/payment-methods/me', isAuthenticated, async (req: any, res) => {
+  app.get('/api/payment-methods/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const paymentMethod = await storage.getPaymentMethodByUserId(userId);
       res.json(paymentMethod);
     } catch (error) {
@@ -114,9 +185,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // QR code routes
-  app.post('/api/qr-codes/claim', isAuthenticated, async (req: any, res) => {
+  app.post('/api/qr-codes/claim', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const { qrCodeId } = req.body;
       
       if (!qrCodeId || typeof qrCodeId !== 'string') {
@@ -151,9 +222,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/qr-codes/me', isAuthenticated, async (req: any, res) => {
+  app.get('/api/qr-codes/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const qrCodes = await storage.getUserQrCodes(userId);
       res.json(qrCodes);
     } catch (error) {
@@ -188,9 +259,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // User stats route
-  app.get('/api/users/me/stats', isAuthenticated, async (req: any, res) => {
+  app.get('/api/users/me/stats', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const stats = await storage.getUserStats(userId);
       res.json(stats);
     } catch (error) {
@@ -200,9 +271,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Notification preferences routes
-  app.get('/api/notifications/preferences', isAuthenticated, async (req: any, res) => {
+  app.get('/api/notifications/preferences', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       const preferences = await storage.getNotificationPreferences(userId);
       res.json(preferences);
     } catch (error) {
@@ -211,9 +282,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/api/notifications/dismiss', isAuthenticated, async (req: any, res) => {
+  app.post('/api/notifications/dismiss', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session.userId;
       await storage.updateNotificationDismissal(userId);
       res.json({ message: "Notification dismissed" });
     } catch (error) {

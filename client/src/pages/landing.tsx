@@ -14,12 +14,21 @@ export default function Landing() {
           <p className="text-gray-600">
             Earn money by placing QR code stickers and getting scans. Start earning $0.01 per scan!
           </p>
-          <Button 
-            onClick={() => window.location.href = '/api/login'}
-            className="w-full"
-          >
-            Log In to Get Started
-          </Button>
+          <div className="space-y-3">
+            <Button 
+              onClick={() => window.location.href = '/login'}
+              className="w-full"
+            >
+              Sign In
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => window.location.href = '/application'}
+              className="w-full"
+            >
+              Apply to Join
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
