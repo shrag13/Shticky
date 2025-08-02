@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
@@ -221,108 +222,188 @@ export default function Landing() {
       </section>
 
       {/* Tier System */}
-      <section className="py-20 backdrop-blur-sm" style={{backgroundColor: 'rgba(239, 239, 238, 0.6)'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section 
+        className="py-20 relative min-h-screen"
+        style={{
+          backgroundImage: `url(${brickWallPath})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div 
             ref={tiersAnimation.ref}
             className={`text-center mb-16 transition-all duration-1000 ${
               tiersAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <h2 className="text-4xl md:text-6xl font-black mb-6" style={{color: '#1D2915'}}>
-              <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>TIER</span>{" "}
-              <span className="drop-shadow-lg" style={{color: '#A89182'}}>PROGRESSION</span>{" "}
-              <span className="drop-shadow-lg" style={{color: '#686346'}}>SYSTEM</span>
+            <h2 className="text-4xl md:text-6xl font-black mb-6 text-white drop-shadow-2xl">
+              <span className="drop-shadow-lg">TIER</span>{" "}
+              <span className="drop-shadow-lg">PROGRESSION</span>{" "}
+              <span className="drop-shadow-lg">SYSTEM</span>
             </h2>
-            <p className="text-2xl font-bold max-w-4xl mx-auto" style={{color: '#1D2915'}}>
+            <p className="text-2xl font-bold max-w-4xl mx-auto text-white drop-shadow-xl">
               Prove your strategy works and unlock more earning potential
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center py-4 px-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-8 w-8" style={{color: '#9A7B60'}} />
-                </div>
-                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>STARTER</CardTitle>
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>1 STICKER</div>
-              </CardHeader>
-              <CardContent className="text-center px-6 pb-8">
-                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Perfect for testing your placement strategy</p>
-                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
-                    $0.01 per scan
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
-                    Monthly auto-payouts
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
-                    Dashboard analytics
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-6xl mx-auto">
+            {/* Starter Tier Sticker */}
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer">
+              <svg width="280" height="320" viewBox="0 0 280 320" className="drop-shadow-2xl">
+                {/* Sticker shadow */}
+                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.3)" />
+                
+                {/* Main sticker body */}
+                <rect x="20" y="20" width="240" height="280" rx="25" ry="25" 
+                      fill="#EFEFEE" stroke="#D1D1D1" strokeWidth="2"/>
+                
+                {/* Peeling corner effect */}
+                <path d="M235 45 L260 20 L260 45 Z" fill="#F8F8F8" stroke="#D1D1D1" strokeWidth="1"/>
+                <path d="M235 45 L250 35 L260 45 Z" fill="#E8E8E8"/>
+                
+                {/* Star icon background */}
+                <circle cx="140" cy="80" r="25" fill="#9A7B60" fillOpacity="0.1"/>
+                
+                {/* Star icon */}
+                <path d="M140 60 L143 70 L153 70 L145 77 L148 87 L140 82 L132 87 L135 77 L127 70 L137 70 Z" 
+                      fill="#9A7B60" stroke="#9A7B60" strokeWidth="1"/>
+                
+                {/* Title */}
+                <text x="140" y="135" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">STARTER</text>
+                
+                {/* Sticker count */}
+                <text x="140" y="170" textAnchor="middle" fontSize="32" fontWeight="900" fill="#1D2915">1 STICKER</text>
+                
+                {/* Description */}
+                <text x="140" y="200" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Perfect for testing your</text>
+                <text x="140" y="215" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">placement strategy</text>
+                
+                {/* Features */}
+                <circle cx="80" cy="240" r="3" fill="#9A7B60"/>
+                <text x="95" y="245" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                
+                <circle cx="80" cy="260" r="3" fill="#9A7B60"/>
+                <text x="95" y="265" fontSize="11" fontWeight="600" fill="#1D2915">Monthly auto-payouts</text>
+                
+                <circle cx="80" cy="280" r="3" fill="#9A7B60"/>
+                <text x="95" y="285" fontSize="11" fontWeight="600" fill="#1D2915">Dashboard analytics</text>
+              </svg>
+            </div>
             
-            <Card className="hover:shadow-xl transition-all duration-300 transform lg:scale-105 bg-white border-4 rounded-2xl overflow-hidden relative" style={{borderColor: '#A89182'}}>
-              <div className="absolute top-0 left-0 right-0 text-center py-2 text-white font-bold text-sm" style={{backgroundColor: '#A89182'}}>
-                MOST POPULAR
+            {/* Pro Tier Sticker - Most Popular */}
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative">
+              {/* Popular badge */}
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                <div className="bg-[#A89182] text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                  MOST POPULAR
+                </div>
               </div>
-              <CardHeader className="text-center py-4 px-6 pt-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-8 w-8" style={{color: '#A89182'}} />
-                </div>
-                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>PRO</CardTitle>
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>2 STICKERS</div>
-              </CardHeader>
-              <CardContent className="text-center px-6 pb-8">
-                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Expand after proving success</p>
-                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
-                    $0.01 per scan
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
-                    2x earning potential
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
-                    Advanced analytics
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+              
+              <svg width="300" height="340" viewBox="0 0 300 340" className="drop-shadow-2xl">
+                {/* Sticker shadow */}
+                <ellipse cx="155" cy="335" rx="130" ry="8" fill="rgba(0,0,0,0.4)" />
+                
+                {/* Main sticker body - larger and more prominent */}
+                <rect x="20" y="20" width="260" height="300" rx="30" ry="30" 
+                      fill="#EFEFEE" stroke="#A89182" strokeWidth="3"/>
+                
+                {/* Premium border accent */}
+                <rect x="25" y="25" width="250" height="290" rx="25" ry="25" 
+                      fill="none" stroke="#A89182" strokeWidth="1" strokeOpacity="0.3"/>
+                
+                {/* Peeling corner effect */}
+                <path d="M250 50 L280 20 L280 50 Z" fill="#F8F8F8" stroke="#A89182" strokeWidth="1"/>
+                <path d="M250 50 L265 35 L280 50 Z" fill="#E8E8E8"/>
+                
+                {/* Double star icon background */}
+                <circle cx="125" cy="85" r="20" fill="#A89182" fillOpacity="0.1"/>
+                <circle cx="175" cy="85" r="20" fill="#A89182" fillOpacity="0.1"/>
+                
+                {/* Double star icons */}
+                <path d="M125 70 L127 77 L135 77 L129 82 L131 89 L125 86 L119 89 L121 82 L115 77 L123 77 Z" 
+                      fill="#A89182" stroke="#A89182" strokeWidth="1"/>
+                <path d="M175 70 L177 77 L185 77 L179 82 L181 89 L175 86 L169 89 L171 82 L165 77 L173 77 Z" 
+                      fill="#A89182" stroke="#A89182" strokeWidth="1"/>
+                
+                {/* Title */}
+                <text x="150" y="140" textAnchor="middle" fontSize="28" fontWeight="900" fill="#1D2915">PRO</text>
+                
+                {/* Sticker count */}
+                <text x="150" y="180" textAnchor="middle" fontSize="36" fontWeight="900" fill="#1D2915">2 STICKERS</text>
+                
+                {/* Description */}
+                <text x="150" y="210" textAnchor="middle" fontSize="13" fontWeight="600" fill="#686346">Scale your earnings with</text>
+                <text x="150" y="225" textAnchor="middle" fontSize="13" fontWeight="600" fill="#686346">strategic placement</text>
+                
+                {/* Features */}
+                <circle cx="85" cy="250" r="3" fill="#A89182"/>
+                <text x="100" y="255" fontSize="12" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                
+                <circle cx="85" cy="270" r="3" fill="#A89182"/>
+                <text x="100" y="275" fontSize="12" fontWeight="600" fill="#1D2915">2x earning potential</text>
+                
+                <circle cx="85" cy="290" r="3" fill="#A89182"/>
+                <text x="100" y="295" fontSize="12" fontWeight="600" fill="#1D2915">Advanced analytics</text>
+              </svg>
+            </div>
             
-            <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center py-4 px-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-8 w-8" style={{color: '#686346'}} />
-                </div>
-                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>ELITE</CardTitle>
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>3 STICKERS</div>
-              </CardHeader>
-              <CardContent className="text-center px-6 pb-8">
-                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Maximum tier for top performers</p>
-                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
-                    $0.01 per scan
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
-                    3x earning potential
-                  </li>
-                  <li className="flex items-center justify-center">
-                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
-                    Priority support
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+            {/* Elite Tier Sticker */}
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer">
+              <svg width="280" height="320" viewBox="0 0 280 320" className="drop-shadow-2xl">
+                {/* Sticker shadow */}
+                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.3)" />
+                
+                {/* Main sticker body */}
+                <rect x="20" y="20" width="240" height="280" rx="25" ry="25" 
+                      fill="#EFEFEE" stroke="#686346" strokeWidth="2"/>
+                
+                {/* Elite premium accent */}
+                <rect x="23" y="23" width="234" height="274" rx="22" ry="22" 
+                      fill="none" stroke="#686346" strokeWidth="1" strokeOpacity="0.2"/>
+                
+                {/* Peeling corner effect */}
+                <path d="M235 45 L260 20 L260 45 Z" fill="#F8F8F8" stroke="#686346" strokeWidth="1"/>
+                <path d="M235 45 L250 35 L260 45 Z" fill="#E8E8E8"/>
+                
+                {/* Triple star icon backgrounds */}
+                <circle cx="110" cy="80" r="18" fill="#686346" fillOpacity="0.1"/>
+                <circle cx="140" cy="80" r="18" fill="#686346" fillOpacity="0.1"/>
+                <circle cx="170" cy="80" r="18" fill="#686346" fillOpacity="0.1"/>
+                
+                {/* Triple star icons */}
+                <path d="M110 68 L112 75 L119 75 L114 79 L116 86 L110 83 L104 86 L106 79 L101 75 L108 75 Z" 
+                      fill="#686346" stroke="#686346" strokeWidth="1"/>
+                <path d="M140 68 L142 75 L149 75 L144 79 L146 86 L140 83 L134 86 L136 79 L131 75 L138 75 Z" 
+                      fill="#686346" stroke="#686346" strokeWidth="1"/>
+                <path d="M170 68 L172 75 L179 75 L174 79 L176 86 L170 83 L164 86 L166 79 L161 75 L168 75 Z" 
+                      fill="#686346" stroke="#686346" strokeWidth="1"/>
+                
+                {/* Title */}
+                <text x="140" y="130" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">ELITE</text>
+                
+                {/* Sticker count */}
+                <text x="140" y="165" textAnchor="middle" fontSize="32" fontWeight="900" fill="#1D2915">5+ STICKERS</text>
+                
+                {/* Description */}
+                <text x="140" y="195" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Maximum tier for</text>
+                <text x="140" y="210" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">top performers</text>
+                
+                {/* Features */}
+                <circle cx="80" cy="235" r="3" fill="#686346"/>
+                <text x="95" y="240" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
+                
+                <circle cx="80" cy="255" r="3" fill="#686346"/>
+                <text x="95" y="260" fontSize="11" fontWeight="600" fill="#1D2915">5x+ earning potential</text>
+                
+                <circle cx="80" cy="275" r="3" fill="#686346"/>
+                <text x="95" y="280" fontSize="11" fontWeight="600" fill="#1D2915">Priority support</text>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
