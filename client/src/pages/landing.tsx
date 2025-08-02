@@ -234,9 +234,9 @@ export default function Landing() {
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
           width: '100vw',
-          height: '60vh',
-          minHeight: '500px',
-          maxHeight: '700px',
+          height: '40vh',
+          minHeight: '350px',
+          maxHeight: '450px',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
           position: 'relative'
@@ -245,7 +245,7 @@ export default function Landing() {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
-        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-8 max-w-none w-full">
+        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-4 max-w-none w-full">
           {/* Header */}
           <div 
             ref={tiersAnimation.ref}
