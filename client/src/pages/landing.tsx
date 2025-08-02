@@ -228,57 +228,90 @@ export default function Landing() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-all duration-300 bg-white border-2" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-6 w-6" style={{color: '#9A7B60'}} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
+              <CardHeader className="text-center py-8 px-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+                  <Star className="h-8 w-8" style={{color: '#9A7B60'}} />
                 </div>
-                <CardTitle className="font-black text-2xl" style={{color: '#1D2915'}}>STARTER</CardTitle>
+                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>STARTER</CardTitle>
+                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>1</div>
+                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKER</div>
               </CardHeader>
-              <CardContent className="text-center">
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>1 STICKER</div>
-                <p className="mb-4 font-bold" style={{color: '#1D2915'}}>Perfect for testing your placement strategy</p>
-                <ul className="text-base space-y-2 font-bold" style={{color: '#1D2915'}}>
-                  <li>• $0.01 per scan</li>
-                  <li>• Monthly auto-payouts</li>
-                  <li>• Dashboard analytics</li>
+              <CardContent className="text-center px-6 pb-8">
+                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Perfect for testing your placement strategy</p>
+                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
+                    $0.01 per scan
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
+                    Monthly auto-payouts
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#9A7B60'}} />
+                    Dashboard analytics
+                  </li>
                 </ul>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-lg transition-all duration-300 transform scale-105 bg-white border-2" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-6 w-6" style={{color: '#A89182'}} />
+            <Card className="hover:shadow-xl transition-all duration-300 transform lg:scale-105 bg-white border-4 rounded-2xl overflow-hidden relative" style={{borderColor: '#A89182'}}>
+              <div className="absolute top-0 left-0 right-0 text-center py-2 text-white font-bold text-sm" style={{backgroundColor: '#A89182'}}>
+                MOST POPULAR
+              </div>
+              <CardHeader className="text-center py-8 px-6 pt-12">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+                  <Star className="h-8 w-8" style={{color: '#A89182'}} />
                 </div>
-                <CardTitle className="font-black text-2xl" style={{color: '#1D2915'}}>PRO</CardTitle>
+                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>PRO</CardTitle>
+                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>2</div>
+                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKERS</div>
               </CardHeader>
-              <CardContent className="text-center">
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>2 STICKERS</div>
-                <p className="mb-4 font-bold" style={{color: '#1D2915'}}>Expand after proving success</p>
-                <ul className="text-base space-y-2 font-bold" style={{color: '#1D2915'}}>
-                  <li>• $0.01 per scan</li>
-                  <li>• 2x earning potential</li>
-                  <li>• Advanced analytics</li>
+              <CardContent className="text-center px-6 pb-8">
+                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Expand after proving success</p>
+                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
+                    $0.01 per scan
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
+                    2x earning potential
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#A89182'}} />
+                    Advanced analytics
+                  </li>
                 </ul>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-lg transition-all duration-300 bg-white border-2" style={{borderColor: '#A89182'}}>
-              <CardHeader className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4" style={{backgroundColor: '#EFEFEE'}}>
-                  <Star className="h-6 w-6" style={{color: '#686346'}} />
+            <Card className="hover:shadow-xl transition-all duration-300 bg-white border-2 rounded-2xl overflow-hidden" style={{borderColor: '#A89182'}}>
+              <CardHeader className="text-center py-8 px-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{backgroundColor: '#EFEFEE'}}>
+                  <Star className="h-8 w-8" style={{color: '#686346'}} />
                 </div>
-                <CardTitle className="font-black text-2xl" style={{color: '#1D2915'}}>ELITE</CardTitle>
+                <CardTitle className="font-black text-2xl mb-2" style={{color: '#1D2915'}}>ELITE</CardTitle>
+                <div className="text-5xl font-black mb-4" style={{color: '#1D2915'}}>3</div>
+                <div className="text-xl font-bold" style={{color: '#1D2915'}}>STICKERS</div>
               </CardHeader>
-              <CardContent className="text-center">
-                <div className="text-4xl font-black mb-2" style={{color: '#1D2915'}}>3 STICKERS</div>
-                <p className="mb-4 font-bold" style={{color: '#1D2915'}}>Maximum tier for top performers</p>
-                <ul className="text-base space-y-2 font-bold" style={{color: '#1D2915'}}>
-                  <li>• $0.01 per scan</li>
-                  <li>• 3x earning potential</li>
-                  <li>• Priority support</li>
+              <CardContent className="text-center px-6 pb-8">
+                <p className="mb-6 font-semibold text-lg leading-relaxed" style={{color: '#1D2915'}}>Maximum tier for top performers</p>
+                <ul className="text-base space-y-3 font-semibold" style={{color: '#1D2915'}}>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
+                    $0.01 per scan
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
+                    3x earning potential
+                  </li>
+                  <li className="flex items-center justify-center">
+                    <CheckCircle2 className="h-5 w-5 mr-2" style={{color: '#686346'}} />
+                    Priority support
+                  </li>
                 </ul>
               </CardContent>
             </Card>
