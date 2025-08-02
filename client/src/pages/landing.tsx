@@ -299,14 +299,8 @@ export default function Landing() {
               </svg>
             </div>
             
-            {/* Pro Tier Sticker - Most Popular */}
+            {/* Pro Tier Sticker */}
             <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative" style={{transform: 'rotate(1deg)'}}>
-              {/* Popular badge */}
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-                <div className="bg-[#A89182] text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                  MOST POPULAR
-                </div>
-              </div>
               
               <svg width="300" height="340" viewBox="0 0 300 340" className="drop-shadow-2xl">
                 {/* Sticker shadow */}
@@ -401,7 +395,7 @@ export default function Landing() {
                 <text x="140" y="130" textAnchor="middle" fontSize="24" fontWeight="900" fill="#1D2915">ELITE</text>
                 
                 {/* Sticker count */}
-                <text x="140" y="165" textAnchor="middle" fontSize="32" fontWeight="900" fill="#1D2915">5+ STICKERS</text>
+                <text x="140" y="165" textAnchor="middle" fontSize="32" fontWeight="900" fill="#1D2915">3 STICKERS</text>
                 
                 {/* Description */}
                 <text x="140" y="195" textAnchor="middle" fontSize="12" fontWeight="600" fill="#686346">Maximum tier for</text>
@@ -412,7 +406,7 @@ export default function Landing() {
                 <text x="95" y="240" fontSize="11" fontWeight="600" fill="#1D2915">$0.01 per scan</text>
                 
                 <circle cx="80" cy="255" r="3" fill="#686346"/>
-                <text x="95" y="260" fontSize="11" fontWeight="600" fill="#1D2915">5x+ earning potential</text>
+                <text x="95" y="260" fontSize="11" fontWeight="600" fill="#1D2915">3x earning potential</text>
                 
                 <circle cx="80" cy="275" r="3" fill="#686346"/>
                 <text x="95" y="280" fontSize="11" fontWeight="600" fill="#1D2915">Priority support</text>
