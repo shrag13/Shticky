@@ -4,6 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
+import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754174594458.png";
+import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754174594436.png";
+import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754174594403.png";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
@@ -36,6 +40,7 @@ export default function Landing() {
   const heroAnimation = useScrollAnimation();
   const howItWorksAnimation = useScrollAnimation();
   const statsAnimation = useScrollAnimation();
+  const tiersAnimation = useScrollAnimation();
   const ctaAnimation = useScrollAnimation();
 
   // Liquid glass distortion removed to fix navbar glow artifacts
@@ -215,6 +220,255 @@ export default function Landing() {
                 Receive <span className="px-2 py-1 rounded text-white" style={{backgroundColor: '#9A7B60'}}>AUTO-PAYOUTS</span> monthly when you reach $5.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tier Progression System - Brick Wall Background */}
+      <section 
+        className="relative overflow-hidden py-16 lg:py-20"
+        style={{
+          backgroundImage: `url(${brickWallPath})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '600px'
+        }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div 
+            ref={tiersAnimation.ref}
+            className={`text-center mb-12 lg:mb-16 transition-all duration-1000 ${
+              tiersAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-white drop-shadow-2xl tracking-wide">
+              <span className="drop-shadow-lg" style={{color: '#A89182'}}>TIER</span>{" "}
+              <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>PROGRESSION</span>{" "}
+              <span className="drop-shadow-lg" style={{color: '#A89182'}}>SYSTEM</span>
+            </h2>
+            <p className="text-lg sm:text-xl lg:text-2xl font-bold max-w-3xl mx-auto text-white drop-shadow-lg">
+              Prove your strategy works and unlock more earning potential
+            </p>
+          </div>
+          
+          {/* Stickers on Brick Wall */}
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-12">
+            
+            {/* Starter Tier */}
+            <div className="flex flex-col items-center">
+              <div 
+                className="w-48 h-64 sm:w-56 h-72 lg:w-64 h-80 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                style={{
+                  transform: 'rotate(-2deg)',
+                  backgroundImage: `url(${starterStickerPath})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.25))'
+                }}
+              >
+                {/* Content overlay */}
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between text-center">
+                  <div>
+                    {/* Star Badge */}
+                    <div className="flex justify-center mb-3">
+                      <div 
+                        className="w-8 h-8 lg:w-10 h-10 rounded-full flex items-center justify-center text-lg shadow-lg"
+                        style={{backgroundColor: '#9A7B60'}}
+                      >
+                        ⭐
+                      </div>
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      STARTER
+                    </h3>
+                    
+                    {/* Sticker Count */}
+                    <p className="text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      1 STICKER
+                    </p>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#9A7B60'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
+                    </div>
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#9A7B60'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>Perfect for testing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Tier Description */}
+              <div className="mt-6 text-center max-w-xs">
+                <p className="text-white font-bold text-lg drop-shadow-lg">
+                  Start here and prove your placement strategy works
+                </p>
+              </div>
+            </div>
+
+            {/* Pro Tier */}
+            <div className="flex flex-col items-center">
+              <div 
+                className="w-48 h-64 sm:w-56 h-72 lg:w-64 h-80 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                style={{
+                  transform: 'rotate(1deg)',
+                  backgroundImage: `url(${proStickerPath})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.25))'
+                }}
+              >
+                {/* Content overlay */}
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between text-center">
+                  <div>
+                    {/* Double Stars */}
+                    <div className="flex justify-center gap-1 mb-3">
+                      <div 
+                        className="w-7 h-7 lg:w-9 h-9 rounded-full flex items-center justify-center text-base shadow-lg"
+                        style={{backgroundColor: '#A89182'}}
+                      >
+                        ⭐
+                      </div>
+                      <div 
+                        className="w-7 h-7 lg:w-9 h-9 rounded-full flex items-center justify-center text-base shadow-lg"
+                        style={{backgroundColor: '#A89182'}}
+                      >
+                        ⭐
+                      </div>
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      PRO
+                    </h3>
+                    
+                    {/* Sticker Count */}
+                    <p className="text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      2 STICKERS
+                    </p>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#A89182'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
+                    </div>
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#A89182'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>2x earning potential</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Tier Description */}
+              <div className="mt-6 text-center max-w-xs">
+                <p className="text-white font-bold text-lg drop-shadow-lg">
+                  Scale your earnings with strategic placement
+                </p>
+              </div>
+            </div>
+
+            {/* Elite Tier */}
+            <div className="flex flex-col items-center">
+              <div 
+                className="w-48 h-64 sm:w-56 h-72 lg:w-64 h-80 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                style={{
+                  transform: 'rotate(-1deg)',
+                  backgroundImage: `url(${eliteStickerPath})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.25))'
+                }}
+              >
+                {/* Content overlay */}
+                <div className="relative z-10 p-4 lg:p-6 h-full flex flex-col justify-between text-center">
+                  <div>
+                    {/* Triple Stars */}
+                    <div className="flex justify-center gap-0.5 mb-3">
+                      <div 
+                        className="w-6 h-6 lg:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                        style={{backgroundColor: '#686346'}}
+                      >
+                        ⭐
+                      </div>
+                      <div 
+                        className="w-6 h-6 lg:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                        style={{backgroundColor: '#686346'}}
+                      >
+                        ⭐
+                      </div>
+                      <div 
+                        className="w-6 h-6 lg:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                        style={{backgroundColor: '#686346'}}
+                      >
+                        ⭐
+                      </div>
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      ELITE
+                    </h3>
+                    
+                    {/* Sticker Count */}
+                    <p className="text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      3 STICKERS
+                    </p>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#686346'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01 per scan</span>
+                    </div>
+                    <div className="flex items-center justify-center text-sm lg:text-base">
+                      <div 
+                        className="w-2 h-2 rounded-full mr-2"
+                        style={{backgroundColor: '#686346'}}
+                      ></div>
+                      <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>3x earning potential</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Tier Description */}
+              <div className="mt-6 text-center max-w-xs">
+                <p className="text-white font-bold text-lg drop-shadow-lg">
+                  Maximum tier for top performers
+                </p>
+              </div>
+            </div>
+            
           </div>
         </div>
       </section>
