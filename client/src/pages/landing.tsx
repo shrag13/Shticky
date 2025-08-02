@@ -245,7 +245,7 @@ export default function Landing() {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
-        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-2 max-w-none w-full">
+        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-2 max-w-none w-full" style={{marginLeft: '-5%'}}>
           {/* Header */}
           <div 
             ref={tiersAnimation.ref}
