@@ -50,7 +50,7 @@ function useLiquidGlassDistortion() {
       if (distortionLayer) {
         const htmlElement = distortionLayer as HTMLElement;
         htmlElement.style.backdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
-        htmlElement.style.webkitBackdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
+        (htmlElement.style as any).webkitBackdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
       }
     };
 
@@ -76,28 +76,28 @@ export default function Landing() {
       {/* Apple-Style Floating Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         
-        <div className="liquid-glass-content flex items-center justify-between px-8 py-3">
-          <div className="liquid-glass-brand flex items-center space-x-4">
+        <div className="liquid-glass-content flex items-center justify-between px-5 py-2">
+          <div className="liquid-glass-brand flex items-center space-x-3">
             <div className="liquid-glass-logo-morph">
-              <img src={logoPath} alt="Shticky" className="w-11 h-11 rounded-xl object-cover" />
+              <img src={logoPath} alt="Shticky" className="w-9 h-9 rounded-lg object-cover" />
             </div>
-            <span className="liquid-glass-text-morph text-xl font-bold text-gray-800">
+            <span className="liquid-glass-text-morph text-lg font-semibold text-gray-800">
               Shticky
             </span>
           </div>
           
-          <div className="liquid-glass-buttons flex items-center space-x-4">
+          <div className="liquid-glass-buttons flex items-center space-x-3">
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-6 py-2"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-5 py-1.5 h-8"
               onClick={() => window.location.href = '/login'}
             >
               Sign In
             </Button>
             <Button 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-solid bg-[#9A7B60] hover:bg-[#A89182] text-white px-6 py-2"
+              className="liquid-glass-btn-morph bg-[#9A7B60] hover:bg-[#A89182] text-white px-5 py-1.5 h-8"
               onClick={() => window.location.href = '/application'}
             >
               Apply
