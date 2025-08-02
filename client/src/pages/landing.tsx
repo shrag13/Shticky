@@ -30,114 +30,7 @@ function useScrollAnimation() {
   return { ref, isVisible };
 }
 
-// Liquid Glass Magnification Effect Hook
-function useLiquidGlassMagnification() {
-  const textRef = useRef<HTMLElement>(null);
-  const navbarRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const createMagnifiedText = () => {
-      if (!textRef.current || !navbarRef.current) return;
-
-      const textElement = textRef.current;
-      const navbar = navbarRef.current;
-      
-      // Create magnified text overlay container
-      const magnifiedContainer = document.createElement('div');
-      magnifiedContainer.className = 'liquid-glass-magnified-overlay';
-      magnifiedContainer.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        z-index: 49;
-        overflow: hidden;
-      `;
-
-      // Clone the text content and make it larger
-      const magnifiedText = textElement.cloneNode(true) as HTMLElement;
-      magnifiedText.style.cssText = `
-        transform: scale(1.3) translateY(-10px);
-        transform-origin: center;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-        position: absolute;
-        white-space: nowrap;
-      `;
-
-      magnifiedContainer.appendChild(magnifiedText);
-      document.body.appendChild(magnifiedContainer);
-
-      const updateMagnification = () => {
-        const textRect = textElement.getBoundingClientRect();
-        const navbarRect = navbar.getBoundingClientRect();
-        
-        console.log('Text rect:', textRect);
-        console.log('Navbar rect:', navbarRect);
-        
-        // Check if navbar overlaps with text
-        const overlapsHorizontally = navbarRect.left < textRect.right && navbarRect.right > textRect.left;
-        const overlapsVertically = navbarRect.top < textRect.bottom && navbarRect.bottom > textRect.top;
-        
-        console.log('Overlaps:', overlapsHorizontally, overlapsVertically);
-        
-        if (overlapsHorizontally && overlapsVertically) {
-          console.log('OVERLAP DETECTED - showing magnified text');
-          // Position magnified text relative to original text
-          magnifiedText.style.left = `${textRect.left - 50}px`;
-          magnifiedText.style.top = `${textRect.top - 20}px`;
-          magnifiedText.style.opacity = '1';
-          magnifiedText.style.color = '#FF0000'; // Debug: make it red to see if it appears
-          magnifiedText.style.fontSize = '2.5em';
-          magnifiedText.style.fontWeight = 'bold';
-          magnifiedText.style.zIndex = '49';
-          magnifiedText.style.display = 'block';
-          
-          // Remove clipping for now to see if text appears at all
-          magnifiedText.style.clipPath = 'none';
-        } else {
-          magnifiedText.style.opacity = '0';
-          magnifiedText.style.display = 'none';
-        }
-      };
-
-      // Update on scroll and resize
-      const throttledUpdate = throttle(updateMagnification, 16);
-      window.addEventListener('scroll', throttledUpdate);
-      window.addEventListener('resize', throttledUpdate);
-      updateMagnification(); // Initial call
-
-      return () => {
-        window.removeEventListener('scroll', throttledUpdate);
-        window.removeEventListener('resize', throttledUpdate);
-        magnifiedContainer.remove();
-      };
-    };
-
-    const cleanup = createMagnifiedText();
-    return cleanup;
-  }, []);
-
-  return { textRef, navbarRef };
-}
-
-// Simple throttle function
-function throttle(func: Function, delay: number) {
-  let timeoutId: NodeJS.Timeout;
-  let lastExecTime = 0;
-  return function (...args: any[]) {
-    const currentTime = Date.now();
-    if (currentTime - lastExecTime > delay) {
-      func(...args);
-      lastExecTime = currentTime;
-    } else {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => func(...args), delay);
-    }
-  };
-}
+// Removed liquid glass magnification effect
 
 export default function Landing() {
   const heroAnimation = useScrollAnimation();
@@ -145,14 +38,13 @@ export default function Landing() {
   const statsAnimation = useScrollAnimation();
   const tiersAnimation = useScrollAnimation();
   const ctaAnimation = useScrollAnimation();
-  const liquidGlass = useLiquidGlassMagnification();
 
   // Liquid glass distortion removed to fix navbar glow artifacts
 
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
       {/* Apple-Style Floating Liquid Glass Header */}
-      <header ref={liquidGlass.navbarRef} className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
+      <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         
         <div className="liquid-glass-content flex items-center justify-between px-5 py-1.5">
           <div className="liquid-glass-brand flex items-center space-x-2.5">
@@ -209,7 +101,7 @@ export default function Landing() {
               <span className="drop-shadow-lg transform rotate-2 inline-block" style={{color: '#9A7B60'}}>INTO</span>{" "}
               <span className="drop-shadow-lg transform -rotate-2 inline-block text-6xl md:text-8xl" style={{color: '#686346'}}>CASH</span>
             </h1>
-            <p ref={liquidGlass.textRef} className="text-2xl font-bold mb-8 max-w-4xl mx-auto leading-relaxed" style={{color: '#1D2915'}}>
+            <p className="text-2xl font-bold mb-8 max-w-4xl mx-auto leading-relaxed" style={{color: '#1D2915'}}>
               Place <span className="px-2 py-1 rounded-lg text-white" style={{backgroundColor: '#9A7B60'}}>STICKERS</span> in strategic locations. 
               Earn <span className="px-2 py-1 rounded-lg text-white" style={{backgroundColor: '#A89182'}}>$0.01</span> per scan. 
               Start with <span className="px-2 py-1 rounded-lg text-white" style={{backgroundColor: '#686346'}}>1 STICKER</span> and scale up. 

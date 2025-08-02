@@ -149,43 +149,29 @@
 /* Water Droplet Button Effects */
 .liquid-glass-btn-morph {
   position: relative;
-  border: none;
-  border-radius: 20px;
+  border: none !important;
+  border-radius: 18px !important;
   font-weight: 600;
   font-size: 12px;
   transition: all 0.3s ease;
-  backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
-  -webkit-backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none !important;
 }
 
 .liquid-glass-btn-morph:hover {
   transform: translateY(-1px);
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.7) inset,
-    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .liquid-glass-btn-outline {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #1D2915;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  color: #1D2915 !important;
   font-weight: 600;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .liquid-glass-btn-outline:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.35) !important;
   transform: translateY(-1px);
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .liquid-glass-btn-primary {
