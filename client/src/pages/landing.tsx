@@ -39,32 +39,29 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-      {/* Header */}
-      <header className="backdrop-blur-sm border-b sticky top-0 z-50" style={{backgroundColor: 'rgba(239, 239, 238, 0.9)', borderColor: '#A89182'}}>
+      {/* Liquid Glass Header */}
+      <header className="liquid-glass-navbar sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <img src={logoPath} alt="Shticky" className="h-10 w-10 rounded-lg object-cover" />
-              <h1 className="text-xl font-semibold tracking-tight" style={{color: '#1D2915'}}>Shticky</h1>
+              <div className="liquid-glass-logo">
+                <img src={logoPath} alt="Shticky" className="h-10 w-10 rounded-lg object-cover" />
+              </div>
+              <h1 className="text-xl font-semibold tracking-tight liquid-glass-text" style={{color: '#1D2915'}}>Shticky</h1>
             </div>
             <div className="flex space-x-2">
-              <Button 
-                variant="outline"
-                size="sm"
+              <button 
                 onClick={() => window.location.href = '/login'}
-                className="border-2 hover:bg-white/10 text-sm"
-                style={{borderColor: '#686346', color: '#686346'}}
+                className="liquid-glass-btn liquid-glass-btn-outline text-sm px-4 py-2"
               >
                 Sign In
-              </Button>
-              <Button 
-                size="sm"
+              </button>
+              <button 
                 onClick={() => window.location.href = '/application'}
-                className="text-white hover:opacity-90 text-sm"
-                style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
+                className="liquid-glass-btn liquid-glass-btn-primary text-sm px-4 py-2"
               >
                 Apply
-              </Button>
+              </button>
             </div>
           </div>
         </div>
