@@ -135,25 +135,15 @@
   backdrop-filter: blur(4px) saturate(160%) brightness(115%) contrast(105%);
   -webkit-backdrop-filter: blur(4px) saturate(160%) brightness(115%) contrast(105%);
   border-radius: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 
-    /* Inner highlight - top */
-    0 4px 0 0 rgba(255, 255, 255, 0.8) inset,
-    /* Inner shadow - bottom */
-    0 -1px 0 0 rgba(255, 255, 255, 0.3) inset,
-    /* Outer glow */
-    0 0 0 1px rgba(255, 255, 255, 0.4),
-    /* Deep shadow for 3D effect */
-    0 15px 50px rgba(0, 0, 0, 0.2),
-    /* Mid shadow */
+    /* Inner highlight - subtle */
+    0 2px 0 0 rgba(255, 255, 255, 0.6) inset,
+    /* Bottom shadow only */
     0 8px 25px rgba(0, 0, 0, 0.12),
-    /* Close shadow */
-    0 3px 12px rgba(0, 0, 0, 0.08),
-    /* Refraction highlight */
-    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    0 3px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  transform: translateY(0) perspective(800px) rotateX(3deg) translateZ(10px);
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+  transform: translateY(0);
 }
 
 /* Remove excessive animations for cleaner look */
