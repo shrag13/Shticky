@@ -273,9 +273,6 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-2deg)',
-                    backgroundImage: `url(${starterStickerPath})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
@@ -318,9 +315,6 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(1deg)',
-                    backgroundImage: `url(${proStickerPath})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
@@ -369,9 +363,6 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-1deg)',
-                    backgroundImage: `url(${eliteStickerPath})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
