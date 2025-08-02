@@ -224,19 +224,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Tier Progression System - Brick Wall Background */}
-      <section 
-        className="relative overflow-hidden"
-        style={{
-          backgroundImage: `url(${brickWallPath})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          height: '55vh',
-          minHeight: '400px',
-          maxHeight: '550px'
-        }}
-      >
+
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-35"></div>
         
