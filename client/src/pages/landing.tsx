@@ -5,7 +5,9 @@ import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "luci
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
-import wrinkledPaperPath from "@assets/white-glued-paper-texture-wet-wrinkled-paper-sheets-set_134821-72_1754168001331.jpg";
+import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754173475700.png";
+import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754173475749.png";
+import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754173475779.png";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
@@ -263,18 +265,16 @@ export default function Landing() {
               {/* Starter Tier - Simple Card with Sticker Effect */}
               <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
+                  className="rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(-1deg)',
-                    backgroundImage: `url(${wrinkledPaperPath})`,
+                    backgroundImage: `url(${starterStickerPath})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'multiply',
-                    backgroundOpacity: 0.3
+                    backgroundPosition: 'center'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                  <div className="relative z-10 p-4 sm:p-5 lg:p-6 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Star */}
                       <div className="flex justify-center mb-3">
@@ -287,36 +287,36 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         STARTER
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                      <p className="text-base sm:text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         1 STICKER
                       </p>
                       
                       {/* Description */}
-                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                      <p className="text-sm mb-4" style={{color: '#686346', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         Perfect for testing your placement strategy
                       </p>
                     </div>
                     
                     {/* Features */}
                     <div className="space-y-2">
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#9A7B60'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>$0.01 per scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#9A7B60'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>Monthly payouts</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>Monthly payouts</span>
                       </div>
                     </div>
                   </div>
@@ -326,18 +326,16 @@ export default function Landing() {
               {/* Pro Tier - Simple Card with Sticker Effect */}
               <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
+                  className="rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(0.5deg)',
-                    backgroundImage: `url(${wrinkledPaperPath})`,
+                    backgroundImage: `url(${proStickerPath})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'multiply',
-                    backgroundOpacity: 0.3
+                    backgroundPosition: 'center'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                  <div className="relative z-10 p-4 sm:p-5 lg:p-6 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Double Stars */}
                       <div className="flex justify-center gap-2 mb-3">
@@ -356,36 +354,36 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         PRO
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                      <p className="text-base sm:text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         2 STICKERS
                       </p>
                       
                       {/* Description */}
-                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                      <p className="text-sm mb-4" style={{color: '#686346', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         Scale your earnings with strategic placement
                       </p>
                     </div>
                     
                     {/* Features */}
                     <div className="space-y-2">
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#A89182'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>$0.01 per scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#A89182'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>2x earning potential</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>2x earning potential</span>
                       </div>
                     </div>
                   </div>
@@ -395,18 +393,16 @@ export default function Landing() {
               {/* Elite Tier - Simple Card with Sticker Effect */}
               <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
+                  className="rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(-0.8deg)',
-                    backgroundImage: `url(${wrinkledPaperPath})`,
+                    backgroundImage: `url(${eliteStickerPath})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'multiply',
-                    backgroundOpacity: 0.3
+                    backgroundPosition: 'center'
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                  <div className="relative z-10 p-4 sm:p-5 lg:p-6 h-full flex flex-col justify-between text-center">
                     <div>
                       {/* Triple Stars */}
                       <div className="flex justify-center gap-1 mb-3">
@@ -431,36 +427,36 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black mb-2" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         ELITE
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                      <p className="text-base sm:text-lg lg:text-xl font-black mb-3" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         3 STICKERS
                       </p>
                       
                       {/* Description */}
-                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                      <p className="text-sm mb-4" style={{color: '#686346', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         Maximum tier for top performers
                       </p>
                     </div>
                     
                     {/* Features */}
                     <div className="space-y-2">
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#686346'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>$0.01 per scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-sm">
+                      <div className="flex items-center justify-center text-sm">
                         <div 
                           className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#686346'}}
                         ></div>
-                        <span style={{color: '#1D2915'}}>3x earning potential</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>3x earning potential</span>
                       </div>
                     </div>
                   </div>
