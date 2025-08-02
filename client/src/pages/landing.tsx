@@ -76,7 +76,7 @@ export default function Landing() {
       {/* Apple-Style Floating Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         
-        <div className="liquid-glass-content flex items-center justify-between px-6 py-2.5">
+        <div className="liquid-glass-content flex items-center justify-between px-4 py-1.5">
           <div className="liquid-glass-brand flex items-center space-x-3">
             <div className="liquid-glass-logo-morph">
               <img src={logoPath} alt="Shticky" className="w-10 h-10 rounded-lg object-cover" />
