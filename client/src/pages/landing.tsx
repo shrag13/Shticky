@@ -5,9 +5,9 @@ import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "luci
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
-import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754175563478.png";
-import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754175563508.png";
-import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754175563526.png";
+import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754177382824.png";
+import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754177382852.png";
+import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754177382872.png";
 import wrinkledPaperPath from "@assets/white-glued-paper-texture-wet-wrinkled-paper-sheets-set_134821-72_1754168001331.jpg";
 
 // Animation hook for scroll-triggered fade-ins
@@ -273,6 +273,9 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-2deg)',
+                    backgroundImage: `url(${starterStickerPath})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
@@ -315,6 +318,9 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(1deg)',
+                    backgroundImage: `url(${proStickerPath})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
@@ -363,6 +369,9 @@ export default function Landing() {
                   className="w-28 h-24 sm:w-32 h-28 lg:w-36 h-32 xl:w-40 h-36 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-1deg)',
+                    backgroundImage: `url(${eliteStickerPath})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     filter: 'drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5))',
                     boxShadow: '0 15px 25px rgba(0, 0, 0, 0.5), inset 0 0 0 4px rgba(255, 255, 255, 0.9)'
                   }}
