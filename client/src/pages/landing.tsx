@@ -51,22 +51,20 @@ function useLiquidGlassDistortion() {
         liquidBlob.setAttribute('d', path);
       }
 
-      // Content distortion through the glass
-      const contentElements = document.querySelectorAll('.liquid-glass-content *');
-      contentElements.forEach((element, index) => {
-        const distortionDelay = index * 0.1;
-        const htmlElement = element as HTMLElement;
+      // Subtle content refraction - less aggressive
+      const glassContent = document.querySelector('.liquid-glass-content');
+      if (glassContent) {
+        const htmlElement = glassContent as HTMLElement;
         htmlElement.style.transform = `
-          perspective(800px) 
-          rotateX(${Math.sin(scrollPercent * Math.PI + distortionDelay) * 1.5}deg) 
-          rotateY(${Math.cos(scrollPercent * Math.PI + distortionDelay) * 0.8}deg)
-          translateZ(${Math.sin(scrollPercent * Math.PI) * 2}px)
+          perspective(1000px) 
+          rotateX(${Math.sin(scrollPercent * Math.PI) * 0.5}deg)
+          translateY(${Math.sin(scrollPercent * Math.PI) * 1}px)
         `;
         htmlElement.style.filter = `
-          blur(${Math.abs(Math.sin(scrollPercent * Math.PI)) * 0.3}px)
-          brightness(${100 + Math.sin(scrollPercent * Math.PI + distortionDelay) * 8}%)
+          blur(${Math.abs(Math.sin(scrollPercent * Math.PI)) * 0.1}px)
+          brightness(${100 + Math.sin(scrollPercent * Math.PI) * 3}%)
         `;
-      });
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
