@@ -74,25 +74,32 @@ function useLiquidGlassMagnification() {
         const textRect = textElement.getBoundingClientRect();
         const navbarRect = navbar.getBoundingClientRect();
         
+        console.log('Text rect:', textRect);
+        console.log('Navbar rect:', navbarRect);
+        
         // Check if navbar overlaps with text
         const overlapsHorizontally = navbarRect.left < textRect.right && navbarRect.right > textRect.left;
         const overlapsVertically = navbarRect.top < textRect.bottom && navbarRect.bottom > textRect.top;
         
+        console.log('Overlaps:', overlapsHorizontally, overlapsVertically);
+        
         if (overlapsHorizontally && overlapsVertically) {
+          console.log('OVERLAP DETECTED - showing magnified text');
           // Position magnified text relative to original text
-          magnifiedText.style.left = `${textRect.left}px`;
-          magnifiedText.style.top = `${textRect.top}px`;
+          magnifiedText.style.left = `${textRect.left - 50}px`;
+          magnifiedText.style.top = `${textRect.top - 20}px`;
           magnifiedText.style.opacity = '1';
+          magnifiedText.style.color = '#FF0000'; // Debug: make it red to see if it appears
+          magnifiedText.style.fontSize = '2.5em';
+          magnifiedText.style.fontWeight = 'bold';
+          magnifiedText.style.zIndex = '49';
+          magnifiedText.style.display = 'block';
           
-          // Clip to only show the part behind the navbar
-          const clipLeft = Math.max(0, navbarRect.left - textRect.left);
-          const clipRight = Math.min(textRect.width, navbarRect.right - textRect.left);
-          const clipTop = Math.max(0, navbarRect.top - textRect.top);
-          const clipBottom = Math.min(textRect.height, navbarRect.bottom - textRect.top);
-          
-          magnifiedText.style.clipPath = `inset(${clipTop}px ${textRect.width - clipRight}px ${textRect.height - clipBottom}px ${clipLeft}px)`;
+          // Remove clipping for now to see if text appears at all
+          magnifiedText.style.clipPath = 'none';
         } else {
           magnifiedText.style.opacity = '0';
+          magnifiedText.style.display = 'none';
         }
       };
 
