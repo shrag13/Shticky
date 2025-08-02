@@ -5,6 +5,7 @@ Shticky is a QR code monetization platform that allows users to earn money by pl
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
+UI/UX preferences: Full landing page with visuals and explanations for non-authenticated users, improved text contrast (gray-800 instead of gray-600).
 
 # System Architecture
 
@@ -36,10 +37,11 @@ Preferred communication style: Simple, everyday language.
 - **Database Migrations**: Managed through Drizzle Kit with schema versioning
 
 ## Authentication & Authorization
-- **OAuth Provider**: Replit's OpenID Connect authentication
+- **Custom Email/Password**: Email and password authentication system with bcrypt hashing
 - **Session Management**: PostgreSQL-backed sessions with connect-pg-simple
 - **Access Control**: Middleware-based authentication checks on protected routes
-- **User Management**: Automatic user creation/updates on authentication
+- **User Management**: User accounts created only when applications are approved by admin
+- **Application Flow**: Users submit applications with email/password, accounts created upon approval
 
 ## Business Logic Architecture
 - **Application Workflow**: Multi-step approval process for new users
