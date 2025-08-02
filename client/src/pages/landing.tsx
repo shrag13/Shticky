@@ -234,9 +234,9 @@ export default function Landing() {
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
           width: '100vw',
-          height: '40vh',
-          minHeight: '350px',
-          maxHeight: '450px',
+          height: '25vh',
+          minHeight: '250px',
+          maxHeight: '320px',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
           position: 'relative'
@@ -245,20 +245,20 @@ export default function Landing() {
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
-        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-4 max-w-none w-full">
+        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-2 max-w-none w-full">
           {/* Header */}
           <div 
             ref={tiersAnimation.ref}
-            className={`text-center mb-4 transition-all duration-1000 ${
+            className={`text-center mb-2 transition-all duration-1000 ${
               tiersAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-black mb-2 text-white drop-shadow-2xl tracking-wide">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-black mb-1 text-white drop-shadow-2xl tracking-wide">
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>TIER</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>PROGRESSION</span>{" "}
               <span className="drop-shadow-lg" style={{color: '#A89182'}}>SYSTEM</span>
             </h2>
-            <p className="text-sm sm:text-base lg:text-lg font-bold max-w-xl mx-auto text-white drop-shadow-lg">
+            <p className="text-sm sm:text-base font-bold max-w-xl mx-auto text-white drop-shadow-lg">
               Prove your strategy works and unlock more earning potential
             </p>
           </div>
