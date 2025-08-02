@@ -287,20 +287,20 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-20 backdrop-blur-sm" style={{backgroundColor: 'rgba(29, 41, 21, 0.95)'}}>
         <div 
           ref={ctaAnimation.ref}
           className={`max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center transition-all duration-1000 ${
             ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-4xl md:text-6xl font-black mb-6" style={{color: '#1D2915'}}>
-            <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>READY</span>{" "}
-            <span className="drop-shadow-lg" style={{color: '#A89182'}}>TO</span>{" "}
-            <span className="drop-shadow-lg" style={{color: '#686346'}}>START</span>{" "}
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-white">
+            <span className="drop-shadow-lg" style={{color: '#A89182'}}>READY</span>{" "}
+            <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>TO</span>{" "}
+            <span className="drop-shadow-lg" style={{color: '#A89182'}}>START</span>{" "}
             <span className="drop-shadow-lg" style={{color: '#9A7B60'}}>EARNING?</span>
           </h2>
-          <p className="text-2xl font-bold mb-8" style={{color: '#1D2915'}}>
+          <p className="text-2xl font-bold mb-8 text-white">
             Join Shticky and turn strategic QR placements into consistent income
           </p>
           <Button 
@@ -316,14 +316,36 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="text-white py-12" style={{backgroundColor: '#040D07'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <img src={logoPath} alt="Shticky" className="h-8 w-8 rounded object-cover" />
-            <span className="text-xl font-bold">Shticky</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <img src={logoPath} alt="Shticky" className="h-8 w-8 rounded object-cover" />
+              <span className="text-xl font-bold">Shticky</span>
+            </div>
+            <p style={{color: '#A89182'}}>
+              Turn QR codes into cash. Simple, transparent, and rewarding.
+            </p>
           </div>
-          <p style={{color: '#A89182'}}>
-            Turn QR codes into cash. Simple, transparent, and rewarding.
-          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 pt-8 border-t border-gray-700">
+            <button 
+              className="text-sm hover:underline transition-colors"
+              style={{color: '#A89182'}}
+              onClick={() => {/* TODO: Link to Terms */}}
+            >
+              Terms & Conditions
+            </button>
+            <button 
+              className="text-sm hover:underline transition-colors"
+              style={{color: '#A89182'}}
+              onClick={() => {/* TODO: Link to Privacy */}}
+            >
+              Privacy Policy
+            </button>
+            <p className="text-sm" style={{color: '#686346'}}>
+              © 2025 Shticky. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
