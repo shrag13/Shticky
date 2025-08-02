@@ -30,36 +30,7 @@ function useScrollAnimation() {
   return { ref, isVisible };
 }
 
-// Simplified liquid glass scroll effect
-function useLiquidGlassDistortion() {
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const scrollPercent = Math.min(scrollY / 200, 0.3); // Much more subtle
-      
-      // Very minimal dynamic path morphing
-      const liquidBlob = document.querySelector('.liquid-glass-blob');
-      if (liquidBlob) {
-        const morphIntensity = scrollPercent * 5; // Reduced from 20 to 5
-        const path = `M0,${50 - morphIntensity} Q200,${20 + morphIntensity} 400,${50 - morphIntensity} T800,${50 - morphIntensity} L800,100 L0,100 Z`;
-        liquidBlob.setAttribute('d', path);
-      }
-
-      // Minimal backdrop blur adjustment
-      const distortionLayer = document.querySelector('.liquid-glass-distortion-layer');
-      if (distortionLayer) {
-        const htmlElement = distortionLayer as HTMLElement;
-        htmlElement.style.backdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
-        (htmlElement.style as any).webkitBackdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-}
+// Removed problematic liquid glass distortion to fix visual artifacts
 
 export default function Landing() {
   const heroAnimation = useScrollAnimation();
@@ -68,8 +39,7 @@ export default function Landing() {
   const tiersAnimation = useScrollAnimation();
   const ctaAnimation = useScrollAnimation();
 
-  // Enable liquid glass distortion
-  useLiquidGlassDistortion();
+  // Liquid glass distortion removed to fix navbar glow artifacts
 
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
