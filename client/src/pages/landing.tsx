@@ -261,56 +261,59 @@ export default function Landing() {
             <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 w-full max-w-4xl">
               
               {/* Starter Tier - Simple Card with Sticker Effect */}
-              <div className="flex-1 min-w-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
+              <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-xl p-3 sm:p-4 lg:p-5 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(-1deg)',
                     backgroundImage: `url(${wrinkledPaperPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundBlendMode: 'soft-light'
+                    backgroundBlendMode: 'multiply',
+                    backgroundOpacity: 0.3
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-95 rounded-xl p-2.5 sm:p-3 lg:p-4">
-                    {/* Star */}
-                    <div className="flex justify-center mb-2">
-                      <div 
-                        className="w-7 h-7 sm:w-8 h-8 lg:w-9 h-9 rounded-full flex items-center justify-center text-base shadow-lg"
-                        style={{backgroundColor: '#9A7B60'}}
-                      >
-                        ⭐
+                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                    <div>
+                      {/* Star */}
+                      <div className="flex justify-center mb-3">
+                        <div 
+                          className="w-10 h-10 sm:w-12 h-12 rounded-full flex items-center justify-center text-lg shadow-lg"
+                          style={{backgroundColor: '#9A7B60'}}
+                        >
+                          ⭐
+                        </div>
                       </div>
+                      
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                        STARTER
+                      </h3>
+                      
+                      {/* Sticker Count */}
+                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                        1 STICKER
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                        Perfect for testing your placement strategy
+                      </p>
                     </div>
                     
-                    {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-black text-center mb-1" style={{color: '#1D2915'}}>
-                      STARTER
-                    </h3>
-                    
-                    {/* Sticker Count */}
-                    <p className="text-sm sm:text-base lg:text-lg font-black text-center mb-2" style={{color: '#1D2915'}}>
-                      1 STICKER
-                    </p>
-                    
-                    {/* Description */}
-                    <p className="text-xs text-center mb-2 sm:mb-3" style={{color: '#686346'}}>
-                      Perfect for testing your placement strategy
-                    </p>
-                    
                     {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center text-xs">
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#9A7B60'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-xs">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#9A7B60'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>Monthly payouts</span>
@@ -321,62 +324,65 @@ export default function Landing() {
               </div>
 
               {/* Pro Tier - Simple Card with Sticker Effect */}
-              <div className="flex-1 min-w-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
+              <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-xl p-3 sm:p-4 lg:p-5 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(0.5deg)',
                     backgroundImage: `url(${wrinkledPaperPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundBlendMode: 'soft-light'
+                    backgroundBlendMode: 'multiply',
+                    backgroundOpacity: 0.3
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-95 rounded-xl p-2.5 sm:p-3 lg:p-4">
-                    {/* Double Stars */}
-                    <div className="flex justify-center gap-1 mb-2">
-                      <div 
-                        className="w-6 h-6 sm:w-7 h-7 lg:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
-                        style={{backgroundColor: '#A89182'}}
-                      >
-                        ⭐
+                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                    <div>
+                      {/* Double Stars */}
+                      <div className="flex justify-center gap-2 mb-3">
+                        <div 
+                          className="w-9 h-9 sm:w-10 h-10 rounded-full flex items-center justify-center text-base shadow-lg"
+                          style={{backgroundColor: '#A89182'}}
+                        >
+                          ⭐
+                        </div>
+                        <div 
+                          className="w-9 h-9 sm:w-10 h-10 rounded-full flex items-center justify-center text-base shadow-lg"
+                          style={{backgroundColor: '#A89182'}}
+                        >
+                          ⭐
+                        </div>
                       </div>
-                      <div 
-                        className="w-6 h-6 sm:w-7 h-7 lg:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
-                        style={{backgroundColor: '#A89182'}}
-                      >
-                        ⭐
-                      </div>
+                      
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                        PRO
+                      </h3>
+                      
+                      {/* Sticker Count */}
+                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                        2 STICKERS
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                        Scale your earnings with strategic placement
+                      </p>
                     </div>
                     
-                    {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-black text-center mb-1" style={{color: '#1D2915'}}>
-                      PRO
-                    </h3>
-                    
-                    {/* Sticker Count */}
-                    <p className="text-sm sm:text-base lg:text-lg font-black text-center mb-2" style={{color: '#1D2915'}}>
-                      2 STICKERS
-                    </p>
-                    
-                    {/* Description */}
-                    <p className="text-xs text-center mb-2 sm:mb-3" style={{color: '#686346'}}>
-                      Scale your earnings with strategic placement
-                    </p>
-                    
                     {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center text-xs">
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#A89182'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-xs">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#A89182'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>2x earning potential</span>
@@ -387,68 +393,71 @@ export default function Landing() {
               </div>
 
               {/* Elite Tier - Simple Card with Sticker Effect */}
-              <div className="flex-1 min-w-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[300px]">
+              <div className="flex-1 min-w-0 max-w-[240px] sm:max-w-[280px] lg:max-w-[320px]">
                 <div 
-                  className="bg-white rounded-xl p-3 sm:p-4 lg:p-5 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative"
+                  className="bg-white rounded-lg p-4 sm:p-5 lg:p-6 shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative aspect-[3/4]"
                   style={{
                     transform: 'rotate(-0.8deg)',
                     backgroundImage: `url(${wrinkledPaperPath})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    backgroundBlendMode: 'soft-light'
+                    backgroundBlendMode: 'multiply',
+                    backgroundOpacity: 0.3
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 bg-white bg-opacity-95 rounded-xl p-2.5 sm:p-3 lg:p-4">
-                    {/* Triple Stars */}
-                    <div className="flex justify-center gap-0.5 mb-2">
-                      <div 
-                        className="w-5 h-5 sm:w-6 h-6 lg:w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg"
-                        style={{backgroundColor: '#686346'}}
-                      >
-                        ⭐
+                  <div className="relative z-10 bg-white bg-opacity-90 rounded-lg p-3 sm:p-4 lg:p-5 h-full flex flex-col justify-between">
+                    <div>
+                      {/* Triple Stars */}
+                      <div className="flex justify-center gap-1 mb-3">
+                        <div 
+                          className="w-7 h-7 sm:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          style={{backgroundColor: '#686346'}}
+                        >
+                          ⭐
+                        </div>
+                        <div 
+                          className="w-7 h-7 sm:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          style={{backgroundColor: '#686346'}}
+                        >
+                          ⭐
+                        </div>
+                        <div 
+                          className="w-7 h-7 sm:w-8 h-8 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          style={{backgroundColor: '#686346'}}
+                        >
+                          ⭐
+                        </div>
                       </div>
-                      <div 
-                        className="w-5 h-5 sm:w-6 h-6 lg:w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg"
-                        style={{backgroundColor: '#686346'}}
-                      >
-                        ⭐
-                      </div>
-                      <div 
-                        className="w-5 h-5 sm:w-6 h-6 lg:w-7 h-7 rounded-full flex items-center justify-center text-xs shadow-lg"
-                        style={{backgroundColor: '#686346'}}
-                      >
-                        ⭐
-                      </div>
+                      
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-center mb-2" style={{color: '#1D2915'}}>
+                        ELITE
+                      </h3>
+                      
+                      {/* Sticker Count */}
+                      <p className="text-base sm:text-lg lg:text-xl font-black text-center mb-3" style={{color: '#1D2915'}}>
+                        3 STICKERS
+                      </p>
+                      
+                      {/* Description */}
+                      <p className="text-sm text-center mb-4" style={{color: '#686346'}}>
+                        Maximum tier for top performers
+                      </p>
                     </div>
                     
-                    {/* Title */}
-                    <h3 className="text-base sm:text-lg lg:text-xl font-black text-center mb-1" style={{color: '#1D2915'}}>
-                      ELITE
-                    </h3>
-                    
-                    {/* Sticker Count */}
-                    <p className="text-sm sm:text-base lg:text-lg font-black text-center mb-2" style={{color: '#1D2915'}}>
-                      3 STICKERS
-                    </p>
-                    
-                    {/* Description */}
-                    <p className="text-xs text-center mb-2 sm:mb-3" style={{color: '#686346'}}>
-                      Maximum tier for top performers
-                    </p>
-                    
                     {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center text-xs">
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#686346'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>$0.01 per scan</span>
                       </div>
-                      <div className="flex items-center text-xs">
+                      <div className="flex items-center text-sm">
                         <div 
-                          className="w-1.5 h-1.5 rounded-full mr-2"
+                          className="w-2 h-2 rounded-full mr-3"
                           style={{backgroundColor: '#686346'}}
                         ></div>
                         <span style={{color: '#1D2915'}}>3x earning potential</span>
