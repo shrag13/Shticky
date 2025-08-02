@@ -77,6 +77,8 @@
     radial-gradient(ellipse 80% 50% at 50% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%),
     radial-gradient(ellipse 60% 40% at 30% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
     rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px) saturate(180%) brightness(120%) contrast(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(120%) contrast(110%);
   border-radius: 40px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 
@@ -122,6 +124,8 @@
   background: 
     radial-gradient(ellipse 70% 50% at 40% 30%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%),
     rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px) saturate(150%) brightness(115%) contrast(105%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%) brightness(115%) contrast(105%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
     /* Curved water droplet surface */
