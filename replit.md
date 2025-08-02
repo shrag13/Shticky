@@ -9,6 +9,8 @@ UI/UX preferences: Full landing page with visuals and explanations for non-authe
 
 Updated sticker textures: User provided new wrinkled paper texture images with light/white backgrounds requiring enhanced text contrast and overlay styling.
 
+Current Issue: Brick wall background in Tier Progression System section is not fully visible from left to right, appearing cropped due to aspect ratio mismatch between square image (612x612px) and wide container viewport. Comprehensive analysis and multiple solution strategies documented in Instructions.md.
+
 # System Architecture
 
 ## Frontend Architecture
