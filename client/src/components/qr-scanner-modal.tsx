@@ -1,145 +1,120 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { QrCode, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { isUnauthorizedError } from "@/lib/authUtils";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import { Camera, CheckCircle, AlertCircle } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 interface QrScannerModalProps {
-  isOpen: boolean;
+  open: boolean;
   onClose: () => void;
 }
 
-export default function QrScannerModal({ isOpen, onClose }: QrScannerModalProps) {
-  const [qrInput, setQrInput] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
+  const [claimCode, setClaimCode] = useState("");
+  const [placementDescription, setPlacementDescription] = useState("");
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const claimQrCodeMutation = useMutation({
-    mutationFn: async (qrCodeId: string) => {
-      await apiRequest("POST", "/api/qr-codes/claim", { qrCodeId });
+  const claimQRMutation = useMutation({
+    mutationFn: async (data: { claimCode: string; placementDescription: string }) => {
+      return await apiRequest("/api/qr-codes/claim", "POST", data);
     },
     onSuccess: () => {
-      setShowSuccess(true);
-      queryClient.invalidateQueries({ queryKey: ["/api/qr-codes/me"] });
-      queryClient.invalidateQueries({ queryKey: ["/api/users/me/stats"] });
-      
-      setTimeout(() => {
-        setShowSuccess(false);
-        setQrInput("");
-        onClose();
-      }, 2000);
+      toast({
+        title: "QR Code Claimed",
+        description: "Your QR code has been successfully claimed!",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/user/dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/qr-codes"] });
+      setClaimCode("");
+      setPlacementDescription("");
+      onClose();
     },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
-      
-      setErrorMessage(error.message || "Failed to claim QR code");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 5000);
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
   const handleClaim = () => {
-    if (!qrInput.trim()) {
-      setErrorMessage("Please enter a QR code");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
+    if (!claimCode.trim() || !placementDescription.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please enter both the claim code and placement description.",
+        variant: "destructive",
+      });
       return;
     }
-
-    claimQrCodeMutation.mutate(qrInput.trim());
-  };
-
-  const handleClose = () => {
-    setQrInput("");
-    setShowSuccess(false);
-    setShowError(false);
-    onClose();
+    claimQRMutation.mutate({ claimCode, placementDescription });
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-w-md bg-card dark:bg-card">
         <DialogHeader>
-          <DialogTitle>Scan New Shticky</DialogTitle>
+          <DialogTitle className="flex items-center gap-2 text-foreground dark:text-foreground">
+            <QrCode className="h-5 w-5" />
+            Claim QR Code
+          </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-6">
-          {/* Camera Preview Area */}
-          <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
-            <div className="text-center">
-              <Camera className="h-16 w-16 text-gray-400 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">Camera preview will appear here</p>
-              <p className="text-xs text-gray-400 mt-1">Feature coming soon</p>
-            </div>
-          </div>
-
-          {/* Manual Input */}
-          <div className="space-y-2">
-            <Label htmlFor="qrInput">Or enter QR code manually:</Label>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="claimCode" className="text-foreground dark:text-foreground">Claim Code</Label>
             <Input
-              id="qrInput"
-              type="text"
-              placeholder="Enter QR code string"
-              value={qrInput}
-              onChange={(e) => setQrInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleClaim()}
+              id="claimCode"
+              placeholder="Enter your claim code"
+              value={claimCode}
+              onChange={(e) => setClaimCode(e.target.value)}
+              className="bg-background dark:bg-background border-border dark:border-border"
             />
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex space-x-3">
+          
+          <div>
+            <Label htmlFor="placement" className="text-foreground dark:text-foreground">Where will you place this sticker?</Label>
+            <Input
+              id="placement"
+              placeholder="e.g., Coffee shop window, park bench"
+              value={placementDescription}
+              onChange={(e) => setPlacementDescription(e.target.value)}
+              className="bg-background dark:bg-background border-border dark:border-border"
+            />
+          </div>
+          
+          <div className="flex gap-2 pt-4">
             <Button 
               onClick={handleClaim}
-              disabled={claimQrCodeMutation.isPending}
-              className="flex-1"
+              disabled={claimQRMutation.isPending}
+              className="flex-1 bg-primary dark:bg-primary text-primary-foreground dark:text-primary-foreground hover:bg-primary/90 dark:hover:bg-primary/90"
             >
-              {claimQrCodeMutation.isPending ? "Claiming..." : "Claim Shticky"}
+              {claimQRMutation.isPending ? "Claiming..." : "Claim QR Code"}
             </Button>
             <Button 
               variant="outline" 
-              onClick={handleClose}
-              className="flex-1"
+              onClick={onClose}
+              className="border-border dark:border-border text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted"
             >
               Cancel
             </Button>
           </div>
-
-          {/* Status Messages */}
-          {showSuccess && (
-            <Alert className="border-secondary bg-secondary/10">
-              <CheckCircle className="h-4 w-4 text-secondary" />
-              <AlertDescription className="text-secondary">
-                Shticky claimed successfully!
-              </AlertDescription>
-            </Alert>
-          )}
-
-          {showError && (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                {errorMessage}
-              </AlertDescription>
-            </Alert>
-          )}
+          
+          <div className="text-center pt-2">
+            <Button 
+              variant="link" 
+              className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground"
+              onClick={() => window.open('/api/qr-codes/download', '_blank')}
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Download Blank QR Codes
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

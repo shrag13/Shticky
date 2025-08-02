@@ -32,6 +32,7 @@ export const users = pgTable("users", {
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
+  lastDismissedAt: timestamp("last_dismissed_at"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -57,6 +58,9 @@ export const applications = pgTable("applications", {
 
 // Payment method enum
 export const paymentMethodEnum = pgEnum('payment_method', ['bank', 'cashapp', 'paypal']);
+
+// Payout status enum
+export const payoutStatusEnum = pgEnum('payout_status', ['pending', 'processing', 'completed', 'failed']);
 
 // Payment methods table
 export const paymentMethods = pgTable("payment_methods", {
@@ -100,7 +104,7 @@ export const monthlyPayouts = pgTable("monthly_payouts", {
   year: integer("year").notNull(),
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   paymentMethodId: varchar("payment_method_id").references(() => paymentMethods.id),
-  status: pgEnum('payout_status', ['pending', 'processing', 'completed', 'failed'])("status").notNull().default('pending'),
+  status: payoutStatusEnum("status").notNull().default('pending'),
   processedAt: timestamp("processed_at"),
   createdAt: timestamp("created_at").defaultNow(),
 });

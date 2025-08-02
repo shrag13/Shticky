@@ -68,7 +68,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
 
   const savePaymentMethodMutation = useMutation({
     mutationFn: async (data: PaymentMethodForm) => {
-      await apiRequest("POST", "/api/payment-methods", data);
+      await apiRequest("/api/payment-methods", "POST", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/payment-methods/me"] });
@@ -135,7 +135,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Monthly Withdrawal Settings</DialogTitle>
+          <DialogTitle>Monthly Auto-Payout Settings</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
@@ -150,7 +150,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
                 </span>
               </div>
               <p className="text-xs text-gray-500 mt-1">
-                Automatic withdrawal on last day of month (minimum $5.00)
+                Automatic payout on last day of month (minimum $5.00)
               </p>
             </AlertDescription>
           </Alert>
@@ -264,7 +264,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
             <InfoIcon className="h-4 w-4" />
             <AlertDescription>
               <p className="text-sm">
-                Withdrawals are processed automatically on the last day of each month for balances of $5.00 or more.
+                Payouts are processed automatically on the last day of each month for balances of $5.00 or more. No manual withdrawal requests needed.
               </p>
             </AlertDescription>
           </Alert>

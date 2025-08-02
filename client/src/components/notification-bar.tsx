@@ -1,90 +1,75 @@
-import { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useState } from "react";
+import { X, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { isUnauthorizedError } from "@/lib/authUtils";
-import { apiRequest, queryClient } from "@/lib/queryClient";
-import { AlertTriangle, X } from "lucide-react";
 
-export default function NotificationBar() {
-  const [isVisible, setIsVisible] = useState(false);
+interface NotificationBarProps {
+  user: {
+    lastDismissedAt?: Date | null;
+  };
+  hasActiveStickers: boolean;
+  hasPaymentMethod: boolean;
+}
+
+export default function NotificationBar({ user, hasActiveStickers, hasPaymentMethod }: NotificationBarProps) {
+  const [isDismissed, setIsDismissed] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const { data: notificationPreferences } = useQuery({
-    queryKey: ["/api/notifications/preferences"],
-    retry: false,
-  });
-
-  const dismissNotificationMutation = useMutation({
+  const dismissMutation = useMutation({
     mutationFn: async () => {
-      await apiRequest("POST", "/api/notifications/dismiss");
+      return await apiRequest("/api/user/dismiss-notification", "POST");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/notifications/preferences"] });
-      setIsVisible(false);
+      setIsDismissed(true);
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
     },
-    onError: (error) => {
-      if (isUnauthorizedError(error)) {
-        toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
-          variant: "destructive",
-        });
-        setTimeout(() => {
-          window.location.href = "/api/login";
-        }, 500);
-        return;
-      }
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
-  useEffect(() => {
-    if (notificationPreferences) {
-      const lastDismissed = notificationPreferences.lastDismissedAt;
-      const now = new Date();
-      
-      // Show notification if:
-      // 1. Never dismissed, OR
-      // 2. Dismissed more than 24 hours ago
-      if (!lastDismissed) {
-        setIsVisible(true);
-      } else {
-        const timeSinceDismissal = now.getTime() - new Date(lastDismissed).getTime();
-        const twentyFourHours = 24 * 60 * 60 * 1000;
-        
-        if (timeSinceDismissal > twentyFourHours) {
-          setIsVisible(true);
-        }
-      }
-    }
-  }, [notificationPreferences]);
+  // Show notification if user has active stickers but no payment method
+  // and hasn't dismissed it recently (within last 7 days)
+  const shouldShow = hasActiveStickers && !hasPaymentMethod && !isDismissed;
+  
+  const lastDismissed = user.lastDismissedAt;
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  
+  if (lastDismissed && new Date(lastDismissed) > sevenDaysAgo) {
+    return null;
+  }
 
-  const handleDismiss = () => {
-    dismissNotificationMutation.mutate();
-  };
-
-  if (!isVisible) {
+  if (!shouldShow) {
     return null;
   }
 
   return (
-    <Alert className="bg-accent border-accent rounded-none">
-      <AlertTriangle className="h-4 w-4 text-white" />
-      <AlertDescription className="flex items-center justify-between w-full text-white">
-        <span className="text-sm">
-          Add a payment method to receive your monthly earnings!
-        </span>
+    <div className="bg-yellow-100 dark:bg-yellow-900/30 border-b border-yellow-200 dark:border-yellow-800 px-4 py-3">
+      <div className="flex items-center justify-between max-w-7xl mx-auto">
+        <div className="flex items-center gap-3">
+          <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
+          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+            <strong>Action Required:</strong> You have active Shtickys earning money, but no payment method set up. 
+            Add a payment method to receive your monthly payouts.
+          </p>
+        </div>
+        
         <Button
           variant="ghost"
           size="sm"
-          onClick={handleDismiss}
-          disabled={dismissNotificationMutation.isPending}
-          className="text-white hover:text-gray-200 hover:bg-transparent p-1 h-auto"
+          onClick={() => dismissMutation.mutate()}
+          className="text-yellow-600 dark:text-yellow-400 hover:bg-yellow-200 dark:hover:bg-yellow-800/50"
         >
           <X className="h-4 w-4" />
         </Button>
-      </AlertDescription>
-    </Alert>
+      </div>
+    </div>
   );
 }

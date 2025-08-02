@@ -33,24 +33,45 @@ export default function Home() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: application } = useQuery({
+  const { data: application } = useQuery<{
+    status: string;
+  }>({
     queryKey: ["/api/applications/me"],
     retry: false,
   });
 
-  const { data: userStats } = useQuery({
+  const { data: userStats } = useQuery<{
+    totalEarnings: number;
+    totalScans: number;
+    currentTier: number;
+    activeStickers: number;
+  }>({
     queryKey: ["/api/users/me/stats"],
     enabled: application?.status === 'approved',
     retry: false,
   });
 
-  const { data: userQrCodes } = useQuery({
+  const { data: userQrCodes } = useQuery<Array<{
+    id: string;
+    claimCode: string;
+    placementDescription: string;
+    scansCount: number;
+    earnings: number;
+    claimedAt: Date;
+  }>>({
     queryKey: ["/api/qr-codes/me"],
     enabled: application?.status === 'approved',
     retry: false,
   });
 
-  const { data: paymentMethod } = useQuery({
+  const { data: paymentMethod } = useQuery<{
+    type: string;
+    accountName: string;
+    routingNumber?: string;
+    accountNumber?: string;
+    cashtag?: string;
+    paypalEmail?: string;
+  }>({
     queryKey: ["/api/payment-methods/me"],
     enabled: application?.status === 'approved',
     retry: false,
@@ -203,7 +224,11 @@ export default function Home() {
       </header>
 
       {/* Notification Bar */}
-      {!paymentMethod && <NotificationBar />}
+      <NotificationBar 
+        user={user || { id: '', firstName: '', lastName: '', email: '', profileImageUrl: '' }} 
+        hasActiveStickers={userStats?.activeStickers ? userStats.activeStickers > 0 : false} 
+        hasPaymentMethod={!!paymentMethod} 
+      />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
@@ -225,7 +250,7 @@ export default function Home() {
                     ${userStats?.totalEarnings?.toFixed(2) || '0.00'}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
-                    Next payout: ${userStats?.totalEarnings?.toFixed(2) || '0.00'}
+                    Monthly auto-payout if ≥ $5.00
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-secondary bg-opacity-10 rounded-lg flex items-center justify-center">
@@ -292,9 +317,9 @@ export default function Home() {
 
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Withdrawal</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Auto-Payout</h3>
               <div className="flex items-center justify-between mb-4">
-                <span className="text-gray-600">Minimum threshold:</span>
+                <span className="text-gray-600">Auto-payout minimum:</span>
                 <span className="font-medium text-secondary">$5.00</span>
               </div>
               <div className="bg-gray-200 rounded-full h-2 mb-4">
@@ -303,12 +328,15 @@ export default function Home() {
                   style={{ width: `${getWithdrawalProgress()}%` }}
                 ></div>
               </div>
+              <p className="text-xs text-gray-500 mb-4">
+                Automatic payouts on the last day of each month if balance ≥ $5.00
+              </p>
               <Button 
                 className="w-full bg-secondary hover:bg-secondary/90" 
                 onClick={() => setShowWithdrawal(true)}
               >
                 <Wallet className="mr-2 h-4 w-4" />
-                💰 Manage Withdrawal
+                Set Payment Method
               </Button>
             </CardContent>
           </Card>
@@ -344,7 +372,7 @@ export default function Home() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {userQrCodes?.map((qr) => {
-                    const tierInfo = getTierBadge(qr.totalScans);
+                    const tierInfo = getTierBadge(qr.scansCount || 0);
                     return (
                       <tr key={qr.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -352,14 +380,14 @@ export default function Home() {
                             <div className="w-8 h-8 bg-primary bg-opacity-10 rounded flex items-center justify-center mr-3">
                               <QrCode className="text-primary text-sm" />
                             </div>
-                            <span className="text-sm font-medium text-gray-900">{qr.id}</span>
+                            <span className="text-sm font-medium text-gray-900">{qr.claimCode}</span>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {qr.totalScans.toLocaleString()}
+                          {qr.scansCount?.toLocaleString() || '0'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary">
-                          ${parseFloat(qr.totalEarnings).toFixed(2)}
+                          ${qr.earnings?.toFixed(2) || '0.00'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <Badge className={tierInfo.color}>
