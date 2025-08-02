@@ -226,22 +226,24 @@ export default function Landing() {
 
       {/* Tier Progression System - Brick Wall Background */}
       <section 
-        className="relative overflow-hidden"
+        className="relative overflow-hidden w-full"
         style={{
           backgroundImage: `url(${brickWallPath})`,
-          backgroundSize: '100% 100%',
-          backgroundPosition: 'top left',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
           width: '100vw',
-          height: '50vh',
-          minHeight: '400px',
-          maxHeight: '500px'
+          height: '60vh',
+          minHeight: '500px',
+          maxHeight: '700px',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)'
         }}
       >
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         
-        <div className="relative z-10 h-full px-2 sm:px-4 lg:px-6 flex flex-col justify-center py-4">
+        <div className="relative z-10 h-full px-4 sm:px-8 lg:px-12 xl:px-16 flex flex-col justify-center py-8 max-w-none w-full">
           {/* Header */}
           <div 
             ref={tiersAnimation.ref}
@@ -261,12 +263,12 @@ export default function Landing() {
           
           {/* Horizontal Stickers on Brick Wall */}
           <div className="flex justify-center items-center flex-1">
-            <div className="flex flex-row justify-center items-center gap-3 sm:gap-4 lg:gap-6 w-full max-w-6xl px-2">
+            <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-full max-w-7xl px-4">
               
               {/* Starter Tier */}
-              <div className="flex-1 min-w-0 max-w-xs">
+              <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(-2deg)',
                     backgroundImage: `url(${starterStickerPath})`,
@@ -317,9 +319,9 @@ export default function Landing() {
               </div>
 
               {/* Pro Tier */}
-              <div className="flex-1 min-w-0 max-w-xs">
+              <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(1deg)',
                     backgroundImage: `url(${proStickerPath})`,
@@ -376,9 +378,9 @@ export default function Landing() {
               </div>
 
               {/* Elite Tier */}
-              <div className="flex-1 min-w-0 max-w-xs">
+              <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-24 h-32 sm:w-28 h-36 lg:w-32 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
+                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto"
                   style={{
                     transform: 'rotate(-1deg)',
                     backgroundImage: `url(${eliteStickerPath})`,
