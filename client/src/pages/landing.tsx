@@ -8,6 +8,7 @@ import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.j
 import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754175563478.png";
 import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754175563508.png";
 import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754175563526.png";
+import wrinkledPaperPath from "@assets/white-glued-paper-texture-wet-wrinkled-paper-sheets-set_134821-72_1754168001331.jpg";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
