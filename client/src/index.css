@@ -63,7 +63,7 @@
   height: auto;
   overflow: visible;
   pointer-events: none;
-  padding: 16px;
+  padding: 12px;
 }
 
 .liquid-glass-distortion-layer {
@@ -123,7 +123,7 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
-  max-width: 500px;
+  max-width: 420px;
   margin: 0 auto;
   background: radial-gradient(ellipse at top, 
     rgba(255, 255, 255, 0.4) 0%,
@@ -224,7 +224,7 @@
   border: none;
   border-radius: 20px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
   -webkit-backdrop-filter: blur(3px) saturate(140%) brightness(110%) contrast(102%);
