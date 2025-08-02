@@ -5,9 +5,9 @@ import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "luci
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
-import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754174594458.png";
-import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754174594436.png";
-import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754174594403.png";
+import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754175563478.png";
+import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754175563508.png";
+import eliteStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182337_0000_1754175563526.png";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
@@ -226,7 +226,7 @@ export default function Landing() {
 
       {/* Tier Progression System - Brick Wall Background */}
       <section 
-        className="relative overflow-hidden w-full"
+        className="relative overflow-hidden"
         style={{
           backgroundImage: `url(${brickWallPath})`,
           backgroundSize: 'cover',
@@ -237,7 +237,8 @@ export default function Landing() {
           minHeight: '500px',
           maxHeight: '700px',
           marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)'
+          marginRight: 'calc(-50vw + 50%)',
+          position: 'relative'
         }}
       >
         {/* Dark overlay for text readability */}
@@ -278,7 +279,7 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center bg-white/20 backdrop-blur-sm rounded-lg">
                     <div>
                       {/* Star Badge */}
                       <div className="flex justify-center mb-1">
@@ -291,12 +292,12 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         STARTER
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         1 STICKER
                       </p>
                     </div>
@@ -304,7 +305,7 @@ export default function Landing() {
                     {/* Features */}
                     <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
@@ -331,7 +332,7 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center bg-white/20 backdrop-blur-sm rounded-lg">
                     <div>
                       {/* Double Stars */}
                       <div className="flex justify-center gap-0.5 mb-1">
@@ -350,12 +351,12 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         PRO
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         2 STICKERS
                       </p>
                     </div>
@@ -363,7 +364,7 @@ export default function Landing() {
                     {/* Features */}
                     <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
@@ -390,7 +391,7 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center">
+                  <div className="relative z-10 p-1 sm:p-2 lg:p-3 h-full flex flex-col justify-between text-center bg-white/20 backdrop-blur-sm rounded-lg">
                     <div>
                       {/* Triple Stars */}
                       <div className="flex justify-center gap-0.5 mb-1">
@@ -415,12 +416,12 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <h3 className="text-xs sm:text-sm font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         ELITE
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '2px 2px 4px rgba(255,255,255,0.9)'}}>
+                      <p className="text-xs font-black mb-1" style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>
                         3 STICKERS
                       </p>
                     </div>
@@ -428,7 +429,7 @@ export default function Landing() {
                     {/* Features */}
                     <div className="space-y-0.5">
                       <div className="flex items-center justify-center text-xs">
-                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.9)'}}>$0.01/scan</span>
+                        <span style={{color: '#1D2915', textShadow: '1px 1px 2px rgba(255,255,255,0.8)'}}>$0.01/scan</span>
                       </div>
                     </div>
                   </div>
@@ -492,14 +493,14 @@ export default function Landing() {
             <button 
               className="text-sm hover:underline transition-colors"
               style={{color: '#A89182'}}
-              onClick={() => {/* TODO: Link to Terms */}}
+              onClick={() => window.open('/terms', '_blank')}
             >
               Terms & Conditions
             </button>
             <button 
               className="text-sm hover:underline transition-colors"
               style={{color: '#A89182'}}
-              onClick={() => {/* TODO: Link to Privacy */}}
+              onClick={() => window.open('/privacy', '_blank')}
             >
               Privacy Policy
             </button>

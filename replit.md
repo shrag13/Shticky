@@ -7,6 +7,8 @@ Shticky is a QR code monetization platform that allows users to earn money by pl
 Preferred communication style: Simple, everyday language.
 UI/UX preferences: Full landing page with visuals and explanations for non-authenticated users, improved text contrast (gray-800 instead of gray-600), bold energetic content creator style with colorful text and fun typography, but professional and trustworthy without excessive emojis or money symbols that could appear scammy. Brand color palette: beaver (#A89182), antiflash-white (#EFEFEE), dark-green (#1D2915), ebony (#686346), night (#040D07), chamoisee (#9A7B60).
 
+Updated sticker textures: User provided new wrinkled paper texture images with light/white backgrounds requiring enhanced text contrast and overlay styling.
+
 # System Architecture
 
 ## Frontend Architecture
