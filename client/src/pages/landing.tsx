@@ -30,40 +30,27 @@ function useScrollAnimation() {
   return { ref, isVisible };
 }
 
-// Liquid glass scroll distortion effect
+// Simplified liquid glass scroll effect
 function useLiquidGlassDistortion() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      const scrollPercent = Math.min(scrollY / (viewportHeight * 0.5), 1);
+      const scrollPercent = Math.min(scrollY / 200, 0.3); // Much more subtle
       
-      // Update CSS variables for dynamic distortion
-      document.documentElement.style.setProperty('--scroll-distortion', `${scrollPercent * 15}px`);
-      document.documentElement.style.setProperty('--scroll-blur', `${15 + scrollPercent * 10}px`);
-      document.documentElement.style.setProperty('--scroll-brightness', `${110 + scrollPercent * 20}%`);
-      
-      // Dynamic path morphing based on scroll
+      // Very minimal dynamic path morphing
       const liquidBlob = document.querySelector('.liquid-glass-blob');
       if (liquidBlob) {
-        const morphIntensity = scrollPercent * 20;
+        const morphIntensity = scrollPercent * 5; // Reduced from 20 to 5
         const path = `M0,${50 - morphIntensity} Q200,${20 + morphIntensity} 400,${50 - morphIntensity} T800,${50 - morphIntensity} L800,100 L0,100 Z`;
         liquidBlob.setAttribute('d', path);
       }
 
-      // Subtle content refraction - less aggressive
-      const glassContent = document.querySelector('.liquid-glass-content');
-      if (glassContent) {
-        const htmlElement = glassContent as HTMLElement;
-        htmlElement.style.transform = `
-          perspective(1000px) 
-          rotateX(${Math.sin(scrollPercent * Math.PI) * 0.5}deg)
-          translateY(${Math.sin(scrollPercent * Math.PI) * 1}px)
-        `;
-        htmlElement.style.filter = `
-          blur(${Math.abs(Math.sin(scrollPercent * Math.PI)) * 0.1}px)
-          brightness(${100 + Math.sin(scrollPercent * Math.PI) * 3}%)
-        `;
+      // Minimal backdrop blur adjustment
+      const distortionLayer = document.querySelector('.liquid-glass-distortion-layer');
+      if (distortionLayer) {
+        const htmlElement = distortionLayer as HTMLElement;
+        htmlElement.style.backdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
+        htmlElement.style.webkitBackdropFilter = `blur(${10 + scrollPercent * 3}px) saturate(140%) contrast(102%)`;
       }
     };
 
