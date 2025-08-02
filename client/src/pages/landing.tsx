@@ -265,7 +265,7 @@ export default function Landing() {
           
           {/* Horizontal Stickers on Brick Wall */}
           <div className="flex justify-center items-center flex-1">
-            <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-full max-w-7xl px-4">
+            <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-full max-w-4xl px-4">
               
               {/* Starter Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
