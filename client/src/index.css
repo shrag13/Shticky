@@ -73,11 +73,9 @@
   max-width: 460px;
   margin: 0 auto;
   overflow: hidden;
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%),
-    radial-gradient(ellipse 60% 40% at 30% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
-    rgba(255, 255, 255, 0.25);
-
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px) saturate(200%) brightness(130%) contrast(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(130%) contrast(120%);
   border-radius: 40px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 
@@ -120,10 +118,9 @@
   position: relative;
   padding: 2px;
   border-radius: 12px;
-  background: 
-    radial-gradient(ellipse 70% 50% at 40% 30%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%),
-    rgba(255, 255, 255, 0.35);
-
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px) saturate(180%) brightness(125%) contrast(115%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%) brightness(125%) contrast(115%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
     /* Curved water droplet surface */
