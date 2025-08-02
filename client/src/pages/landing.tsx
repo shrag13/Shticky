@@ -270,7 +270,7 @@ export default function Landing() {
               {/* Starter Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-2deg)',
                     backgroundImage: `url(${starterStickerPath})`,
@@ -281,12 +281,12 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
+                  <div className="relative z-10 p-2 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
                     <div>
                       {/* Star Badge */}
-                      <div className="flex justify-center mb-2">
+                      <div className="flex justify-center mb-1">
                         <div 
-                          className="w-5 h-5 lg:w-6 h-6 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-4 h-4 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#9A7B60'}}
                         >
                           ⭐
@@ -294,21 +294,14 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-sm sm:text-base font-black mb-1" style={{color: '#1D2915'}}>
+                      <h3 className="text-xs font-black mb-1" style={{color: '#1D2915'}}>
                         STARTER
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm font-bold mb-2" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
                         1 STICKER
                       </p>
-                    </div>
-                    
-                    {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-center text-sm font-bold">
-                        <span style={{color: '#1D2915'}}>$0.01/scan</span>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -324,7 +317,7 @@ export default function Landing() {
               {/* Pro Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(1deg)',
                     backgroundImage: `url(${proStickerPath})`,
@@ -335,18 +328,18 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
+                  <div className="relative z-10 p-2 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
                     <div>
                       {/* Double Stars */}
-                      <div className="flex justify-center gap-1 mb-2">
+                      <div className="flex justify-center gap-1 mb-1">
                         <div 
-                          className="w-4 h-4 lg:w-5 h-5 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-3 h-3 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#A89182'}}
                         >
                           ⭐
                         </div>
                         <div 
-                          className="w-4 h-4 lg:w-5 h-5 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-3 h-3 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#A89182'}}
                         >
                           ⭐
@@ -354,21 +347,14 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-sm sm:text-base font-black mb-1" style={{color: '#1D2915'}}>
+                      <h3 className="text-xs font-black mb-1" style={{color: '#1D2915'}}>
                         PRO
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm font-bold mb-2" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
                         2 STICKERS
                       </p>
-                    </div>
-                    
-                    {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-center text-sm font-bold">
-                        <span style={{color: '#1D2915'}}>$0.01/scan</span>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -384,7 +370,7 @@ export default function Landing() {
               {/* Elite Tier */}
               <div className="flex-1 min-w-0 max-w-sm">
                 <div 
-                  className="w-28 h-36 sm:w-32 h-44 lg:w-36 h-48 xl:w-40 h-52 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
+                  className="w-24 h-28 sm:w-28 h-32 lg:w-32 h-36 xl:w-36 h-40 rounded-lg shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer relative mx-auto border-4 border-white"
                   style={{
                     transform: 'rotate(-1deg)',
                     backgroundImage: `url(${eliteStickerPath})`,
@@ -395,24 +381,24 @@ export default function Landing() {
                   }}
                 >
                   {/* Content overlay */}
-                  <div className="relative z-10 p-2 sm:p-3 lg:p-4 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
+                  <div className="relative z-10 p-2 h-full flex flex-col justify-between text-center bg-white/90 backdrop-blur-sm rounded-lg border-2 border-white shadow-xl">
                     <div>
                       {/* Triple Stars */}
-                      <div className="flex justify-center gap-1 mb-2">
+                      <div className="flex justify-center gap-1 mb-1">
                         <div 
-                          className="w-3 h-3 lg:w-4 h-4 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-2 h-2 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#686346'}}
                         >
                           ⭐
                         </div>
                         <div 
-                          className="w-3 h-3 lg:w-4 h-4 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-2 h-2 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#686346'}}
                         >
                           ⭐
                         </div>
                         <div 
-                          className="w-3 h-3 lg:w-4 h-4 rounded-full flex items-center justify-center text-sm shadow-lg"
+                          className="w-2 h-2 rounded-full flex items-center justify-center text-xs shadow-lg"
                           style={{backgroundColor: '#686346'}}
                         >
                           ⭐
@@ -420,21 +406,14 @@ export default function Landing() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-sm sm:text-base font-black mb-1" style={{color: '#1D2915'}}>
+                      <h3 className="text-xs font-black mb-1" style={{color: '#1D2915'}}>
                         ELITE
                       </h3>
                       
                       {/* Sticker Count */}
-                      <p className="text-xs sm:text-sm font-bold mb-2" style={{color: '#1D2915'}}>
+                      <p className="text-xs font-bold" style={{color: '#1D2915'}}>
                         3 STICKERS
                       </p>
-                    </div>
-                    
-                    {/* Features */}
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-center text-sm font-bold">
-                        <span style={{color: '#1D2915'}}>$0.01/scan</span>
-                      </div>
                     </div>
                   </div>
                 </div>
