@@ -229,8 +229,8 @@ export default function Landing() {
         className="relative overflow-hidden"
         style={{
           backgroundImage: `url(${brickWallPath})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
+          backgroundSize: '100% 100%',
+          backgroundPosition: 'top left',
           backgroundRepeat: 'no-repeat',
           width: '100vw',
           height: '50vh',
