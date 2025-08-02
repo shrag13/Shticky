@@ -226,8 +226,8 @@ export default function Landing() {
         className="py-20 relative min-h-screen"
         style={{
           backgroundImage: `url(${brickWallPath})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundSize: '120%',
+          backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat'
         }}
       >
@@ -253,18 +253,22 @@ export default function Landing() {
           
           <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Starter Tier Sticker */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer">
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer" style={{transform: 'rotate(-2deg)'}}>
               <svg width="280" height="320" viewBox="0 0 280 320" className="drop-shadow-2xl">
                 {/* Sticker shadow */}
-                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.3)" />
+                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.4)" />
                 
-                {/* Main sticker body */}
-                <rect x="20" y="20" width="240" height="280" rx="25" ry="25" 
+                {/* Main sticker body with slight curve */}
+                <path d="M20 45 Q20 20 45 20 L235 20 Q260 20 260 45 L260 275 Q260 300 235 300 L45 300 Q20 300 20 275 Z" 
                       fill="#EFEFEE" stroke="#D1D1D1" strokeWidth="2"/>
                 
-                {/* Peeling corner effect */}
+                {/* Crease line across sticker */}
+                <path d="M30 150 Q140 145 250 155" stroke="rgba(0,0,0,0.1)" strokeWidth="1" fill="none"/>
+                
+                {/* Peeling corner with curled edge */}
                 <path d="M235 45 L260 20 L260 45 Z" fill="#F8F8F8" stroke="#D1D1D1" strokeWidth="1"/>
                 <path d="M235 45 L250 35 L260 45 Z" fill="#E8E8E8"/>
+                <path d="M235 45 Q240 40 245 42" stroke="rgba(0,0,0,0.2)" strokeWidth="1" fill="none"/>
                 
                 {/* Star icon background */}
                 <circle cx="140" cy="80" r="25" fill="#9A7B60" fillOpacity="0.1"/>
@@ -296,7 +300,7 @@ export default function Landing() {
             </div>
             
             {/* Pro Tier Sticker - Most Popular */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative">
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer relative" style={{transform: 'rotate(1deg)'}}>
               {/* Popular badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
                 <div className="bg-[#A89182] text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
@@ -306,19 +310,24 @@ export default function Landing() {
               
               <svg width="300" height="340" viewBox="0 0 300 340" className="drop-shadow-2xl">
                 {/* Sticker shadow */}
-                <ellipse cx="155" cy="335" rx="130" ry="8" fill="rgba(0,0,0,0.4)" />
+                <ellipse cx="155" cy="335" rx="130" ry="8" fill="rgba(0,0,0,0.5)" />
                 
-                {/* Main sticker body - larger and more prominent */}
-                <rect x="20" y="20" width="260" height="300" rx="30" ry="30" 
+                {/* Main sticker body with realistic curve */}
+                <path d="M20 50 Q20 20 50 20 L250 20 Q280 20 280 50 L280 270 Q280 300 250 300 L50 300 Q20 300 20 270 Z" 
                       fill="#EFEFEE" stroke="#A89182" strokeWidth="3"/>
                 
                 {/* Premium border accent */}
-                <rect x="25" y="25" width="250" height="290" rx="25" ry="25" 
+                <path d="M25 50 Q25 25 50 25 L245 25 Q275 25 275 50 L275 265 Q275 295 245 295 L50 295 Q25 295 25 265 Z" 
                       fill="none" stroke="#A89182" strokeWidth="1" strokeOpacity="0.3"/>
                 
-                {/* Peeling corner effect */}
+                {/* Multiple crease lines for worn look */}
+                <path d="M30 120 Q150 115 270 125" stroke="rgba(0,0,0,0.08)" strokeWidth="1" fill="none"/>
+                <path d="M35 200 Q150 195 265 205" stroke="rgba(0,0,0,0.06)" strokeWidth="1" fill="none"/>
+                
+                {/* Peeling corner with realistic curl */}
                 <path d="M250 50 L280 20 L280 50 Z" fill="#F8F8F8" stroke="#A89182" strokeWidth="1"/>
                 <path d="M250 50 L265 35 L280 50 Z" fill="#E8E8E8"/>
+                <path d="M250 50 Q260 45 270 47" stroke="rgba(0,0,0,0.2)" strokeWidth="1" fill="none"/>
                 
                 {/* Double star icon background */}
                 <circle cx="125" cy="85" r="20" fill="#A89182" fillOpacity="0.1"/>
@@ -353,22 +362,27 @@ export default function Landing() {
             </div>
             
             {/* Elite Tier Sticker */}
-            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer">
+            <div className="transform hover:scale-105 transition-all duration-300 cursor-pointer" style={{transform: 'rotate(-1.5deg)'}}>
               <svg width="280" height="320" viewBox="0 0 280 320" className="drop-shadow-2xl">
                 {/* Sticker shadow */}
-                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.3)" />
+                <ellipse cx="145" cy="315" rx="120" ry="8" fill="rgba(0,0,0,0.4)" />
                 
-                {/* Main sticker body */}
-                <rect x="20" y="20" width="240" height="280" rx="25" ry="25" 
+                {/* Main sticker body with weathered edges */}
+                <path d="M20 45 Q20 20 45 20 L235 20 Q260 20 260 45 L260 275 Q260 300 235 300 L45 300 Q20 300 20 275 Z" 
                       fill="#EFEFEE" stroke="#686346" strokeWidth="2"/>
                 
-                {/* Elite premium accent */}
-                <rect x="23" y="23" width="234" height="274" rx="22" ry="22" 
+                {/* Elite premium accent with slight wear */}
+                <path d="M23 45 Q23 23 45 23 L232 23 Q257 23 257 45 L257 272 Q257 297 232 297 L45 297 Q23 297 23 272 Z" 
                       fill="none" stroke="#686346" strokeWidth="1" strokeOpacity="0.2"/>
                 
-                {/* Peeling corner effect */}
+                {/* Diagonal crease for aged look */}
+                <path d="M25 180 Q140 175 255 185" stroke="rgba(0,0,0,0.08)" strokeWidth="1" fill="none"/>
+                <path d="M30 100 Q140 98 250 105" stroke="rgba(0,0,0,0.05)" strokeWidth="1" fill="none"/>
+                
+                {/* Peeling corner with deep curl */}
                 <path d="M235 45 L260 20 L260 45 Z" fill="#F8F8F8" stroke="#686346" strokeWidth="1"/>
                 <path d="M235 45 L250 35 L260 45 Z" fill="#E8E8E8"/>
+                <path d="M235 45 Q245 40 255 43" stroke="rgba(0,0,0,0.25)" strokeWidth="1" fill="none"/>
                 
                 {/* Triple star icon backgrounds */}
                 <circle cx="110" cy="80" r="18" fill="#686346" fillOpacity="0.1"/>
