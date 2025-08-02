@@ -1,6 +1,6 @@
 # Overview
 
-Shticky is a QR code monetization platform that allows users to earn money by placing QR code stickers and receiving payments when they are scanned. The application features a React frontend with shadcn/ui components, an Express.js backend, and uses Drizzle ORM with PostgreSQL for data management. Users can submit applications, claim QR codes, track earnings, and request payouts through various payment methods.
+Shticky is a QR code monetization platform that allows users to earn money by placing QR code stickers and receiving payments when they are scanned. The application features a React frontend with shadcn/ui components, an Express.js backend, and uses Drizzle ORM with PostgreSQL for data management. Users can submit applications, claim QR codes, track earnings, and receive monthly automatic payouts when balance reaches $5.00 minimum threshold.
 
 # User Preferences
 
@@ -44,9 +44,10 @@ Preferred communication style: Simple, everyday language.
 ## Business Logic Architecture
 - **Application Workflow**: Multi-step approval process for new users
 - **QR Code Management**: Code claiming system with ownership tracking
-- **Payment Processing**: Multiple payment method support with validation
-- **Analytics**: Scan tracking and earnings calculation
+- **Payment Processing**: Monthly automatic payouts with $5.00 minimum threshold, supporting bank transfer, Cash App, and PayPal
+- **Analytics**: Scan tracking and earnings calculation with tier-based system
 - **Admin Features**: Application review and approval system
+- **Notification System**: Yellow notification bar for users with active Shtickys but no payment method
 
 # External Dependencies
 

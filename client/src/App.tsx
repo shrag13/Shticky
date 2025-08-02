@@ -24,6 +24,7 @@ function Router() {
       ) : (
         <>
           <Route path="/" component={Home} />
+          <Route path="/application" component={Application} />
           <Route path="/admin" component={Admin} />
         </>
       )}

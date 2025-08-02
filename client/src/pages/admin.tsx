@@ -7,11 +7,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { CheckCircle, XCircle, Clock, User, MapPin } from "lucide-react";
-import type { Application } from "@shared/schema";
+import { CheckCircle, XCircle, Clock, LogOut } from "lucide-react";
 
 export default function Admin() {
-  const { isLoading, isAuthenticated } = useAuth();
+  const { user, isLoading, isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   // Redirect if not authenticated
@@ -29,21 +28,23 @@ export default function Admin() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: pendingApplications, isLoading: applicationsLoading } = useQuery({
+  const { data: applications } = useQuery({
     queryKey: ["/api/admin/applications"],
     retry: false,
   });
 
-  const reviewApplicationMutation = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: 'approved' | 'rejected' }) => {
-      await apiRequest("PATCH", `/api/admin/applications/${id}/review`, { status });
+  const reviewMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      await apiRequest(`/api/admin/applications/${id}/review`, {
+        method: "PATCH",
+        body: { status },
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/applications"] });
       toast({
         title: "Application Reviewed",
-        description: "The application has been updated successfully.",
-        variant: "default",
+        description: "Application status updated successfully",
       });
     },
     onError: (error) => {
@@ -59,18 +60,20 @@ export default function Admin() {
         return;
       }
       toast({
-        title: "Review Failed",
-        description: error.message || "Failed to review application",
+        title: "Error",
+        description: "Failed to update application status",
         variant: "destructive",
       });
     },
   });
 
-  const handleReview = (id: string, status: 'approved' | 'rejected') => {
-    reviewApplicationMutation.mutate({ id, status });
+  const handleLogout = () => {
+    if (confirm('Are you sure you want to log out?')) {
+      window.location.href = '/api/logout';
+    }
   };
 
-  if (isLoading || applicationsLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
@@ -80,145 +83,88 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-primary">Shticky Admin</h1>
-              <span className="ml-2 text-sm text-gray-500">Application Review</span>
             </div>
-            <Button variant="outline" onClick={() => window.location.href = '/'}>
-              Back to Dashboard
-            </Button>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                {user?.profileImageUrl && (
+                  <img 
+                    src={user.profileImageUrl} 
+                    alt="Profile" 
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                )}
+                <span className="text-sm font-medium">
+                  {user?.firstName} {user?.lastName}
+                </span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Pending Applications</p>
-                  <p className="text-3xl font-bold text-yellow-600">
-                    {pendingApplications?.length || 0}
-                  </p>
-                </div>
-                <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <Clock className="text-yellow-600 text-xl" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Total Reviewed</p>
-                  <p className="text-3xl font-bold text-primary">--</p>
-                </div>
-                <div className="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center">
-                  <User className="text-primary text-xl" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Approval Rate</p>
-                  <p className="text-3xl font-bold text-secondary">--%</p>
-                </div>
-                <div className="w-12 h-12 bg-secondary bg-opacity-10 rounded-lg flex items-center justify-center">
-                  <CheckCircle className="text-secondary text-xl" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Applications List */}
         <Card>
           <CardHeader>
             <CardTitle>Pending Applications</CardTitle>
-            <p className="text-sm text-gray-600">Review and approve or reject user applications</p>
           </CardHeader>
           <CardContent>
-            {pendingApplications && pendingApplications.length > 0 ? (
-              <div className="space-y-6">
-                {pendingApplications.map((application: Application) => (
-                  <div 
-                    key={application.id} 
-                    className="border border-gray-200 rounded-lg p-6 bg-gray-50"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
-                          <User className="text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900">{application.fullName}</h3>
-                          <p className="text-sm text-gray-500">
-                            Submitted {new Date(application.submittedAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge className="bg-yellow-100 text-yellow-800">
-                        Pending Review
-                      </Badge>
+            <div className="space-y-4">
+              {applications?.map((app: any) => (
+                <div key={app.id} className="border rounded-lg p-4">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-semibold">{app.fullName}</h3>
+                      <p className="text-sm text-gray-600">{app.address}</p>
+                      <p className="text-sm text-gray-600">{app.city}, {app.state} {app.zipCode}</p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          Address
-                        </h4>
-                        <p className="text-sm text-gray-600">
-                          {application.address}<br />
-                          {application.city}, {application.state} {application.zipCode}
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-900 mb-2">Placement Strategy</h4>
-                        <p className="text-sm text-gray-600">{application.placementDescription}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex space-x-3">
-                      <Button
-                        onClick={() => handleReview(application.id, 'approved')}
-                        disabled={reviewApplicationMutation.isPending}
-                        className="bg-secondary hover:bg-secondary/90"
-                      >
-                        <CheckCircle className="h-4 w-4 mr-2" />
-                        Approve
-                      </Button>
-                      <Button
-                        onClick={() => handleReview(application.id, 'rejected')}
-                        disabled={reviewApplicationMutation.isPending}
-                        variant="destructive"
-                      >
-                        <XCircle className="h-4 w-4 mr-2" />
-                        Reject
-                      </Button>
-                    </div>
+                    <Badge>
+                      <Clock className="w-3 h-3 mr-1" />
+                      {app.status}
+                    </Badge>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <Clock className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Pending Applications</h3>
-                <p className="text-gray-500">All applications have been reviewed.</p>
-              </div>
-            )}
+                  
+                  <div className="mb-4">
+                    <h4 className="font-medium mb-2">Placement Description:</h4>
+                    <p className="text-sm text-gray-600">{app.placementDescription}</p>
+                  </div>
+
+                  <div className="flex space-x-2">
+                    <Button
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700"
+                      onClick={() => reviewMutation.mutate({ id: app.id, status: "approved" })}
+                      disabled={reviewMutation.isPending}
+                    >
+                      <CheckCircle className="w-4 h-4 mr-1" />
+                      Approve
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => reviewMutation.mutate({ id: app.id, status: "rejected" })}
+                      disabled={reviewMutation.isPending}
+                    >
+                      <XCircle className="w-4 h-4 mr-1" />
+                      Reject
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              
+              {(!applications || applications.length === 0) && (
+                <div className="text-center py-8 text-gray-500">
+                  No pending applications
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
       </main>
