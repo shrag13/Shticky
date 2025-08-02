@@ -73,61 +73,35 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-      {/* Liquid Glass Morphing Header */}
+      {/* Apple-Style Floating Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
-        <div className="liquid-glass-distortion-layer">
-          <svg className="liquid-glass-svg" viewBox="0 0 800 100" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgba(239, 239, 238, 0.3)" />
-                <stop offset="25%" stopColor="rgba(168, 145, 130, 0.2)" />
-                <stop offset="50%" stopColor="rgba(154, 123, 96, 0.25)" />
-                <stop offset="75%" stopColor="rgba(104, 99, 70, 0.2)" />
-                <stop offset="100%" stopColor="rgba(239, 239, 238, 0.35)" />
-              </linearGradient>
-              <filter id="liquid-distortion">
-                <feTurbulence baseFrequency="0.02" numOctaves="3" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
-                <feGaussianBlur stdDeviation="1" />
-              </filter>
-              <filter id="glass-refraction">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
-                <feOffset in="blur" dx="1" dy="1" result="offset"/>
-                <feFlood floodColor="rgba(255,255,255,0.3)" result="flood"/>
-                <feComposite in="flood" in2="offset" operator="in" result="highlight"/>
-                <feMerge>
-                  <feMergeNode in="SourceGraphic"/>
-                  <feMergeNode in="highlight"/>
-                </feMerge>
-              </filter>
-            </defs>
-            <path className="liquid-glass-blob" d="M0,50 Q200,20 400,50 T800,50 L800,100 L0,100 Z" filter="url(#liquid-distortion)" />
-          </svg>
-        </div>
-        <div className="liquid-glass-content">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center space-x-3 liquid-glass-brand">
-                <div className="liquid-glass-logo-morph">
-                  <img src={logoPath} alt="Shticky" className="h-10 w-10 rounded-lg object-cover" />
-                </div>
-                <h1 className="text-xl font-semibold tracking-tight liquid-glass-text-morph" style={{color: '#1D2915'}}>Shticky</h1>
-              </div>
-              <div className="flex space-x-2 liquid-glass-buttons">
-                <button 
-                  onClick={() => window.location.href = '/login'}
-                  className="liquid-glass-btn-morph liquid-glass-btn-outline text-sm px-4 py-2"
-                >
-                  Sign In
-                </button>
-                <button 
-                  onClick={() => window.location.href = '/application'}
-                  className="liquid-glass-btn-morph liquid-glass-btn-primary text-sm px-4 py-2"
-                >
-                  Apply
-                </button>
-              </div>
+        
+        <div className="liquid-glass-content flex items-center justify-between px-8 py-3">
+          <div className="liquid-glass-brand flex items-center space-x-4">
+            <div className="liquid-glass-logo-morph">
+              <img src={logoPath} alt="Shticky" className="w-11 h-11 rounded-xl object-cover" />
             </div>
+            <span className="liquid-glass-text-morph text-xl font-bold text-gray-800">
+              Shticky
+            </span>
+          </div>
+          
+          <div className="liquid-glass-buttons flex items-center space-x-4">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-6 py-2"
+              onClick={() => window.location.href = '/login'}
+            >
+              Sign In
+            </Button>
+            <Button 
+              size="sm" 
+              className="liquid-glass-btn-morph liquid-glass-btn-solid bg-[#9A7B60] hover:bg-[#A89182] text-white px-6 py-2"
+              onClick={() => window.location.href = '/application'}
+            >
+              Apply
+            </Button>
           </div>
         </div>
       </header>
