@@ -63,7 +63,7 @@
   height: auto;
   overflow: visible;
   pointer-events: none;
-  padding: 12px 20px;
+  padding: 16px 24px;
 }
 
 .liquid-glass-distortion-layer {
@@ -123,7 +123,7 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
-  max-width: 420px;
+  max-width: 500px;
   margin: 0 auto;
   background: radial-gradient(ellipse at top, 
     rgba(255, 255, 255, 0.4) 0%,
@@ -131,8 +131,8 @@
     rgba(255, 255, 255, 0.1) 60%,
     rgba(255, 255, 255, 0.25) 100%
   );
-  backdrop-filter: blur(15px) saturate(200%) brightness(125%) contrast(112%);
-  -webkit-backdrop-filter: blur(15px) saturate(200%) brightness(125%) contrast(112%);
+  backdrop-filter: blur(8px) saturate(180%) brightness(120%) contrast(108%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%) brightness(120%) contrast(108%);
   border-radius: 40px;
   border: 2px solid rgba(255, 255, 255, 0.5);
   box-shadow: 
@@ -185,8 +185,8 @@
     rgba(255, 255, 255, 0.1) 70%,
     rgba(255, 255, 255, 0.35) 100%
   );
-  backdrop-filter: blur(12px) saturate(180%) brightness(130%) contrast(108%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%) brightness(130%) contrast(108%);
+  backdrop-filter: blur(6px) saturate(160%) brightness(125%) contrast(105%);
+  -webkit-backdrop-filter: blur(6px) saturate(160%) brightness(125%) contrast(105%);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
     /* Inner highlight curve */
@@ -226,8 +226,8 @@
   font-weight: 600;
   font-size: 13px;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(12px) saturate(160%) brightness(115%) contrast(105%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%) brightness(115%) contrast(105%);
+  backdrop-filter: blur(6px) saturate(150%) brightness(112%) contrast(103%);
+  -webkit-backdrop-filter: blur(6px) saturate(150%) brightness(112%) contrast(103%);
   cursor: pointer;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.4);
