@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import logoPath from "@assets/IMG_20250701_021649_086_1754152193224.webp";
+import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 
 // Animation hook for scroll-triggered fade-ins
 function useScrollAnimation() {
