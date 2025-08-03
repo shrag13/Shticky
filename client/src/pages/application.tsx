@@ -11,14 +11,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertApplicationSchema, type InsertApplication } from "@shared/schema";
-import { CheckCircle, ArrowLeft } from "lucide-react";
+import { CheckCircle, ArrowLeft, LogIn, UserPlus } from "lucide-react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
 
 export default function Application() {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
 
-  const form = useForm<InsertApplication>({
+  const applicationForm = useForm<InsertApplication>({
     resolver: zodResolver(insertApplicationSchema),
     defaultValues: {
       email: "",
@@ -30,6 +39,14 @@ export default function Application() {
       zipCode: "",
       placementDescription: "",
       termsAccepted: false,
+    },
+  });
+
+  const loginForm = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
     },
   });
 
@@ -54,8 +71,33 @@ export default function Application() {
     },
   });
 
-  const onSubmit = (data: InsertApplication) => {
+  const loginMutation = useMutation({
+    mutationFn: async (data: LoginForm) => {
+      return await apiRequest("POST", "/api/auth/login", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+        variant: "default",
+      });
+      window.location.href = '/';
+    },
+    onError: (error) => {
+      toast({
+        title: "Login Failed",
+        description: error.message || "Invalid email or password",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmitApplication = (data: InsertApplication) => {
     submitApplicationMutation.mutate(data);
+  };
+
+  const onSubmitLogin = (data: LoginForm) => {
+    loginMutation.mutate(data);
   };
 
   if (isSubmitted) {
@@ -124,10 +166,24 @@ export default function Application() {
             <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
               Shticky
             </span>
-            <span className="ml-2 text-sm" style={{color: '#686346'}}>Application</span>
+            <span className="ml-2 text-sm" style={{color: '#686346'}}>{isSignIn ? 'Sign In' : 'Application'}</span>
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm"
+              style={{
+                backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                background: 'rgba(255, 255, 255, 0.3)'
+              }}
+              onClick={() => setIsSignIn(!isSignIn)}
+            >
+              {isSignIn ? <UserPlus className="mr-1 h-3 w-3" /> : <LogIn className="mr-1 h-3 w-3" />}
+              {isSignIn ? 'Apply Instead' : 'Sign In Instead'}
+            </Button>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -149,14 +205,60 @@ export default function Application() {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
         <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm" style={{borderRadius: '15px'}}>
           <CardHeader>
-            <CardTitle className="text-2xl font-black" style={{color: '#1D2915'}}>Join Shticky</CardTitle>
+            <CardTitle className="text-2xl font-black" style={{color: '#1D2915'}}>
+              {isSignIn ? 'Welcome Back' : 'Join Shticky'}
+            </CardTitle>
             <p className="text-lg font-medium" style={{color: '#686346'}}>
-              Fill out this application to start earning money from QR code scans. 
-              We'll review your application and get back to you soon.
+              {isSignIn 
+                ? 'Sign in to access your dashboard and manage your Shticky account.'
+                : 'Fill out this application to start earning money from QR code scans. We will review your application and get back to you soon.'
+              }
             </p>
           </CardHeader>
           <CardContent>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {isSignIn ? (
+              <form onSubmit={loginForm.handleSubmit(onSubmitLogin)} className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="login-email" className="text-base font-bold" style={{color: '#1D2915'}}>Email Address *</Label>
+                    <Input
+                      id="login-email"
+                      type="email"
+                      {...loginForm.register("email")}
+                      placeholder="Enter your email address"
+                      className="liquid-glass-input text-gray-900 font-medium"
+                    />
+                    {loginForm.formState.errors.email && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{loginForm.formState.errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="login-password" className="text-base font-bold" style={{color: '#1D2915'}}>Password *</Label>
+                    <Input
+                      id="login-password"
+                      type="password"
+                      {...loginForm.register("password")}
+                      placeholder="Enter your password"
+                      className="liquid-glass-input text-gray-900 font-medium"
+                    />
+                    {loginForm.formState.errors.password && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{loginForm.formState.errors.password.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  disabled={loginMutation.isPending}
+                  className="w-full font-black text-lg px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+                  style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
+                >
+                  {loginMutation.isPending ? 'SIGNING IN...' : 'SIGN IN'}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={applicationForm.handleSubmit(onSubmitApplication)} className="space-y-6">
               {/* Account Information */}
               <div className="space-y-4 p-6 border-2" style={{backgroundColor: '#F5F3F1', borderColor: '#9A7B60', borderRadius: '15px'}}>
                 <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Account Information</h3>
@@ -167,12 +269,12 @@ export default function Application() {
                   <Input
                     id="email"
                     type="email"
-                    {...form.register("email")}
+                    {...applicationForm.register("email")}
                     placeholder="Enter your email address"
                     className="liquid-glass-input text-gray-900 font-medium"
                   />
-                  {form.formState.errors.email && (
-                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.email.message}</p>
+                  {applicationForm.formState.errors.email && (
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.email.message}</p>
                   )}
                 </div>
 
@@ -182,12 +284,12 @@ export default function Application() {
                   <Input
                     id="password"
                     type="password"
-                    {...form.register("passwordHash")}
+                    {...applicationForm.register("passwordHash")}
                     placeholder="Create a password"
                     className="liquid-glass-input text-gray-900 font-medium"
                   />
-                  {form.formState.errors.passwordHash && (
-                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.passwordHash.message}</p>
+                  {applicationForm.formState.errors.passwordHash && (
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.passwordHash.message}</p>
                   )}
                 </div>
               </div>
@@ -201,12 +303,12 @@ export default function Application() {
                   <Label htmlFor="fullName" className="text-base font-bold" style={{color: '#1D2915'}}>Full Name *</Label>
                   <Input
                     id="fullName"
-                    {...form.register("fullName")}
+                    {...applicationForm.register("fullName")}
                     placeholder="Enter your full name"
                     className="liquid-glass-input text-gray-900 font-medium"
                   />
-                  {form.formState.errors.fullName && (
-                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.fullName.message}</p>
+                  {applicationForm.formState.errors.fullName && (
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.fullName.message}</p>
                   )}
                 </div>
 
@@ -215,12 +317,12 @@ export default function Application() {
                   <Label htmlFor="address" className="text-base font-bold" style={{color: '#1D2915'}}>Street Address *</Label>
                   <Input
                     id="address"
-                    {...form.register("address")}
+                    {...applicationForm.register("address")}
                     placeholder="Enter your street address"
                     className="liquid-glass-input text-gray-900 font-medium"
                   />
-                  {form.formState.errors.address && (
-                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.address.message}</p>
+                  {applicationForm.formState.errors.address && (
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.address.message}</p>
                   )}
                 </div>
 
@@ -230,36 +332,36 @@ export default function Application() {
                     <Label htmlFor="city" className="text-base font-bold" style={{color: '#1D2915'}}>City *</Label>
                     <Input
                       id="city"
-                      {...form.register("city")}
+                      {...applicationForm.register("city")}
                       placeholder="City"
                       className="liquid-glass-input text-gray-900 font-medium"
                     />
-                    {form.formState.errors.city && (
-                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.city.message}</p>
+                    {applicationForm.formState.errors.city && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.city.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="state" className="text-base font-bold" style={{color: '#1D2915'}}>State *</Label>
                     <Input
                       id="state"
-                      {...form.register("state")}
+                      {...applicationForm.register("state")}
                       placeholder="State"
                       className="liquid-glass-input text-gray-900 font-medium"
                     />
-                    {form.formState.errors.state && (
-                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.state.message}</p>
+                    {applicationForm.formState.errors.state && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.state.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="zipCode" className="text-base font-bold" style={{color: '#1D2915'}}>Zip Code *</Label>
                     <Input
                       id="zipCode"
-                      {...form.register("zipCode")}
+                      {...applicationForm.register("zipCode")}
                       placeholder="Zip Code"
                       className="liquid-glass-input text-gray-900 font-medium"
                     />
-                    {form.formState.errors.zipCode && (
-                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.zipCode.message}</p>
+                    {applicationForm.formState.errors.zipCode && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.zipCode.message}</p>
                     )}
                   </div>
                 </div>
@@ -274,7 +376,7 @@ export default function Application() {
                   </Label>
                   <Textarea
                     id="placementDescription"
-                    {...form.register("placementDescription")}
+                    {...applicationForm.register("placementDescription")}
                     placeholder="Describe where you plan to place your QR code stickers (e.g., coffee shops, community boards, public spaces, etc.)"
                     rows={4}
                     className="liquid-glass-textarea text-gray-900 font-medium"
@@ -282,8 +384,8 @@ export default function Application() {
                   <p className="text-sm font-medium" style={{color: '#686346'}}>
                     Please provide specific details about your placement strategy. This helps us approve applications faster.
                   </p>
-                  {form.formState.errors.placementDescription && (
-                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.placementDescription.message}</p>
+                  {applicationForm.formState.errors.placementDescription && (
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.placementDescription.message}</p>
                   )}
                 </div>
               </div>
@@ -320,8 +422,8 @@ export default function Application() {
                     </p>
                   </div>
                 </div>
-                {form.formState.errors.termsAccepted && (
-                  <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.termsAccepted.message}</p>
+                {applicationForm.formState.errors.termsAccepted && (
+                  <p className="text-sm font-medium" style={{color: '#D2691E'}}>{applicationForm.formState.errors.termsAccepted.message}</p>
                 )}
               </div>
 
@@ -335,6 +437,7 @@ export default function Application() {
                 {submitApplicationMutation.isPending ? "SUBMITTING..." : "SUBMIT APPLICATION"}
               </Button>
             </form>
+            )}
           </CardContent>
         </Card>
 
