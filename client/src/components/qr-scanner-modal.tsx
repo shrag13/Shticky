@@ -210,38 +210,19 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex gap-2">
+              <div className="flex justify-center">
                 <Button 
                   onClick={startScanning}
-                  className="flex-1 font-black text-white shadow-lg"
+                  className="font-black text-white shadow-lg px-8"
                   style={{background: 'linear-gradient(135deg, #9A7B60, #A89182)', borderRadius: '15px'}}
                 >
                   <Camera className="mr-2 h-4 w-4" />
-                  Scan with Camera
+                  Start Camera Scan
                 </Button>
-                <Button 
-                  onClick={() => setShowCamera(false)}
-                  variant="outline"
-                  className="font-bold border-2"
-                  style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
-                >
-                  <Keyboard className="mr-2 h-4 w-4" />
-                  Enter Code
-                </Button>
+
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="claimCode" className="text-base font-bold" style={{color: '#1D2915'}}>
-                  Claim Code (if entering manually)
-                </Label>
-                <Input
-                  id="claimCode"
-                  placeholder="Enter your claim code from the sticker"
-                  value={claimCode}
-                  onChange={(e) => setClaimCode(e.target.value)}
-                  className="liquid-glass-input text-gray-900 font-medium"
-                />
-              </div>
+
             </div>
           )}
           
@@ -261,36 +242,28 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
             </p>
           </div>
           
-          <div className="flex gap-2 pt-4">
-            <Button 
-              onClick={handleClaim}
-              disabled={claimQRMutation.isPending || !claimCode.trim() || !placementDescription.trim()}
-              className="flex-1 font-black text-white text-lg py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
-              style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
-            >
-              {claimQRMutation.isPending ? "CLAIMING..." : "CLAIM SHTICKY"}
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={onClose}
-              className="border-2 font-bold py-3"
-              style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
-            >
-              Cancel
-            </Button>
-          </div>
+          {claimCode && (
+            <div className="flex gap-2 pt-4">
+              <Button 
+                onClick={handleClaim}
+                disabled={claimQRMutation.isPending || !claimCode.trim() || !placementDescription.trim()}
+                className="flex-1 font-black text-white text-lg py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
+                style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
+              >
+                {claimQRMutation.isPending ? "CLAIMING..." : "CLAIM SHTICKY"}
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={onClose}
+                className="border-2 font-bold py-3"
+                style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
+              >
+                Cancel
+              </Button>
+            </div>
+          )}
           
-          <div className="text-center pt-2 border-t border-gray-200">
-            <Button 
-              variant="link" 
-              className="font-medium hover:no-underline"
-              style={{color: '#9A7B60'}}
-              onClick={() => window.open('/api/qr-codes/download', '_blank')}
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Download Blank QR Codes
-            </Button>
-          </div>
+
         </div>
       </DialogContent>
     </Dialog>

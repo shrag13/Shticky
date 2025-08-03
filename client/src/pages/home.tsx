@@ -8,9 +8,10 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { QrCode, DollarSign, Star, Camera, Wallet, LogOut } from "lucide-react";
+import { QrCode, DollarSign, Star, Camera, Wallet, LogOut, Keyboard } from "lucide-react";
 import QrScannerModal from "@/components/qr-scanner-modal";
 import WithdrawalModal from "@/components/withdrawal-modal";
+import ManualEntryModal from "@/components/manual-entry-modal";
 import NotificationBar from "@/components/notification-bar";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 
@@ -21,6 +22,7 @@ export default function Home() {
   const { toast } = useToast();
   const [showQrScanner, setShowQrScanner] = useState(false);
   const [showWithdrawal, setShowWithdrawal] = useState(false);
+  const [showManualEntry, setShowManualEntry] = useState(false);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -260,18 +262,34 @@ export default function Home() {
             <CardContent className="p-6">
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Add New Shticky</h3>
               <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
-              <Button 
-                className="w-full font-bold hover:scale-105 transition-all" 
-                style={{
-                  backgroundColor: '#1D2915',
-                  color: 'white',
-                  borderRadius: '15px'
-                }}
-                onClick={() => setShowQrScanner(true)}
-              >
-                <Camera className="mr-2 h-4 w-4" />
-                📸 Scan New Shticky
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="w-full font-bold hover:scale-105 transition-all" 
+                  style={{
+                    backgroundColor: '#1D2915',
+                    color: 'white',
+                    borderRadius: '15px'
+                  }}
+                  onClick={() => setShowQrScanner(true)}
+                >
+                  <Camera className="mr-2 h-4 w-4" />
+                  📸 Scan New Shticky
+                </Button>
+                
+                <Button 
+                  className="w-full font-bold hover:scale-105 transition-all border-2" 
+                  variant="outline"
+                  style={{
+                    borderColor: '#686346',
+                    color: '#686346',
+                    borderRadius: '15px'
+                  }}
+                  onClick={() => setShowManualEntry(true)}
+                >
+                  <Keyboard className="mr-2 h-4 w-4" />
+                  ⌨️ Enter New Shticky
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -393,6 +411,10 @@ export default function Home() {
       <WithdrawalModal 
         isOpen={showWithdrawal} 
         onClose={() => setShowWithdrawal(false)} 
+      />
+      <ManualEntryModal 
+        isOpen={showManualEntry} 
+        onClose={() => setShowManualEntry(false)} 
       />
 
       {/* Footer */}
