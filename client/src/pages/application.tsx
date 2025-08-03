@@ -58,7 +58,7 @@ export default function Application() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
         {/* Liquid Glass Header */}
         <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
           <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
@@ -66,7 +66,7 @@ export default function Application() {
               <div className="liquid-glass-logo-morph">
                 <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
               </div>
-              <span className="liquid-glass-text-morph text-lg font-semibold text-gray-800">
+              <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
                 Shticky
               </span>
             </div>
@@ -90,18 +90,19 @@ export default function Application() {
           </div>
         </header>
 
-        <Card className="w-full max-w-md mx-4 mt-20 shadow-lg border-0 bg-card/80 backdrop-blur-sm">
+        <Card className="w-full max-w-md mx-4 mt-20 shadow-lg border-0 bg-white/90 backdrop-blur-sm">
           <CardContent className="pt-6 text-center">
-            <CheckCircle className="h-16 w-16 text-secondary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-foreground mb-2">Application Submitted!</h2>
-            <p className="text-muted-foreground mb-6">
+            <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{color: '#9A7B60'}} />
+            <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>Application Submitted!</h2>
+            <p className="text-base font-medium mb-6" style={{color: '#686346'}}>
               Thank you for your application. You'll receive an email once it's reviewed and approved.
             </p>
             <Button 
               onClick={() => window.location.href = '/'} 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="w-full font-black text-lg px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+              style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
             >
-              Return to Home
+              RETURN TO HOME
             </Button>
           </CardContent>
         </Card>
@@ -110,7 +111,7 @@ export default function Application() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
       {/* Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
@@ -118,10 +119,10 @@ export default function Application() {
             <div className="liquid-glass-logo-morph">
               <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
             </div>
-            <span className="liquid-glass-text-morph text-lg font-semibold text-gray-800">
+            <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
               Shticky
             </span>
-            <span className="ml-2 text-sm text-gray-600">Application</span>
+            <span className="ml-2 text-sm" style={{color: '#686346'}}>Application</span>
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
@@ -144,10 +145,10 @@ export default function Application() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
-        <Card className="shadow-lg border-0 bg-card/80 backdrop-blur-sm">
+        <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-2xl text-foreground">Join Shticky</CardTitle>
-            <p className="text-muted-foreground">
+            <CardTitle className="text-2xl font-black" style={{color: '#1D2915'}}>Join Shticky</CardTitle>
+            <p className="text-lg font-medium" style={{color: '#686346'}}>
               Fill out this application to start earning money from QR code scans. 
               We'll review your application and get back to you soon.
             </p>
@@ -155,118 +156,125 @@ export default function Application() {
           <CardContent>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Account Information */}
-              <div className="space-y-4 p-4 bg-primary/5 rounded-lg border border-primary/10">
-                <h3 className="text-lg font-semibold text-foreground">Account Information</h3>
+              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', borderColor: '#9A7B60'}}>
+                <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Account Information</h3>
                 
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground">Email Address *</Label>
+                  <Label htmlFor="email" className="text-base font-bold" style={{color: '#1D2915'}}>Email Address *</Label>
                   <Input
                     id="email"
                     type="email"
                     {...form.register("email")}
                     placeholder="Enter your email address"
-                    className="bg-background/50 border-border text-foreground"
+                    className="bg-white/80 border-2 text-gray-900 font-medium"
+                    style={{borderColor: '#A89182'}}
                   />
                   {form.formState.errors.email && (
-                    <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.email.message}</p>
                   )}
                 </div>
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-foreground">Password *</Label>
+                  <Label htmlFor="password" className="text-base font-bold" style={{color: '#1D2915'}}>Password *</Label>
                   <Input
                     id="password"
                     type="password"
                     {...form.register("passwordHash")}
                     placeholder="Create a password"
-                    className="bg-background/50 border-border text-foreground"
+                    className="bg-white/80 border-2 text-gray-900 font-medium"
+                    style={{borderColor: '#A89182'}}
                   />
                   {form.formState.errors.passwordHash && (
-                    <p className="text-sm text-destructive">{form.formState.errors.passwordHash.message}</p>
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.passwordHash.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Personal Information */}
-              <div className="space-y-4 p-4 bg-secondary/5 rounded-lg border border-secondary/10">
-                <h3 className="text-lg font-semibold text-foreground">Personal Information</h3>
+              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderColor: '#A89182'}}>
+                <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Personal Information</h3>
                 
                 {/* Full Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="text-foreground">Full Name *</Label>
+                  <Label htmlFor="fullName" className="text-base font-bold" style={{color: '#1D2915'}}>Full Name *</Label>
                   <Input
                     id="fullName"
                     {...form.register("fullName")}
                     placeholder="Enter your full name"
-                    className="bg-background/50 border-border text-foreground"
+                    className="bg-white/80 border-2 text-gray-900 font-medium"
+                    style={{borderColor: '#A89182'}}
                   />
                   {form.formState.errors.fullName && (
-                    <p className="text-sm text-destructive">{form.formState.errors.fullName.message}</p>
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.fullName.message}</p>
                   )}
                 </div>
 
                 {/* Address */}
                 <div className="space-y-2">
-                  <Label htmlFor="address" className="text-foreground">Street Address *</Label>
+                  <Label htmlFor="address" className="text-base font-bold" style={{color: '#1D2915'}}>Street Address *</Label>
                   <Input
                     id="address"
                     {...form.register("address")}
                     placeholder="Enter your street address"
-                    className="bg-background/50 border-border text-foreground"
+                    className="bg-white/80 border-2 text-gray-900 font-medium"
+                    style={{borderColor: '#A89182'}}
                   />
                   {form.formState.errors.address && (
-                    <p className="text-sm text-destructive">{form.formState.errors.address.message}</p>
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.address.message}</p>
                   )}
                 </div>
 
                 {/* City, State, Zip */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="city" className="text-foreground">City *</Label>
+                    <Label htmlFor="city" className="text-base font-bold" style={{color: '#1D2915'}}>City *</Label>
                     <Input
                       id="city"
                       {...form.register("city")}
                       placeholder="City"
-                      className="bg-background/50 border-border text-foreground"
+                      className="bg-white/80 border-2 text-gray-900 font-medium"
+                      style={{borderColor: '#A89182'}}
                     />
                     {form.formState.errors.city && (
-                      <p className="text-sm text-destructive">{form.formState.errors.city.message}</p>
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.city.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="state" className="text-foreground">State *</Label>
+                    <Label htmlFor="state" className="text-base font-bold" style={{color: '#1D2915'}}>State *</Label>
                     <Input
                       id="state"
                       {...form.register("state")}
                       placeholder="State"
-                      className="bg-background/50 border-border text-foreground"
+                      className="bg-white/80 border-2 text-gray-900 font-medium"
+                      style={{borderColor: '#A89182'}}
                     />
                     {form.formState.errors.state && (
-                      <p className="text-sm text-destructive">{form.formState.errors.state.message}</p>
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.state.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="zipCode" className="text-foreground">Zip Code *</Label>
+                    <Label htmlFor="zipCode" className="text-base font-bold" style={{color: '#1D2915'}}>Zip Code *</Label>
                     <Input
                       id="zipCode"
                       {...form.register("zipCode")}
                       placeholder="Zip Code"
-                      className="bg-background/50 border-border text-foreground"
+                      className="bg-white/80 border-2 text-gray-900 font-medium"
+                      style={{borderColor: '#A89182'}}
                     />
                     {form.formState.errors.zipCode && (
-                      <p className="text-sm text-destructive">{form.formState.errors.zipCode.message}</p>
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.zipCode.message}</p>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* Placement Description */}
-              <div className="space-y-4 p-4 bg-accent/5 rounded-lg border border-accent/10">
-                <h3 className="text-lg font-semibold text-foreground">Placement Strategy</h3>
+              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(104, 99, 70, 0.1)', borderColor: '#686346'}}>
+                <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Placement Strategy</h3>
                 <div className="space-y-2">
-                  <Label htmlFor="placementDescription" className="text-foreground">
+                  <Label htmlFor="placementDescription" className="text-base font-bold" style={{color: '#1D2915'}}>
                     Where do you plan to place your Shticky stickers? *
                   </Label>
                   <Textarea
@@ -274,13 +282,14 @@ export default function Application() {
                     {...form.register("placementDescription")}
                     placeholder="Describe where you plan to place your QR code stickers (e.g., coffee shops, community boards, public spaces, etc.)"
                     rows={4}
-                    className="bg-background/50 border-border text-foreground"
+                    className="bg-white/80 border-2 text-gray-900 font-medium"
+                    style={{borderColor: '#686346'}}
                   />
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm font-medium" style={{color: '#686346'}}>
                     Please provide specific details about your placement strategy. This helps us approve applications faster.
                   </p>
                   {form.formState.errors.placementDescription && (
-                    <p className="text-sm text-destructive">{form.formState.errors.placementDescription.message}</p>
+                    <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.placementDescription.message}</p>
                   )}
                 </div>
               </div>
@@ -288,34 +297,35 @@ export default function Application() {
               {/* Submit Button */}
               <Button 
                 type="submit" 
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" 
+                className="w-full font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+                style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
                 disabled={submitApplicationMutation.isPending}
               >
-                {submitApplicationMutation.isPending ? "Submitting..." : "Submit Application"}
+                {submitApplicationMutation.isPending ? "SUBMITTING..." : "SUBMIT APPLICATION"}
               </Button>
             </form>
           </CardContent>
         </Card>
 
         {/* Info Section */}
-        <Card className="mt-8 shadow-lg border-0 bg-card/80 backdrop-blur-sm">
+        <Card className="mt-8 shadow-lg border-0 bg-white/90 backdrop-blur-sm">
           <CardContent className="pt-6">
-            <h3 className="font-semibold text-foreground mb-3">What happens next?</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-black text-xl mb-3" style={{color: '#1D2915'}}>What happens next?</h3>
+            <ul className="space-y-2 text-base font-medium" style={{color: '#686346'}}>
               <li className="flex items-start">
-                <span className="mr-2 text-primary">•</span>
+                <span className="mr-2 font-black" style={{color: '#9A7B60'}}>•</span>
                 <span>We'll review your application within 2-3 business days</span>
               </li>
               <li className="flex items-start">
-                <span className="mr-2 text-primary">•</span>
+                <span className="mr-2 font-black" style={{color: '#A89182'}}>•</span>
                 <span>You'll receive an email notification once approved</span>
               </li>
               <li className="flex items-start">
-                <span className="mr-2 text-primary">•</span>
+                <span className="mr-2 font-black" style={{color: '#686346'}}>•</span>
                 <span>Approved users can start claiming QR codes and earning money immediately</span>
               </li>
               <li className="flex items-start">
-                <span className="mr-2 text-primary">•</span>
+                <span className="mr-2 font-black" style={{color: '#9A7B60'}}>•</span>
                 <span>Monthly automatic payouts for earnings of $5 or more</span>
               </li>
             </ul>
