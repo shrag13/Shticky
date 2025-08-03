@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { University, Smartphone, CreditCard, InfoIcon } from "lucide-react";
+import { Building2, Smartphone, CreditCard, InfoIcon } from "lucide-react";
 
 interface WithdrawalModalProps {
   isOpen: boolean;
@@ -187,7 +187,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
                         <Label htmlFor="bank" className="font-medium">Bank Transfer</Label>
                         <p className="text-sm text-gray-500">Direct deposit to your bank account</p>
                       </div>
-                      <University className="h-5 w-5 text-gray-400" />
+                      <Building2 className="h-5 w-5 text-gray-400" />
                     </div>
                   </div>
                   

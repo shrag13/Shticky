@@ -7,7 +7,8 @@ import { QrCode, Download, Camera, X, Keyboard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import QrScanner from "qr-scanner";
+// QR Scanner temporarily disabled - missing qr-scanner dependency
+// import QrScanner from "qr-scanner";
 
 interface QrScannerModalProps {
   open: boolean;
@@ -17,10 +18,10 @@ interface QrScannerModalProps {
 export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
   const [claimCode, setClaimCode] = useState("");
   const [placementDescription, setPlacementDescription] = useState("");
-  const [showCamera, setShowCamera] = useState(true);
+  const [showCamera, setShowCamera] = useState(false); // Disabled until qr-scanner is available
   const [isScanning, setIsScanning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const qrScannerRef = useRef<QrScanner | null>(null);
+  const qrScannerRef = useRef<any>(null); // Temporarily disabled
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -37,67 +38,23 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
     return null;
   };
 
-  // Initialize QR Scanner
+  // Initialize QR Scanner - temporarily disabled
   useEffect(() => {
     if (showCamera && videoRef.current && !qrScannerRef.current) {
-      qrScannerRef.current = new QrScanner(
-        videoRef.current,
-        (result) => {
-          const extractedCode = extractShticky(result.data);
-          
-          if (extractedCode) {
-            setClaimCode(extractedCode);
-            setShowCamera(false);
-            setIsScanning(false);
-            toast({
-              title: "Shticky QR Code Found!",
-              description: `Successfully scanned: ${extractedCode}`,
-            });
-          } else {
-            toast({
-              title: "Invalid QR Code",
-              description: "This QR code doesn't contain a valid Shticky code (SH-T1-XXX format)",
-              variant: "destructive",
-            });
-          }
-        },
-        {
-          onDecodeError: (error) => {
-            console.log("QR decode error:", error);
-          },
-          highlightScanRegion: true,
-          highlightCodeOutline: true,
-        }
-      );
+      // Temporarily disabled until qr-scanner dependency is installed
+      console.log("QR Scanner not available - missing qr-scanner dependency");
     }
 
     return () => {
-      if (qrScannerRef.current) {
-        qrScannerRef.current.stop();
-        qrScannerRef.current.destroy();
-        qrScannerRef.current = null;
-      }
+      // QR Scanner cleanup temporarily disabled
+      console.log("QR Scanner cleanup skipped - dependency not available");
     };
   }, [showCamera, toast]);
 
-  // Start/stop scanner when showCamera changes
+  // Start/stop scanner when showCamera changes - temporarily disabled
   useEffect(() => {
-    if (showCamera && qrScannerRef.current) {
-      setIsScanning(true);
-      qrScannerRef.current.start().catch((error) => {
-        console.error("Failed to start QR scanner:", error);
-        toast({
-          title: "Camera Error",
-          description: "Failed to access camera. Please check permissions.",
-          variant: "destructive",
-        });
-        setShowCamera(false);
-        setIsScanning(false);
-      });
-    } else if (!showCamera && qrScannerRef.current) {
-      qrScannerRef.current.stop();
-      setIsScanning(false);
-    }
+    // Temporarily disabled until qr-scanner dependency is installed
+    console.log("QR Scanner start/stop skipped - dependency not available");
   }, [showCamera, toast]);
 
   // Clean up on modal close and auto-start camera
