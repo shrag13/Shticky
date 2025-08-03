@@ -325,7 +325,7 @@
 
 /* Square navbar buttons override */
 .liquid-glass-btn-morph.rounded-none {
-  border-radius: 5px !important;
+  border-radius: 10px !important;
 }
 
 .liquid-glass-btn-morph:hover {
