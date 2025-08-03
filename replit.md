@@ -24,6 +24,7 @@ Recent Changes (August 3, 2025):
 - ✓ Updated UI to show "Current earnings:" instead of "Auto-payout minimum:" and removed automatic payout text
 - ✓ Enhanced QR code validation to only accept SH-T1-XXX format with website prefix extraction
 - ✓ Updated earnings display to show "$0.00" format for all earnings amounts including zero
+- ✓ Fixed Vercel deployment issue by adding proper vercel.json configuration and organizing build output correctly
 - ✓ Test users: shrhersh@gmail.com/bluebird (approved), pending@test.com/bluebird (pending)
 
 # System Architecture
