@@ -23,7 +23,7 @@ Recent Changes (August 3, 2025):
 - ✓ Implemented camera-based QR code scanning functionality with real-time detection
 - ✓ Updated UI to show "Current earnings:" instead of "Auto-payout minimum:" and removed automatic payout text
 - ✓ Enhanced QR code validation to only accept SH-T1-XXX format with website prefix extraction
-- ✓ Updated earnings display to show "$0" when earnings are zero (instead of "$0.00")
+- ✓ Updated earnings display to show "$0.00" format for all earnings amounts including zero
 - ✓ Test users: shrhersh@gmail.com/bluebird (approved), pending@test.com/bluebird (pending)
 
 # System Architecture
