@@ -102,11 +102,7 @@
 }
 
 .liquid-glass-buttons {
-  transition: transform 0.3s ease;
-}
-
-.liquid-glass-buttons:hover {
-  transform: translateY(-1px);
+  /* Removed container hover effect to allow individual button hover */
 }
 
 /* Water Droplet Refractive Logo */
