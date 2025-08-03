@@ -68,9 +68,18 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
 
   const savePaymentMethodMutation = useMutation({
     mutationFn: async (data: PaymentMethodForm) => {
-      await apiRequest("POST", "/api/payment-methods", data);
+      console.log("Making API request with data:", data);
+      try {
+        const result = await apiRequest("POST", "/api/payment-methods", data);
+        console.log("API request successful:", result);
+        return result;
+      } catch (error) {
+        console.error("API request failed:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
+      console.log("Payment method saved successfully");
       queryClient.invalidateQueries({ queryKey: ["/api/payment-methods/me"] });
       toast({
         title: "Payment Method Saved",
@@ -80,6 +89,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
       onClose();
     },
     onError: (error) => {
+      console.error("Mutation error:", error);
       if (isUnauthorizedError(error)) {
         toast({
           title: "Unauthorized",
@@ -87,7 +97,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/sign-in";
         }, 500);
         return;
       }
@@ -101,6 +111,8 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
   });
 
   const onSubmit = (data: PaymentMethodForm) => {
+    console.log("Form submitted with data:", data);
+    
     // Validate required fields based on payment method
     const errors: string[] = [];
 
@@ -115,6 +127,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
     }
 
     if (errors.length > 0) {
+      console.log("Validation errors:", errors);
       toast({
         title: "Validation Error",
         description: errors.join(", "),
@@ -123,6 +136,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
       return;
     }
 
+    console.log("Calling mutation with valid data:", data);
     savePaymentMethodMutation.mutate(data);
   };
 
