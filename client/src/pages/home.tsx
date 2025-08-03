@@ -280,7 +280,9 @@ export default function Home() {
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
-                <span className="font-black" style={{color: '#A89182'}}>${(userStats?.totalEarnings || 0).toFixed(2)}</span>
+                <span className="font-black" style={{color: '#A89182'}}>
+                  {(userStats?.totalEarnings || 0) === 0 ? '$0' : `$${(userStats.totalEarnings).toFixed(2)}`}
+                </span>
               </div>
               <div className="rounded-full h-2 mb-4" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
                 <div 
