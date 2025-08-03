@@ -153,7 +153,7 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-3 py-1.5 h-auto transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-10 h-10 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full flex items-center justify-center"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
@@ -177,7 +177,7 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-3 py-1.5 h-auto transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-10 h-10 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full flex items-center justify-center"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
