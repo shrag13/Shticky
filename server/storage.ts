@@ -159,12 +159,13 @@ export class DatabaseStorage implements IStorage {
     return paymentMethod;
   }
 
-  async claimQrCode(qrCodeId: string, userId: string): Promise<QrCode> {
+  async claimQrCode(qrCodeId: string, userId: string, placementDescription?: string): Promise<QrCode> {
     const [qrCode] = await db
       .insert(qrCodes)
       .values({
         id: qrCodeId,
         userId,
+        placementDescription: placementDescription || '',
         claimedAt: new Date(),
       })
       .returning();

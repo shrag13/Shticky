@@ -189,10 +189,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/qr-codes/claim', isAuthenticated, async (req, res) => {
     try {
       const userId = req.session.userId;
-      const { qrCodeId } = req.body;
+      const { claimCode, placementDescription } = req.body;
       
-      if (!qrCodeId || typeof qrCodeId !== 'string') {
-        return res.status(400).json({ message: "QR code ID is required" });
+      if (!claimCode || typeof claimCode !== 'string') {
+        return res.status(400).json({ message: "Claim code is required" });
+      }
+
+      if (!placementDescription || typeof placementDescription !== 'string') {
+        return res.status(400).json({ message: "Placement description is required" });
+      }
+
+      // Validate Shticky code format (SH-T1-XXX)
+      const shtickPattern = /^SH-T\d+-[A-Z0-9]+$/i;
+      if (!shtickPattern.test(claimCode)) {
+        return res.status(400).json({ message: "Invalid Shticky code format. Must be SH-T1-XXX format" });
       }
       
       // Check if user has approved application
@@ -202,9 +212,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Check if QR code already exists
-      const existingQrCode = await storage.getQrCodeById(qrCodeId);
+      const existingQrCode = await storage.getQrCodeById(claimCode);
       if (existingQrCode) {
-        return res.status(400).json({ message: "QR code already claimed" });
+        return res.status(400).json({ message: "This Shticky code has already been claimed" });
       }
       
       // Check tier limits
@@ -215,7 +225,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: `Maximum ${maxStickers} stickers allowed for your tier` });
       }
       
-      const qrCode = await storage.claimQrCode(qrCodeId, userId);
+      const qrCode = await storage.claimQrCode(claimCode, userId, placementDescription);
       res.json(qrCode);
     } catch (error) {
       console.error("Error claiming QR code:", error);

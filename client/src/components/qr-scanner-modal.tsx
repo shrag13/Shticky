@@ -24,19 +24,42 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Function to extract and validate Shticky QR code from scanned data
+  const extractShticky = (scannedData: string): string | null => {
+    // Remove any website prefix and extract SH code
+    const shtickPattern = /SH-T\d+-[A-Z0-9]+/i;
+    const match = scannedData.match(shtickPattern);
+    
+    if (match) {
+      return match[0].toUpperCase();
+    }
+    
+    return null;
+  };
+
   // Initialize QR Scanner
   useEffect(() => {
     if (showCamera && videoRef.current && !qrScannerRef.current) {
       qrScannerRef.current = new QrScanner(
         videoRef.current,
         (result) => {
-          setClaimCode(result.data);
-          setShowCamera(false);
-          setIsScanning(false);
-          toast({
-            title: "QR Code Scanned",
-            description: "QR code successfully scanned!",
-          });
+          const extractedCode = extractShticky(result.data);
+          
+          if (extractedCode) {
+            setClaimCode(extractedCode);
+            setShowCamera(false);
+            setIsScanning(false);
+            toast({
+              title: "Shticky QR Code Found!",
+              description: `Successfully scanned: ${extractedCode}`,
+            });
+          } else {
+            toast({
+              title: "Invalid QR Code",
+              description: "This QR code doesn't contain a valid Shticky code (SH-T1-XXX format)",
+              variant: "destructive",
+            });
+          }
         },
         {
           onDecodeError: (error) => {
@@ -130,7 +153,19 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
       });
       return;
     }
-    claimQRMutation.mutate({ claimCode, placementDescription });
+
+    // Validate and extract Shticky code for manual entry
+    const validatedCode = extractShticky(claimCode);
+    if (!validatedCode) {
+      toast({
+        title: "Invalid Shticky Code",
+        description: "Please enter a valid Shticky code (format: SH-T1-XXX)",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    claimQRMutation.mutate({ claimCode: validatedCode, placementDescription });
   };
 
   return (
