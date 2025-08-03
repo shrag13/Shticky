@@ -13,7 +13,7 @@ import QrScannerModal from "@/components/qr-scanner-modal";
 import WithdrawalModal from "@/components/withdrawal-modal";
 import ManualEntryModal from "@/components/manual-entry-modal";
 import NotificationBar from "@/components/notification-bar";
-import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import logoPath from "@assets/20250701_023412_0000_1754186769563.png";
 
 export default function Home() {
   usePageTitle("Dashboard");
@@ -141,11 +141,8 @@ export default function Home() {
         <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
           <div className="liquid-glass-brand flex items-center space-x-2.5">
             <div className="liquid-glass-logo-morph">
-              <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
+              <img src={logoPath} alt="Logo" className="w-8 h-8 rounded-[10px] object-cover" />
             </div>
-            <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
-              Shticky
-            </span>
             <span className="ml-2 text-sm" style={{color: '#686346'}}>Dashboard</span>
           </div>
           

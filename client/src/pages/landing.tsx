@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import logoPath from "@assets/20250701_023412_0000_1754186769563.png";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
 import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754177382824.png";
@@ -57,11 +57,8 @@ export default function Landing() {
         <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
           <div className="liquid-glass-brand flex items-center space-x-2.5">
             <div className="liquid-glass-logo-morph">
-              <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
+              <img src={logoPath} alt="Logo" className="w-8 h-8 rounded-[10px] object-cover" />
             </div>
-            <span className="liquid-glass-text-morph text-lg font-semibold text-gray-800">
-              Shticky
-            </span>
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
