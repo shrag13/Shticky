@@ -8,7 +8,7 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { QrCode, DollarSign, Star, Camera, Wallet, LogOut, Keyboard } from "lucide-react";
+import { QrCode, DollarSign, Star, Camera, Wallet, LogOut, Keyboard, User } from "lucide-react";
 import QrScannerModal from "@/components/qr-scanner-modal";
 import WithdrawalModal from "@/components/withdrawal-modal";
 import ManualEntryModal from "@/components/manual-entry-modal";
@@ -150,18 +150,30 @@ export default function Home() {
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
-            <div className="flex items-center space-x-2">
-              {user?.profileImageUrl && (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-3 py-1.5 h-auto"
+              style={{
+                backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                background: 'rgba(255, 255, 255, 0.3)'
+              }}
+              onClick={() => {
+                // Could add profile menu functionality here later
+                console.log("Profile clicked");
+              }}
+            >
+              {user?.profileImageUrl ? (
                 <img 
                   src={user.profileImageUrl} 
                   alt="Profile" 
-                  className="w-8 h-8 rounded-full object-cover"
+                  className="w-5 h-5 rounded-full object-cover"
                 />
+              ) : (
+                <User className="h-4 w-4" style={{color: '#1D2915'}} />
               )}
-              <span className="text-sm font-medium" style={{color: '#1D2915'}}>
-                {user?.firstName} {user?.lastName}
-              </span>
-            </div>
+            </Button>
             <Button 
               variant="ghost" 
               size="sm" 
