@@ -139,11 +139,10 @@ export default function Home() {
       {/* Liquid Glass Header */}
       <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
         <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
-          <div className="liquid-glass-brand flex items-center space-x-2.5">
+          <div className="liquid-glass-brand flex items-center">
             <div className="liquid-glass-logo-morph">
               <img src={logoPath} alt="Logo" className="w-8 h-8 rounded-[10px] object-cover" />
             </div>
-            <span className="ml-2 text-sm" style={{color: '#686346'}}>Dashboard</span>
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
