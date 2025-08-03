@@ -71,7 +71,7 @@ export default function Landing() {
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)'
               }}
-              onClick={() => window.location.href = '/application'}
+              onClick={() => window.location.href = '/api/login'}
             >
               Sign In
             </Button>
