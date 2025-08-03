@@ -52,6 +52,7 @@ export const applications = pgTable("applications", {
   state: varchar("state").notNull(),
   zipCode: varchar("zip_code").notNull(),
   placementDescription: text("placement_description").notNull(),
+  termsAccepted: boolean("terms_accepted").notNull().default(false),
   status: applicationStatusEnum("status").notNull().default('pending'),
   submittedAt: timestamp("submitted_at").defaultNow(),
   reviewedAt: timestamp("reviewed_at"),
@@ -129,6 +130,10 @@ export const insertApplicationSchema = createInsertSchema(applications).omit({
   reviewedBy: true,
   userId: true,
   status: true,
+}).extend({
+  termsAccepted: z.boolean().refine(val => val === true, {
+    message: "You must agree to the Terms and Conditions to continue",
+  }),
 });
 
 export const insertPaymentMethodSchema = createInsertSchema(paymentMethods).omit({

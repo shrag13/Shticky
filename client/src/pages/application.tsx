@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertApplicationSchema, type InsertApplication } from "@shared/schema";
@@ -28,6 +29,7 @@ export default function Application() {
       state: "",
       zipCode: "",
       placementDescription: "",
+      termsAccepted: false,
     },
   });
 
@@ -284,6 +286,36 @@ export default function Application() {
                     <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.placementDescription.message}</p>
                   )}
                 </div>
+              </div>
+
+              {/* Terms and Conditions */}
+              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(29, 41, 21, 0.05)', borderColor: '#1D2915'}}>
+                <div className="flex items-start space-x-3">
+                  <Checkbox
+                    id="termsAccepted"
+                    {...form.register("termsAccepted")}
+                    className="mt-1 data-[state=checked]:bg-[#9A7B60] data-[state=checked]:border-[#9A7B60]"
+                  />
+                  <div className="flex-1">
+                    <Label htmlFor="termsAccepted" className="text-base font-bold cursor-pointer" style={{color: '#1D2915'}}>
+                      I agree to the Terms and Conditions *
+                    </Label>
+                    <p className="text-sm font-medium mt-1" style={{color: '#686346'}}>
+                      By checking this box, you agree to our{" "}
+                      <a href="/terms" target="_blank" className="underline hover:no-underline" style={{color: '#9A7B60'}}>
+                        Terms of Service
+                      </a>{" "}
+                      and{" "}
+                      <a href="/privacy" target="_blank" className="underline hover:no-underline" style={{color: '#9A7B60'}}>
+                        Privacy Policy
+                      </a>
+                      .
+                    </p>
+                  </div>
+                </div>
+                {form.formState.errors.termsAccepted && (
+                  <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.termsAccepted.message}</p>
+                )}
               </div>
 
               {/* Submit Button */}
