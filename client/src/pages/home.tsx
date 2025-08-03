@@ -264,7 +264,7 @@ export default function Home() {
               <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
               <div className="space-y-3">
                 <Button 
-                  className="w-full font-bold hover:scale-105 transition-all" 
+                  className="w-full font-bold hover:scale-105 transition-all h-12" 
                   style={{
                     backgroundColor: '#1D2915',
                     color: 'white',
@@ -273,11 +273,11 @@ export default function Home() {
                   onClick={() => setShowQrScanner(true)}
                 >
                   <Camera className="mr-2 h-4 w-4" />
-                  📸 Scan New Shticky
+                  Scan New Shticky
                 </Button>
                 
                 <Button 
-                  className="w-full font-bold hover:scale-105 transition-all border-2" 
+                  className="w-full font-bold hover:scale-105 transition-all border-2 h-12" 
                   variant="outline"
                   style={{
                     borderColor: '#686346',
@@ -287,7 +287,7 @@ export default function Home() {
                   onClick={() => setShowManualEntry(true)}
                 >
                   <Keyboard className="mr-2 h-4 w-4" />
-                  ⌨️ Enter New Shticky
+                  Enter New Shticky
                 </Button>
               </div>
             </CardContent>
@@ -302,19 +302,26 @@ export default function Home() {
                   ${(userStats?.totalEarnings || 0).toFixed(2)}
                 </span>
               </div>
-              <div className="rounded-full h-2 mb-4" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
+              <div className="rounded-full h-8 mb-4 flex items-center" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
                 <div 
-                  className="h-2 rounded-full transition-all duration-300" 
+                  className="h-8 rounded-full transition-all duration-300 flex items-center justify-center" 
                   style={{ 
                     width: `${getWithdrawalProgress()}%`,
                     backgroundColor: '#A89182',
-                    borderRadius: '15px'
+                    borderRadius: '15px',
+                    minWidth: getWithdrawalProgress() > 0 ? '40px' : '0px'
                   }}
-                ></div>
+                >
+                  {getWithdrawalProgress() > 15 && (
+                    <span className="text-white text-xs font-bold">
+                      {getWithdrawalProgress()}%
+                    </span>
+                  )}
+                </div>
               </div>
 
               <Button 
-                className="w-full font-bold hover:scale-105 transition-all" 
+                className="w-full font-bold hover:scale-105 transition-all h-12" 
                 style={{
                   backgroundColor: '#A89182',
                   color: 'white',

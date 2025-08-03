@@ -17,7 +17,7 @@ interface QrScannerModalProps {
 export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
   const [claimCode, setClaimCode] = useState("");
   const [placementDescription, setPlacementDescription] = useState("");
-  const [showCamera, setShowCamera] = useState(false);
+  const [showCamera, setShowCamera] = useState(true);
   const [isScanning, setIsScanning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const qrScannerRef = useRef<QrScanner | null>(null);
@@ -100,14 +100,19 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
     }
   }, [showCamera, toast]);
 
-  // Clean up on modal close
+  // Clean up on modal close and auto-start camera
   useEffect(() => {
     if (!open) {
       setShowCamera(false);
       setIsScanning(false);
+      setClaimCode("");
+      setPlacementDescription("");
       if (qrScannerRef.current) {
         qrScannerRef.current.stop();
       }
+    } else if (open) {
+      // Auto-start camera when modal opens
+      setShowCamera(true);
     }
   }, [open]);
 
