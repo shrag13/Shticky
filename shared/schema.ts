@@ -84,6 +84,7 @@ export const paymentMethods = pgTable("payment_methods", {
 export const qrCodes = pgTable("qr_codes", {
   id: varchar("id").primaryKey(), // QR code string
   userId: varchar("user_id").references(() => users.id),
+  placementDescription: text("placement_description"),
   claimedAt: timestamp("claimed_at"),
   totalScans: integer("total_scans").notNull().default(0),
   totalEarnings: decimal("total_earnings", { precision: 10, scale: 2 }).notNull().default('0.00'),

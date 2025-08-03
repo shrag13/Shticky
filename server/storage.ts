@@ -44,7 +44,7 @@ export interface IStorage {
   getPaymentMethodByUserId(userId: string): Promise<PaymentMethod | undefined>;
 
   // QR code operations
-  claimQrCode(qrCodeId: string, userId: string): Promise<QrCode>;
+  claimQrCode(qrCodeId: string, userId: string, placementDescription?: string): Promise<QrCode>;
   getQrCodeById(qrCodeId: string): Promise<QrCode | undefined>;
   getUserQrCodes(userId: string): Promise<QrCode[]>;
   updateQrCodeStats(qrCodeId: string): Promise<void>;

@@ -92,7 +92,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/applications/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const application = await storage.getApplicationByUserId(userId);
       res.json(application);
     } catch (error) {
@@ -117,7 +117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const { status } = req.body;
-      const reviewedBy = req.session.userId;
+      const reviewedBy = req.session.userId!;
       
       if (!['approved', 'rejected'].includes(status)) {
         return res.status(400).json({ message: "Invalid status" });
@@ -160,7 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Payment method routes
   app.post('/api/payment-methods', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       console.log("Saving payment method for user:", userId);
       console.log("Request body:", req.body);
       
@@ -185,7 +185,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/payment-methods/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const paymentMethod = await storage.getPaymentMethodByUserId(userId);
       res.json(paymentMethod);
     } catch (error) {
@@ -197,7 +197,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // QR code routes
   app.post('/api/qr-codes/claim', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const { claimCode, placementDescription } = req.body;
       
       if (!claimCode || typeof claimCode !== 'string') {
@@ -244,7 +244,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get('/api/qr-codes/me', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const qrCodes = await storage.getUserQrCodes(userId);
       res.json(qrCodes);
     } catch (error) {
@@ -281,7 +281,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // User stats route
   app.get('/api/users/me/stats', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const stats = await storage.getUserStats(userId);
       res.json(stats);
     } catch (error) {
@@ -293,7 +293,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Notification preferences routes
   app.get('/api/notifications/preferences', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       const preferences = await storage.getNotificationPreferences(userId);
       res.json(preferences);
     } catch (error) {
@@ -304,7 +304,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post('/api/notifications/dismiss', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session.userId!;
       await storage.updateNotificationDismissal(userId);
       res.json({ message: "Notification dismissed" });
     } catch (error) {
