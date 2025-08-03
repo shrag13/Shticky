@@ -148,7 +148,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(180%) brightness(115%) contrast(105%);
   
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   
   box-shadow: 
     /* 3D depth shadows */
@@ -175,7 +175,7 @@
   right: 2px;
   height: 40%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-  border-radius: 10px 10px 20px 20px;
+  border-radius: 0.65rem 0.65rem 1.25rem 1.25rem;
   pointer-events: none;
   opacity: 0.7;
   transition: opacity 0.3s ease;
@@ -231,7 +231,7 @@
   -webkit-backdrop-filter: blur(16px) saturate(180%) brightness(115%) contrast(105%);
   
   border: 1px solid rgba(255, 255, 255, 0.4) !important;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   
   box-shadow: 
     /* 3D depth shadows */
@@ -259,7 +259,7 @@
   right: 2px;
   height: 30%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-  border-radius: 10px 10px 20px 20px;
+  border-radius: 0.65rem 0.65rem 1.25rem 1.25rem;
   pointer-events: none;
   opacity: 0.7;
   transition: opacity 0.3s ease;
