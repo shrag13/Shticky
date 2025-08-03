@@ -149,12 +149,12 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 flex items-center justify-center"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 flex items-center justify-center rounded-none"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)',
-                borderRadius: '0px'
+                borderRadius: '0 !important'
               }}
               onClick={() => {
                 // Could add profile menu functionality here later
@@ -174,12 +174,12 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 flex items-center justify-center"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 flex items-center justify-center rounded-none"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)',
-                borderRadius: '0px'
+                borderRadius: '0 !important'
               }}
               onClick={handleLogout}
             >
