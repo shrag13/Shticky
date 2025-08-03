@@ -74,11 +74,15 @@
   margin: 0 auto;
   overflow: visible;
   background: 
-    /* Create lens refraction patterns without blur */
+    /* Create lens refraction patterns with blur */
     radial-gradient(ellipse 120% 80% at 30% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
     radial-gradient(ellipse 100% 60% at 70% 70%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
     radial-gradient(ellipse 80% 40% at 50% 10%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
     rgba(255, 255, 255, 0.15);
+  
+  /* Add backdrop blur effect */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   
   /* Create lens curvature without affecting background */
   transform: perspective(1000px) rotateX(1.5deg) scale(1.002) translateZ(2px);
