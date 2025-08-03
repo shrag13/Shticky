@@ -177,7 +177,7 @@ export default function Home() {
 
       {/* Notification Bar */}
       <NotificationBar 
-        user={user || { id: '', firstName: '', lastName: '', email: '', profileImageUrl: '' }} 
+        user={user || { id: '', firstName: '', lastName: '', email: '', profileImageUrl: '', lastDismissedAt: null }} 
         hasActiveStickers={userStats?.activeStickers ? userStats.activeStickers > 0 : false} 
         hasPaymentMethod={!!paymentMethod} 
       />
@@ -384,7 +384,7 @@ export default function Home() {
 
       {/* Modals */}
       <QrScannerModal 
-        isOpen={showQrScanner} 
+        open={showQrScanner} 
         onClose={() => setShowQrScanner(false)} 
       />
       <WithdrawalModal 
@@ -401,9 +401,9 @@ export default function Home() {
               <span className="ml-2 text-sm font-medium" style={{color: '#686346'}}>© 2024 All rights reserved</span>
             </div>
             <div className="flex space-x-6 text-sm font-medium" style={{color: '#686346'}}>
-              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Support</a>
-              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Terms</a>
-              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Privacy</a>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#1D2915'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#686346'}>Support</a>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#1D2915'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#686346'}>Terms</a>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#1D2915'} onMouseLeave={(e) => (e.target as HTMLElement).style.color = '#686346'}>Privacy</a>
             </div>
           </div>
         </div>

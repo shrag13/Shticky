@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -26,6 +26,14 @@ export default function Application() {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
+
+  // Check URL parameters to determine initial state
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('signin') === 'true') {
+      setIsSignIn(true);
+    }
+  }, []);
 
   const applicationForm = useForm<InsertApplication>({
     resolver: zodResolver(insertApplicationSchema),
