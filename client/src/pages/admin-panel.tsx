@@ -74,22 +74,6 @@ export default function AdminPanel() {
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
 
-  // Check if already authenticated as admin
-  useEffect(() => {
-    const checkAdminAuth = async () => {
-      try {
-        const response = await apiRequest("GET", "/api/admin/stats");
-        if (response) {
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        // Not authenticated, stay on login form
-        setIsLoggedIn(false);
-      }
-    };
-    checkAdminAuth();
-  }, []);
-
   const loginForm = useForm<AdminLoginForm>({
     resolver: zodResolver(adminLoginSchema),
     defaultValues: {
