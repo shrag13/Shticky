@@ -38,9 +38,16 @@ export default function ApplicationStatus() {
     retry: false,
   });
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (confirm('Are you sure you want to log out?')) {
-      window.location.href = '/api/logout';
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+        window.location.href = '/';
+      } catch (error) {
+        console.error('Logout error:', error);
+        // Fallback - redirect anyway
+        window.location.href = '/';
+      }
     }
   };
 
