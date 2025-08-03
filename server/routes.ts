@@ -160,17 +160,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Payment method routes
   app.post('/api/payment-methods', isAuthenticated, async (req, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = (req.session as any).userId;
+      console.log("Saving payment method for user:", userId);
+      console.log("Request body:", req.body);
+      
       const paymentMethodData = insertPaymentMethodSchema.parse({
         ...req.body,
         userId,
       });
       
+      console.log("Parsed payment method data:", paymentMethodData);
       const paymentMethod = await storage.savePaymentMethod(paymentMethodData);
+      console.log("Saved payment method:", paymentMethod);
       res.json(paymentMethod);
     } catch (error) {
       console.error("Error saving payment method:", error);
-      res.status(500).json({ message: "Failed to save payment method" });
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Failed to save payment method" });
+      }
     }
   });
 
