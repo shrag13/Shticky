@@ -154,7 +154,7 @@ export default function Home() {
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)',
-                borderRadius: '20px'
+                borderRadius: '0px'
               }}
               onClick={() => {
                 // Could add profile menu functionality here later
@@ -179,7 +179,7 @@ export default function Home() {
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)',
-                borderRadius: '20px'
+                borderRadius: '0px'
               }}
               onClick={handleLogout}
             >
@@ -308,7 +308,7 @@ export default function Home() {
               <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Track your progress towards the $5.00 minimum payout threshold</p>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
-                <span className="text-3xl font-black" style={{color: '#A89182'}}>
+                <span className="text-xl font-black" style={{color: '#A89182'}}>
                   ${(userStats?.totalEarnings || 0).toFixed(2)}
                 </span>
               </div>
