@@ -109,8 +109,11 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
+        <div className="flex flex-col items-center space-y-4">
+          <img src={logoPath} alt="Shticky" className="w-16 h-16 rounded-xl object-cover" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{borderColor: '#1D2915'}}></div>
+        </div>
       </div>
     );
   }
