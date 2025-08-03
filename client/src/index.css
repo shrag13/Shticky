@@ -63,7 +63,7 @@
   height: auto;
   overflow: hidden;
   pointer-events: none;
-  padding: 16px;
+  padding: 28px;
 }
 
 .liquid-glass-content {
@@ -378,6 +378,10 @@
 @media (max-width: 640px) {
   .liquid-glass-content {
     max-width: 480px;
+  }
+  
+  .liquid-glass-morphing {
+    padding: 16px;
   }
   
   .liquid-glass-navbar {
