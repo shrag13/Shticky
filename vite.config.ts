@@ -20,9 +20,10 @@ export default defineConfig(async () => {
     plugins,
     resolve: {
       alias: {
-        "@": path.resolve(import.meta.dirname, "src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"),
-        "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+        // Corrected paths to point to the `client/` subdirectory
+        "@": path.resolve(import.meta.dirname, "client/src"),
+        "@shared": path.resolve(import.meta.dirname, "shared"), // This path was correct
+        "@assets": path.resolve(import.meta.dirname, "client/attached_assets"),
       },
     },
     build: {

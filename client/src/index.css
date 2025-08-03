@@ -47,17 +47,15 @@
   --ring: hsl(25, 20%, 85%);
   --radius: 0.5rem;
 }
-
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--border);
   }
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
-
 /* Liquid Glass Floating Navbar */
 .liquid-glass-morphing {
   height: auto;
