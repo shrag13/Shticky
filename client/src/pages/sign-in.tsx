@@ -44,33 +44,15 @@ export default function SignIn() {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginForm) => {
-      // Check if this is an admin login attempt
-      if (data.email === "admin@admin.com") {
-        const response = await apiRequest("POST", "/api/admin/login", {
-          username: "Admin",
-          password: data.password
-        });
-        return response;
-      } else {
-        const response = await apiRequest("POST", "/api/auth/login", data);
-        return response;
-      }
+      const response = await apiRequest("POST", "/api/auth/login", data);
+      return response;
     },
-    onSuccess: (response) => {
-      // Check if this is an admin user
-      if (response.user?.isAdmin) {
-        toast({
-          title: "Admin access granted",
-          description: "Welcome to the admin panel.",
-        });
-        window.location.href = "/admin-panel";
-      } else {
-        toast({
-          title: "Welcome back!",
-          description: "You have been successfully signed in.",
-        });
-        window.location.href = "/";
-      }
+    onSuccess: () => {
+      toast({
+        title: "Welcome back!",
+        description: "You have been successfully signed in.",
+      });
+      window.location.href = "/";
     },
     onError: (error: Error) => {
       toast({

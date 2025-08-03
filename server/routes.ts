@@ -134,6 +134,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin logout endpoint
+  app.post('/api/admin/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Failed to logout" });
+      }
+      res.clearCookie('connect.sid');
+      res.json({ message: "Admin logout successful" });
+    });
+  });
+
   // Admin dashboard stats
   app.get('/api/admin/stats', isAdmin, async (req, res) => {
     try {
