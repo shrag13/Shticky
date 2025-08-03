@@ -11,6 +11,7 @@ import { QrCode, DollarSign, Star, Camera, Wallet, LogOut } from "lucide-react";
 import QrScannerModal from "@/components/qr-scanner-modal";
 import WithdrawalModal from "@/components/withdrawal-modal";
 import NotificationBar from "@/components/notification-bar";
+import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 
 export default function Home() {
   const { user, isLoading, isAuthenticated } = useAuth();
@@ -123,32 +124,47 @@ export default function Home() {
 
   // Main dashboard for approved users
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-primary">Shticky</h1>
-              <span className="ml-2 text-sm text-gray-500">Earn from QR scans</span>
+    <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
+      {/* Liquid Glass Header */}
+      <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
+        <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
+          <div className="liquid-glass-brand flex items-center space-x-2.5">
+            <div className="liquid-glass-logo-morph">
+              <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                {user?.profileImageUrl && (
-                  <img 
-                    src={user.profileImageUrl} 
-                    alt="Profile" 
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
-                )}
-                <span className="text-sm font-medium">
-                  {user?.firstName} {user?.lastName}
-                </span>
-              </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
-                <LogOut className="h-4 w-4" />
-              </Button>
+            <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
+              Shticky
+            </span>
+            <span className="ml-2 text-sm" style={{color: '#686346'}}>Dashboard</span>
+          </div>
+          
+          <div className="liquid-glass-buttons flex items-center space-x-2.5">
+            <div className="flex items-center space-x-2">
+              {user?.profileImageUrl && (
+                <img 
+                  src={user.profileImageUrl} 
+                  alt="Profile" 
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              <span className="text-sm font-medium" style={{color: '#1D2915'}}>
+                {user?.firstName} {user?.lastName}
+              </span>
             </div>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm"
+              style={{
+                backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                background: 'rgba(255, 255, 255, 0.3)'
+              }}
+              onClick={handleLogout}
+            >
+              <LogOut className="mr-1 h-3 w-3" />
+              Log Out
+            </Button>
           </div>
         </div>
       </header>
@@ -160,69 +176,69 @@ export default function Home() {
         hasPaymentMethod={!!paymentMethod} 
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
         {/* Welcome Section */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+        <div className="bg-white/90 backdrop-blur-sm shadow-lg p-6 mb-8" style={{borderRadius: '15px'}}>
+          <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>
             Welcome back, {user?.firstName}!
           </h2>
-          <p className="text-gray-600">Here's your Shticky performance overview</p>
+          <p className="text-lg font-medium" style={{color: '#686346'}}>Here's your Shticky performance overview</p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="border-l-4 border-secondary">
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px', borderLeft: '4px solid #A89182'}}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Earnings</p>
-                  <p className="text-3xl font-bold text-secondary">
+                  <p className="text-sm font-bold" style={{color: '#686346'}}>Total Earnings</p>
+                  <p className="text-3xl font-black" style={{color: '#A89182'}}>
                     ${userStats?.totalEarnings?.toFixed(2) || '0.00'}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs font-medium mt-1" style={{color: '#686346'}}>
                     Monthly auto-payout if ≥ $5.00
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-secondary bg-opacity-10 rounded-lg flex items-center justify-center">
-                  <DollarSign className="text-secondary text-xl" />
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderRadius: '15px'}}>
+                  <DollarSign className="text-xl" style={{color: '#A89182'}} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-primary">
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px', borderLeft: '4px solid #1D2915'}}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total Scans</p>
-                  <p className="text-3xl font-bold text-primary">
+                  <p className="text-sm font-bold" style={{color: '#686346'}}>Total Scans</p>
+                  <p className="text-3xl font-black" style={{color: '#1D2915'}}>
                     {userStats?.totalScans?.toLocaleString() || '0'}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs font-medium mt-1" style={{color: '#686346'}}>
                     Tier {userStats?.currentTier || 1}
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center">
-                  <QrCode className="text-primary text-xl" />
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: 'rgba(29, 41, 21, 0.1)', borderRadius: '15px'}}>
+                  <QrCode className="text-xl" style={{color: '#1D2915'}} />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-accent">
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px', borderLeft: '4px solid #9A7B60'}}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Active Shtickys</p>
-                  <p className="text-3xl font-bold text-accent">
+                  <p className="text-sm font-bold" style={{color: '#686346'}}>Active Shtickys</p>
+                  <p className="text-3xl font-black" style={{color: '#9A7B60'}}>
                     {userStats?.activeStickers || 0}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs font-medium mt-1" style={{color: '#686346'}}>
                     Tier {userStats?.currentTier || 1} unlocked
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-accent bg-opacity-10 rounded-lg flex items-center justify-center">
-                  <Star className="text-accent text-xl" />
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', borderRadius: '15px'}}>
+                  <Star className="text-xl" style={{color: '#9A7B60'}} />
                 </div>
               </div>
             </CardContent>
@@ -231,12 +247,17 @@ export default function Home() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card>
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px'}}>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Shticky</h3>
-              <p className="text-gray-600 mb-4">Scan or enter a QR code to claim a new Shticky</p>
+              <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Add New Shticky</h3>
+              <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
               <Button 
-                className="w-full bg-primary hover:bg-primary/90" 
+                className="w-full font-bold hover:scale-105 transition-all" 
+                style={{
+                  backgroundColor: '#1D2915',
+                  color: 'white',
+                  borderRadius: '15px'
+                }}
                 onClick={() => setShowQrScanner(true)}
               >
                 <Camera className="mr-2 h-4 w-4" />
@@ -245,24 +266,33 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px'}}>
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Auto-Payout</h3>
+              <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
               <div className="flex items-center justify-between mb-4">
-                <span className="text-gray-600">Auto-payout minimum:</span>
-                <span className="font-medium text-secondary">$5.00</span>
+                <span className="text-sm font-medium" style={{color: '#686346'}}>Auto-payout minimum:</span>
+                <span className="font-black" style={{color: '#A89182'}}>$5.00</span>
               </div>
-              <div className="bg-gray-200 rounded-full h-2 mb-4">
+              <div className="rounded-full h-2 mb-4" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
                 <div 
-                  className="bg-secondary h-2 rounded-full transition-all duration-300" 
-                  style={{ width: `${getWithdrawalProgress()}%` }}
+                  className="h-2 rounded-full transition-all duration-300" 
+                  style={{ 
+                    width: `${getWithdrawalProgress()}%`,
+                    backgroundColor: '#A89182',
+                    borderRadius: '15px'
+                  }}
                 ></div>
               </div>
-              <p className="text-xs text-gray-500 mb-4">
+              <p className="text-xs font-medium mb-4" style={{color: '#686346'}}>
                 Automatic payouts on the last day of each month if balance ≥ $5.00
               </p>
               <Button 
-                className="w-full bg-secondary hover:bg-secondary/90" 
+                className="w-full font-bold hover:scale-105 transition-all" 
+                style={{
+                  backgroundColor: '#A89182',
+                  color: 'white',
+                  borderRadius: '15px'
+                }}
                 onClick={() => setShowWithdrawal(true)}
               >
                 <Wallet className="mr-2 h-4 w-4" />
@@ -273,50 +303,50 @@ export default function Home() {
         </div>
 
         {/* My Shtickys Table */}
-        <Card>
+        <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px'}}>
           <CardHeader>
-            <CardTitle>My Shtickys</CardTitle>
-            <p className="text-sm text-gray-600">Track performance of your claimed Shtickys</p>
+            <CardTitle className="text-xl font-black" style={{color: '#1D2915'}}>My Shtickys</CardTitle>
+            <p className="text-sm font-medium" style={{color: '#686346'}}>Track performance of your claimed Shtickys</p>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full">
+                <thead style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderRadius: '15px 15px 0 0'}}>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider" style={{color: '#1D2915'}}>
                       Shticky ID
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider" style={{color: '#1D2915'}}>
                       Scans
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider" style={{color: '#1D2915'}}>
                       Earnings
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider" style={{color: '#1D2915'}}>
                       Tier
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider" style={{color: '#1D2915'}}>
                       Status
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white/50">
                   {userQrCodes?.map((qr) => {
                     const tierInfo = getTierBadge(qr.scansCount || 0);
                     return (
                       <tr key={qr.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="w-8 h-8 bg-primary bg-opacity-10 rounded flex items-center justify-center mr-3">
-                              <QrCode className="text-primary text-sm" />
+                            <div className="w-8 h-8 rounded flex items-center justify-center mr-3" style={{backgroundColor: 'rgba(29, 41, 21, 0.1)', borderRadius: '15px'}}>
+                              <QrCode className="text-sm" style={{color: '#1D2915'}} />
                             </div>
-                            <span className="text-sm font-medium text-gray-900">{qr.claimCode}</span>
+                            <span className="text-sm font-bold" style={{color: '#1D2915'}}>{qr.claimCode}</span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium" style={{color: '#1D2915'}}>
                           {qr.scansCount?.toLocaleString() || '0'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-secondary">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-black" style={{color: '#A89182'}}>
                           ${qr.earnings?.toFixed(2) || '0.00'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -325,7 +355,7 @@ export default function Home() {
                           </Badge>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <Badge className="bg-secondary bg-opacity-10 text-secondary">
+                          <Badge className="font-bold" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', color: '#9A7B60'}}>
                             Active
                           </Badge>
                         </td>
@@ -334,7 +364,7 @@ export default function Home() {
                   })}
                   {(!userQrCodes || userQrCodes.length === 0) && (
                     <tr>
-                      <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                      <td colSpan={5} className="px-6 py-8 text-center text-sm font-medium" style={{color: '#686346'}}>
                         No Shtickys claimed yet. Scan your first QR code to get started!
                       </td>
                     </tr>
@@ -357,17 +387,17 @@ export default function Home() {
       />
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
+      <footer className="bg-white/90 backdrop-blur-sm mt-16" style={{borderTop: '1px solid rgba(168, 145, 130, 0.3)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
-              <h3 className="text-lg font-bold text-primary">Shticky</h3>
-              <span className="ml-2 text-sm text-gray-500">© 2024 All rights reserved</span>
+              <h3 className="text-lg font-black" style={{color: '#1D2915'}}>Shticky</h3>
+              <span className="ml-2 text-sm font-medium" style={{color: '#686346'}}>© 2024 All rights reserved</span>
             </div>
-            <div className="flex space-x-6 text-sm text-gray-600">
-              <a href="#" className="hover:text-primary">Support</a>
-              <a href="#" className="hover:text-primary">Terms</a>
-              <a href="#" className="hover:text-primary">Privacy</a>
+            <div className="flex space-x-6 text-sm font-medium" style={{color: '#686346'}}>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Support</a>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Terms</a>
+              <a href="#" className="transition-colors" style={{color: '#686346'}} onMouseEnter={(e) => e.target.style.color = '#1D2915'} onMouseLeave={(e) => e.target.style.color = '#686346'}>Privacy</a>
             </div>
           </div>
         </div>
