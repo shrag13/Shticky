@@ -323,6 +323,11 @@
   box-shadow: none !important;
 }
 
+/* Square navbar buttons override */
+.liquid-glass-btn-morph.rounded-none {
+  border-radius: 0 !important;
+}
+
 .liquid-glass-btn-morph:hover {
   transform: translateY(-1px);
 }
