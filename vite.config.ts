@@ -26,7 +26,7 @@ export default defineConfig(async () => {
       },
     },
     build: {
-      outDir: "dist", // Changed from "../dist"
+      outDir: "dist",
       emptyOutDir: true,
     },
     server: {
