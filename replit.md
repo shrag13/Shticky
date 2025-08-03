@@ -20,6 +20,8 @@ Recent Changes (August 3, 2025):
 - ✓ Fixed routing so Sign In button goes to /sign-in page or dashboard if authenticated
 - ✓ Updated favicon to use logo image and implemented dynamic page titles (Shticky - Home/Apply/Sign In/Dashboard)
 - ✓ Cleaned up all TypeScript errors and form references for proper separation of concerns
+- ✓ Implemented camera-based QR code scanning functionality with real-time detection
+- ✓ Updated UI to show "Current earnings:" instead of "Auto-payout minimum:" and removed automatic payout text
 - ✓ Test users: shrhersh@gmail.com/bluebird (approved), pending@test.com/bluebird (pending)
 
 # System Architecture

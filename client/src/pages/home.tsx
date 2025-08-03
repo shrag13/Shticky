@@ -279,8 +279,8 @@ export default function Home() {
             <CardContent className="p-6">
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
               <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-medium" style={{color: '#686346'}}>Auto-payout minimum:</span>
-                <span className="font-black" style={{color: '#A89182'}}>$5.00</span>
+                <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
+                <span className="font-black" style={{color: '#A89182'}}>${(userStats?.totalEarnings || 0).toFixed(2)}</span>
               </div>
               <div className="rounded-full h-2 mb-4" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
                 <div 
@@ -292,9 +292,7 @@ export default function Home() {
                   }}
                 ></div>
               </div>
-              <p className="text-xs font-medium mb-4" style={{color: '#686346'}}>
-                Automatic payouts on the last day of each month if balance ≥ $5.00
-              </p>
+
               <Button 
                 className="w-full font-bold hover:scale-105 transition-all" 
                 style={{
