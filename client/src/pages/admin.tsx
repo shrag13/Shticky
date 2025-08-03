@@ -109,9 +109,6 @@ export default function Admin() {
                   {user?.firstName} {user?.lastName}
                 </span>
               </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
-                <LogOut className="h-4 w-4" />
-              </Button>
             </div>
           </div>
         </div>

@@ -112,14 +112,20 @@ export default function Home() {
 
   // Redirect to application status page if no application exists
   if (!application) {
-    window.location.href = '/application-status';
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
   // Redirect to application status page if not approved
   if (application.status !== 'approved') {
-    window.location.href = '/application-status';
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
   // Main dashboard for approved users
