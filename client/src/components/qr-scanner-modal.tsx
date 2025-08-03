@@ -181,13 +181,11 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
             <QrCode className="h-6 w-6" style={{color: '#9A7B60'}} />
             Scan Shticky QR Code
           </DialogTitle>
-          <DialogDescription className="text-base font-medium" style={{color: '#686346'}}>
-            Scan a QR code from your sticker or enter the claim code manually.
-          </DialogDescription>
+
         </DialogHeader>
         
         <div className="space-y-6">
-          {showCamera ? (
+          {!claimCode ? (
             <div className="space-y-4">
               <div className="relative" style={{borderRadius: '15px', overflow: 'hidden', backgroundColor: '#F5F3F1'}}>
                 <video
@@ -201,74 +199,70 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
                   </div>
                 )}
               </div>
-              <div className="flex gap-2">
+              <div className="flex justify-center">
                 <Button 
-                  onClick={stopScanning}
+                  onClick={onClose}
                   variant="outline"
-                  className="flex-1 font-bold border-2"
+                  className="font-bold border-2"
                   style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
                 >
                   <X className="mr-2 h-4 w-4" />
-                  Stop Scanning
+                  Cancel
                 </Button>
               </div>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="flex justify-center">
-                <Button 
-                  onClick={startScanning}
-                  className="font-black text-white shadow-lg px-8"
-                  style={{background: 'linear-gradient(135deg, #9A7B60, #A89182)', borderRadius: '15px'}}
-                >
-                  <Camera className="mr-2 h-4 w-4" />
-                  Start Camera Scan
-                </Button>
-
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center">
+                  <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center mr-3">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-green-800">QR Code Scanned Successfully!</p>
+                    <p className="text-green-600 text-sm">Code: {claimCode}</p>
+                  </div>
+                </div>
               </div>
               
-
+              <div className="space-y-2">
+                <Label htmlFor="placement" className="text-base font-bold" style={{color: '#1D2915'}}>
+                  Where will you place this sticker? *
+                </Label>
+                <Input
+                  id="placement"
+                  placeholder="e.g., Coffee shop window, park bench, community board"
+                  value={placementDescription}
+                  onChange={(e) => setPlacementDescription(e.target.value)}
+                  className="liquid-glass-input text-gray-900 font-medium"
+                />
+                <p className="text-sm font-medium" style={{color: '#686346'}}>
+                  Describe the specific location where this sticker is or will be placed.
+                </p>
+              </div>
+              
+              <div className="flex gap-2 pt-4">
+                <Button 
+                  onClick={handleClaim}
+                  disabled={claimQRMutation.isPending || !placementDescription.trim()}
+                  className="flex-1 font-black text-white text-lg py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
+                  style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
+                >
+                  {claimQRMutation.isPending ? "CLAIMING..." : "CLAIM SHTICKY"}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={onClose}
+                  className="border-2 font-bold py-3"
+                  style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           )}
-          
-          <div className="space-y-2">
-            <Label htmlFor="placement" className="text-base font-bold" style={{color: '#1D2915'}}>
-              Where will you place this sticker? *
-            </Label>
-            <Input
-              id="placement"
-              placeholder="e.g., Coffee shop window, park bench, community board"
-              value={placementDescription}
-              onChange={(e) => setPlacementDescription(e.target.value)}
-              className="liquid-glass-input text-gray-900 font-medium"
-            />
-            <p className="text-sm font-medium" style={{color: '#686346'}}>
-              Describe the specific location where this sticker is or will be placed.
-            </p>
-          </div>
-          
-          {claimCode && (
-            <div className="flex gap-2 pt-4">
-              <Button 
-                onClick={handleClaim}
-                disabled={claimQRMutation.isPending || !claimCode.trim() || !placementDescription.trim()}
-                className="flex-1 font-black text-white text-lg py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
-                style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
-              >
-                {claimQRMutation.isPending ? "CLAIMING..." : "CLAIM SHTICKY"}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={onClose}
-                className="border-2 font-bold py-3"
-                style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
-              >
-                Cancel
-              </Button>
-            </div>
-          )}
-          
-
         </div>
       </DialogContent>
     </Dialog>

@@ -257,12 +257,12 @@ export default function Home() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px'}}>
-            <CardContent className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 md:items-stretch">
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 flex flex-col h-full" style={{borderRadius: '15px'}}>
+            <CardContent className="p-6 flex flex-col flex-grow">
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Add New Shticky</h3>
               <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
-              <div className="space-y-3">
+              <div className="space-y-3 flex-grow flex flex-col justify-end">
                 <Button 
                   className="w-full font-bold hover:scale-105 transition-all h-12" 
                   style={{
@@ -293,8 +293,8 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0" style={{borderRadius: '15px'}}>
-            <CardContent className="p-6">
+          <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 flex flex-col h-full" style={{borderRadius: '15px'}}>
+            <CardContent className="p-6 flex flex-col flex-grow">
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
@@ -302,7 +302,7 @@ export default function Home() {
                   ${(userStats?.totalEarnings || 0).toFixed(2)}
                 </span>
               </div>
-              <div className="rounded-full h-8 mb-4 flex items-center" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px'}}>
+              <div className="rounded-full h-8 mb-4 flex items-center flex-grow" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px', maxHeight: '32px'}}>
                 <div 
                   className="h-8 rounded-full transition-all duration-300 flex items-center justify-center" 
                   style={{ 
@@ -320,18 +320,20 @@ export default function Home() {
                 </div>
               </div>
 
-              <Button 
-                className="w-full font-bold hover:scale-105 transition-all h-12" 
-                style={{
-                  backgroundColor: '#A89182',
-                  color: 'white',
-                  borderRadius: '15px'
-                }}
-                onClick={() => setShowWithdrawal(true)}
-              >
-                <Wallet className="mr-2 h-4 w-4" />
-                Set Payment Method
-              </Button>
+              <div className="mt-auto">
+                <Button 
+                  className="w-full font-bold hover:scale-105 transition-all h-12" 
+                  style={{
+                    backgroundColor: '#A89182',
+                    color: 'white',
+                    borderRadius: '15px'
+                  }}
+                  onClick={() => setShowWithdrawal(true)}
+                >
+                  <Wallet className="mr-2 h-4 w-4" />
+                  Set Payment Method
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
