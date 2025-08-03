@@ -33,7 +33,7 @@ export default function Home() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/sign-in";
+        window.location.href = "/api/login";
       }, 500);
       return;
     }
@@ -109,37 +109,26 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-        <div className="flex flex-col items-center space-y-4">
-          <img src={logoPath} alt="Shticky" className="w-16 h-16 rounded-xl object-cover" />
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{borderColor: '#1D2915'}}></div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   // Redirect to application status page if no application exists
   if (!application) {
-    window.location.href = "/application-status";
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-        <div className="flex flex-col items-center space-y-4">
-          <img src={logoPath} alt="Shticky" className="w-16 h-16 rounded-xl object-cover" />
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{borderColor: '#1D2915'}}></div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   // Redirect to application status page if not approved
   if (application.status !== 'approved') {
-    window.location.href = "/application-status";
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-        <div className="flex flex-col items-center space-y-4">
-          <img src={logoPath} alt="Shticky" className="w-16 h-16 rounded-xl object-cover" />
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{borderColor: '#1D2915'}}></div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -172,7 +161,15 @@ export default function Home() {
                 console.log("Profile clicked");
               }}
             >
-              <User className="h-3 w-3" style={{color: '#1D2915'}} />
+              {user?.profileImageUrl ? (
+                <img 
+                  src={user.profileImageUrl} 
+                  alt="Profile" 
+                  className="w-4 h-4 rounded-full object-cover"
+                />
+              ) : (
+                <User className="h-3 w-3" style={{color: '#1D2915'}} />
+              )}
             </Button>
             <Button 
               variant="ghost" 
@@ -194,7 +191,7 @@ export default function Home() {
 
       {/* Notification Bar */}
       <NotificationBar 
-        user={user} 
+        user={user || { id: '', firstName: '', lastName: '', email: '', profileImageUrl: '', lastDismissedAt: null }} 
         hasActiveStickers={userStats?.activeStickers ? userStats.activeStickers > 0 : false} 
         hasPaymentMethod={!!paymentMethod} 
       />
@@ -203,7 +200,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="bg-white/90 backdrop-blur-sm shadow-lg p-6 mb-8" style={{borderRadius: '15px'}}>
           <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>
-            Welcome back, {user?.firstName || 'User'}!
+            Welcome back, {user?.firstName}!
           </h2>
           <p className="text-lg font-medium" style={{color: '#686346'}}>Here's your Shticky performance overview</p>
         </div>

@@ -8,7 +8,6 @@ import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { CheckCircle, XCircle, Clock, LogOut } from "lucide-react";
-import logoPath from "@assets/20250701_023412_0000_1754186769563.png";
 
 export default function Admin() {
   const { user, isLoading, isAuthenticated } = useAuth();
@@ -23,7 +22,7 @@ export default function Admin() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/sign-in";
+        window.location.href = "/api/login";
       }, 500);
       return;
     }
@@ -53,7 +52,7 @@ export default function Admin() {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/sign-in";
+          window.location.href = "/api/login";
         }, 500);
         return;
       }
@@ -80,11 +79,8 @@ export default function Admin() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-        <div className="flex flex-col items-center space-y-4">
-          <img src={logoPath} alt="Shticky" className="w-16 h-16 rounded-xl object-cover" />
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{borderColor: '#1D2915'}}></div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -99,8 +95,15 @@ export default function Admin() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
+                {user?.profileImageUrl && (
+                  <img 
+                    src={user.profileImageUrl} 
+                    alt="Profile" 
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                )}
                 <span className="text-sm font-medium">
-                  Admin User
+                  {user?.firstName} {user?.lastName}
                 </span>
               </div>
             </div>
@@ -115,7 +118,7 @@ export default function Admin() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {applications && Array.isArray(applications) && applications.map((app: any) => (
+              {applications?.map((app: any) => (
                 <div key={app.id} className="border rounded-lg p-4">
                   <div className="flex justify-between items-start mb-4">
                     <div>
@@ -157,7 +160,7 @@ export default function Admin() {
                 </div>
               ))}
               
-              {(!applications || !Array.isArray(applications) || applications.length === 0) && (
+              {(!applications || applications.length === 0) && (
                 <div className="text-center py-8 text-gray-500">
                   No pending applications
                 </div>
