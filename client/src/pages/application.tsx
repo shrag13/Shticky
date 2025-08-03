@@ -167,8 +167,7 @@ export default function Application() {
                     type="email"
                     {...form.register("email")}
                     placeholder="Enter your email address"
-                    className="bg-white/80 border-2 text-gray-900 font-medium"
-                    style={{borderColor: '#A89182'}}
+                    className="liquid-glass-input text-gray-900 font-medium"
                   />
                   {form.formState.errors.email && (
                     <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.email.message}</p>
@@ -183,8 +182,7 @@ export default function Application() {
                     type="password"
                     {...form.register("passwordHash")}
                     placeholder="Create a password"
-                    className="bg-white/80 border-2 text-gray-900 font-medium"
-                    style={{borderColor: '#A89182'}}
+                    className="liquid-glass-input text-gray-900 font-medium"
                   />
                   {form.formState.errors.passwordHash && (
                     <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.passwordHash.message}</p>
@@ -203,8 +201,7 @@ export default function Application() {
                     id="fullName"
                     {...form.register("fullName")}
                     placeholder="Enter your full name"
-                    className="bg-white/80 border-2 text-gray-900 font-medium"
-                    style={{borderColor: '#A89182'}}
+                    className="liquid-glass-input text-gray-900 font-medium"
                   />
                   {form.formState.errors.fullName && (
                     <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.fullName.message}</p>
@@ -218,8 +215,7 @@ export default function Application() {
                     id="address"
                     {...form.register("address")}
                     placeholder="Enter your street address"
-                    className="bg-white/80 border-2 text-gray-900 font-medium"
-                    style={{borderColor: '#A89182'}}
+                    className="liquid-glass-input text-gray-900 font-medium"
                   />
                   {form.formState.errors.address && (
                     <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.address.message}</p>
@@ -234,8 +230,7 @@ export default function Application() {
                       id="city"
                       {...form.register("city")}
                       placeholder="City"
-                      className="bg-white/80 border-2 text-gray-900 font-medium"
-                      style={{borderColor: '#A89182'}}
+                      className="liquid-glass-input text-gray-900 font-medium"
                     />
                     {form.formState.errors.city && (
                       <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.city.message}</p>
@@ -247,8 +242,7 @@ export default function Application() {
                       id="state"
                       {...form.register("state")}
                       placeholder="State"
-                      className="bg-white/80 border-2 text-gray-900 font-medium"
-                      style={{borderColor: '#A89182'}}
+                      className="liquid-glass-input text-gray-900 font-medium"
                     />
                     {form.formState.errors.state && (
                       <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.state.message}</p>
@@ -260,8 +254,7 @@ export default function Application() {
                       id="zipCode"
                       {...form.register("zipCode")}
                       placeholder="Zip Code"
-                      className="bg-white/80 border-2 text-gray-900 font-medium"
-                      style={{borderColor: '#A89182'}}
+                      className="liquid-glass-input text-gray-900 font-medium"
                     />
                     {form.formState.errors.zipCode && (
                       <p className="text-sm font-medium" style={{color: '#D2691E'}}>{form.formState.errors.zipCode.message}</p>
@@ -282,8 +275,7 @@ export default function Application() {
                     {...form.register("placementDescription")}
                     placeholder="Describe where you plan to place your QR code stickers (e.g., coffee shops, community boards, public spaces, etc.)"
                     rows={4}
-                    className="bg-white/80 border-2 text-gray-900 font-medium"
-                    style={{borderColor: '#686346'}}
+                    className="liquid-glass-textarea text-gray-900 font-medium"
                   />
                   <p className="text-sm font-medium" style={{color: '#686346'}}>
                     Please provide specific details about your placement strategy. This helps us approve applications faster.
