@@ -44,15 +44,33 @@ export default function SignIn() {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginForm) => {
-      const response = await apiRequest("POST", "/api/auth/login", data);
-      return response;
+      // Check if this is an admin login attempt
+      if (data.email === "admin@admin.com") {
+        const response = await apiRequest("POST", "/api/admin/login", {
+          username: "Admin",
+          password: data.password
+        });
+        return response;
+      } else {
+        const response = await apiRequest("POST", "/api/auth/login", data);
+        return response;
+      }
     },
-    onSuccess: () => {
-      toast({
-        title: "Welcome back!",
-        description: "You have been successfully signed in.",
-      });
-      window.location.href = "/";
+    onSuccess: (response) => {
+      // Check if this is an admin user
+      if (response.user?.isAdmin) {
+        toast({
+          title: "Admin access granted",
+          description: "Welcome to the admin panel.",
+        });
+        window.location.href = "/admin-panel";
+      } else {
+        toast({
+          title: "Welcome back!",
+          description: "You have been successfully signed in.",
+        });
+        window.location.href = "/";
+      }
     },
     onError: (error: Error) => {
       toast({
@@ -104,19 +122,7 @@ export default function SignIn() {
               <ArrowLeft className="mr-1 h-3 w-3" />
               Back
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm ml-2"
-              style={{
-                backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
-                WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
-                background: 'rgba(255, 255, 255, 0.3)'
-              }}
-              onClick={() => window.location.href = '/admin-panel'}
-            >
-              Admin
-            </Button>
+
           </div>
         </div>
       </header>
