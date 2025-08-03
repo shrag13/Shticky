@@ -158,7 +158,7 @@ export default function Application() {
           <CardContent>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Account Information */}
-              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', borderColor: '#9A7B60'}}>
+              <div className="space-y-4 p-6 rounded-2xl border-2" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', borderColor: '#9A7B60'}}>
                 <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Account Information</h3>
                 
                 {/* Email */}
@@ -193,7 +193,7 @@ export default function Application() {
               </div>
 
               {/* Personal Information */}
-              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderColor: '#A89182'}}>
+              <div className="space-y-4 p-6 rounded-2xl border-2" style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderColor: '#A89182'}}>
                 <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Personal Information</h3>
                 
                 {/* Full Name */}
@@ -266,7 +266,7 @@ export default function Application() {
               </div>
 
               {/* Placement Description */}
-              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(104, 99, 70, 0.1)', borderColor: '#686346'}}>
+              <div className="space-y-4 p-6 rounded-2xl border-2" style={{backgroundColor: 'rgba(104, 99, 70, 0.1)', borderColor: '#686346'}}>
                 <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Placement Strategy</h3>
                 <div className="space-y-2">
                   <Label htmlFor="placementDescription" className="text-base font-bold" style={{color: '#1D2915'}}>
@@ -289,7 +289,7 @@ export default function Application() {
               </div>
 
               {/* Terms and Conditions */}
-              <div className="space-y-4 p-6 rounded-xl border-2" style={{backgroundColor: 'rgba(29, 41, 21, 0.05)', borderColor: '#1D2915'}}>
+              <div className="space-y-4 p-6 rounded-2xl border-2" style={{backgroundColor: 'rgba(29, 41, 21, 0.05)', borderColor: '#1D2915'}}>
                 <div className="flex items-start space-x-3">
                   <Checkbox
                     id="termsAccepted"
