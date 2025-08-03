@@ -70,7 +70,7 @@
   position: relative;
   z-index: 10;
   pointer-events: auto;
-  max-width: 480px;
+  max-width: 800px;
   margin: 0 auto;
   overflow: visible;
   background: 
@@ -376,6 +376,10 @@
 
 /* Responsive adjustments for liquid glass */
 @media (max-width: 640px) {
+  .liquid-glass-content {
+    max-width: 480px;
+  }
+  
   .liquid-glass-navbar {
     backdrop-filter: blur(15px) saturate(150%);
     -webkit-backdrop-filter: blur(15px) saturate(150%);
