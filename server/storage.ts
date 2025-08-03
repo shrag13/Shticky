@@ -27,27 +27,31 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
+
   // Application operations
   submitApplication(application: InsertApplication): Promise<Application>;
   getApplicationByUserId(userId: string): Promise<Application | undefined>;
   getApplicationByEmail(email: string): Promise<Application | undefined>;
   getPendingApplications(): Promise<Application[]>;
-  reviewApplication(applicationId: string, status: 'approved' | 'rejected', reviewedBy: string): Promise<Application>;
-  
+  reviewApplication(
+    applicationId: string,
+    status: "approved" | "rejected",
+    reviewedBy: string,
+  ): Promise<Application>;
+
   // Payment method operations
   savePaymentMethod(paymentMethod: InsertPaymentMethod): Promise<PaymentMethod>;
   getPaymentMethodByUserId(userId: string): Promise<PaymentMethod | undefined>;
-  
+
   // QR code operations
   claimQrCode(qrCodeId: string, userId: string): Promise<QrCode>;
   getQrCodeById(qrCodeId: string): Promise<QrCode | undefined>;
   getUserQrCodes(userId: string): Promise<QrCode[]>;
   updateQrCodeStats(qrCodeId: string): Promise<void>;
-  
+
   // Scan operations
   recordScan(scan: InsertScan): Promise<Scan>;
-  
+
   // User stats operations
   getUserStats(userId: string): Promise<{
     totalEarnings: number;
@@ -55,13 +59,20 @@ export interface IStorage {
     activeStickers: number;
     currentTier: number;
   }>;
-  
+
   // Monthly payout operations
   getUsersEligibleForPayout(): Promise<User[]>;
-  createMonthlyPayout(userId: string, amount: number, month: number, year: number): Promise<MonthlyPayout>;
-  
+  createMonthlyPayout(
+    userId: string,
+    amount: number,
+    month: number,
+    year: number,
+  ): Promise<MonthlyPayout>;
+
   // Notification operations
-  getNotificationPreferences(userId: string): Promise<NotificationPreference | undefined>;
+  getNotificationPreferences(
+    userId: string,
+  ): Promise<NotificationPreference | undefined>;
   updateNotificationDismissal(userId: string): Promise<void>;
 }
 
@@ -77,14 +88,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(userData: InsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(userData)
-      .returning();
+    const [user] = await db.insert(users).values(userData).returning();
     return user;
   }
 
-  async submitApplication(application: InsertApplication): Promise<Application> {
+  async submitApplication(
+    application: InsertApplication,
+  ): Promise<Application> {
     const [newApplication] = await db
       .insert(applications)
       .values(application)
@@ -92,7 +102,9 @@ export class DatabaseStorage implements IStorage {
     return newApplication;
   }
 
-  async getApplicationByUserId(userId: string): Promise<Application | undefined> {
+  async getApplicationByUserId(
+    userId: string,
+  ): Promise<Application | undefined> {
     const [application] = await db
       .select()
       .from(applications)
@@ -116,11 +128,15 @@ export class DatabaseStorage implements IStorage {
     return await db
       .select()
       .from(applications)
-      .where(eq(applications.status, 'pending'))
+      .where(eq(applications.status, "pending"))
       .orderBy(desc(applications.submittedAt));
   }
 
-  async reviewApplication(applicationId: string, status: 'approved' | 'rejected', reviewedBy: string): Promise<Application> {
+  async reviewApplication(
+    applicationId: string,
+    status: "approved" | "rejected",
+    reviewedBy: string,
+  ): Promise<Application> {
     const [application] = await db
       .update(applications)
       .set({
@@ -133,7 +149,9 @@ export class DatabaseStorage implements IStorage {
     return application;
   }
 
-  async savePaymentMethod(paymentMethod: InsertPaymentMethod): Promise<PaymentMethod> {
+  async savePaymentMethod(
+    paymentMethod: InsertPaymentMethod,
+  ): Promise<PaymentMethod> {
     // Deactivate existing payment methods for this user
     await db
       .update(paymentMethods)
@@ -147,25 +165,33 @@ export class DatabaseStorage implements IStorage {
     return newPaymentMethod;
   }
 
-  async getPaymentMethodByUserId(userId: string): Promise<PaymentMethod | undefined> {
+  async getPaymentMethodByUserId(
+    userId: string,
+  ): Promise<PaymentMethod | undefined> {
     const [paymentMethod] = await db
       .select()
       .from(paymentMethods)
-      .where(and(
-        eq(paymentMethods.userId, userId),
-        eq(paymentMethods.isActive, true)
-      ))
+      .where(
+        and(
+          eq(paymentMethods.userId, userId),
+          eq(paymentMethods.isActive, true),
+        ),
+      )
       .limit(1);
     return paymentMethod;
   }
 
-  async claimQrCode(qrCodeId: string, userId: string, placementDescription?: string): Promise<QrCode> {
+  async claimQrCode(
+    qrCodeId: string,
+    userId: string,
+    placementDescription?: string,
+  ): Promise<QrCode> {
     const [qrCode] = await db
       .insert(qrCodes)
       .values({
         id: qrCodeId,
         userId,
-        placementDescription: placementDescription || '',
+        placementDescription: placementDescription || "",
         claimedAt: new Date(),
       })
       .returning();
@@ -184,10 +210,7 @@ export class DatabaseStorage implements IStorage {
     return await db
       .select()
       .from(qrCodes)
-      .where(and(
-        eq(qrCodes.userId, userId),
-        eq(qrCodes.isActive, true)
-      ))
+      .where(and(eq(qrCodes.userId, userId), eq(qrCodes.isActive, true)))
       .orderBy(desc(qrCodes.claimedAt));
   }
 
@@ -202,14 +225,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   async recordScan(scan: InsertScan): Promise<Scan> {
-    const [newScan] = await db
-      .insert(scans)
-      .values(scan)
-      .returning();
-    
+    const [newScan] = await db.insert(scans).values(scan).returning();
+
     // Update QR code stats
     await this.updateQrCodeStats(scan.qrCodeId);
-    
+
     return newScan;
   }
 
@@ -220,15 +240,18 @@ export class DatabaseStorage implements IStorage {
     currentTier: number;
   }> {
     const userQrCodes = await this.getUserQrCodes(userId);
-    
-    const totalEarnings = userQrCodes.reduce((sum, qr) => sum + parseFloat(qr.totalEarnings), 0);
+
+    const totalEarnings = userQrCodes.reduce(
+      (sum, qr) => sum + parseFloat(qr.totalEarnings),
+      0,
+    );
     const totalScans = userQrCodes.reduce((sum, qr) => sum + qr.totalScans, 0);
     const activeStickers = userQrCodes.length;
-    
+
     let currentTier = 1;
     if (totalScans >= 1000) currentTier = 3;
     else if (totalScans >= 500) currentTier = 2;
-    
+
     return {
       totalEarnings,
       totalScans,
@@ -247,13 +270,18 @@ export class DatabaseStorage implements IStorage {
       .leftJoin(qrCodes, eq(users.id, qrCodes.userId))
       .groupBy(users.id)
       .having(sql`COALESCE(SUM(${qrCodes.totalEarnings}), 0) >= 5`);
-    
-    return result.map(r => r.user);
+
+    return result.map((r) => r.user);
   }
 
-  async createMonthlyPayout(userId: string, amount: number, month: number, year: number): Promise<MonthlyPayout> {
+  async createMonthlyPayout(
+    userId: string,
+    amount: number,
+    month: number,
+    year: number,
+  ): Promise<MonthlyPayout> {
     const paymentMethod = await this.getPaymentMethodByUserId(userId);
-    
+
     const [payout] = await db
       .insert(monthlyPayouts)
       .values({
@@ -267,12 +295,14 @@ export class DatabaseStorage implements IStorage {
     return payout;
   }
 
-  async getNotificationPreferences(userId: string): Promise<NotificationPreference | undefined> {
+  async getNotificationPreferences(
+    userId: string,
+  ): Promise<NotificationPreference | undefined> {
     const [preferences] = await db
       .select()
       .from(notificationPreferences)
       .where(eq(notificationPreferences.userId, userId));
-    
+
     if (!preferences) {
       // Create default preferences
       const [newPreferences] = await db
@@ -281,7 +311,7 @@ export class DatabaseStorage implements IStorage {
         .returning();
       return newPreferences;
     }
-    
+
     return preferences;
   }
 
