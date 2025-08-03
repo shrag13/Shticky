@@ -31,9 +31,11 @@ Recent Changes (August 3, 2025):
 - ✓ Created admin dashboard with key metrics: total paid out, pending payouts, active stickers, total scans
 - ✓ Implemented user management tab showing all users with earnings, scans, and sticker counts
 - ✓ Built application management system with approve/reject functionality and detailed views
-- ✓ Removed admin button from top-right navigation and integrated admin login into main sign-in page
-- ✓ Fixed admin panel infinite loading by adding proper authentication checks for both admin endpoints and main user authentication
-- ✓ Updated admin authentication to work seamlessly through main sign-in using admin@admin.com/Admin credentials
+- ✓ Removed admin button from top-right navigation 
+- ✓ Separated admin authentication completely from main user authentication
+- ✓ Fixed admin panel infinite loading by implementing proper admin-only login at /admin-panel
+- ✓ Admin now uses dedicated login form at /admin-panel with Admin/Admin credentials
+- ✓ Fixed home page loading loop issue when admin users were logged in through main system
 - ✓ Integrated comprehensive admin API endpoints with proper authorization middleware
 
 # System Architecture

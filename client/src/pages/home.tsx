@@ -24,20 +24,23 @@ export default function Home() {
   const [showWithdrawal, setShowWithdrawal] = useState(false);
   const [showManualEntry, setShowManualEntry] = useState(false);
 
+  // Show loading if still checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   // Redirect if not authenticated
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
-        variant: "destructive",
-      });
-      setTimeout(() => {
-        window.location.href = "/api/login";
-      }, 500);
-      return;
-    }
-  }, [isAuthenticated, isLoading, toast]);
+  if (!isAuthenticated) {
+    window.location.href = "/";
+    return null;
+  }
 
   const { data: application } = useQuery<{
     status: string;
