@@ -111,11 +111,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Simple admin credentials for testing
       if (username === 'Admin' && password === 'Admin') {
         // Create or get admin user
-        let adminUser = await storage.getUserByEmail('admin@shticky.app');
+        let adminUser = await storage.getUserByEmail('admin@admin.com');
         if (!adminUser) {
           const hashedPassword = await hashPassword('Admin');
           adminUser = await storage.createUser({
-            email: 'admin@shticky.app',
+            email: 'admin@admin.com',
             passwordHash: hashedPassword,
             firstName: 'Admin',
             lastName: 'User',
