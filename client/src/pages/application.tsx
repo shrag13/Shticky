@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -291,10 +291,17 @@ export default function Application() {
               {/* Terms and Conditions */}
               <div className="space-y-4 p-6 border-2" style={{backgroundColor: '#F5F3F1', borderColor: '#1D2915', borderRadius: '15px'}}>
                 <div className="flex items-start space-x-3">
-                  <Checkbox
-                    id="termsAccepted"
-                    {...form.register("termsAccepted")}
-                    className="mt-1 data-[state=checked]:bg-[#9A7B60] data-[state=checked]:border-[#9A7B60]"
+                  <Controller
+                    name="termsAccepted"
+                    control={form.control}
+                    render={({ field }) => (
+                      <Checkbox
+                        id="termsAccepted"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="mt-1 data-[state=checked]:bg-[#9A7B60] data-[state=checked]:border-[#9A7B60]"
+                      />
+                    )}
                   />
                   <div className="flex-1">
                     <Label htmlFor="termsAccepted" className="text-base font-bold cursor-pointer" style={{color: '#1D2915'}}>
