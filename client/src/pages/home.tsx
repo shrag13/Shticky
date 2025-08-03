@@ -153,7 +153,7 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline w-10 h-10 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full flex items-center justify-center"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-lg flex items-center justify-center"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
@@ -168,16 +168,16 @@ export default function Home() {
                 <img 
                   src={user.profileImageUrl} 
                   alt="Profile" 
-                  className="w-5 h-5 rounded-full object-cover"
+                  className="w-4 h-4 rounded-full object-cover"
                 />
               ) : (
-                <User className="h-4 w-4" style={{color: '#1D2915'}} />
+                <User className="h-3 w-3" style={{color: '#1D2915'}} />
               )}
             </Button>
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline w-10 h-10 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-full flex items-center justify-center"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline w-8 h-8 p-0 transition-transform duration-300 hover:transform hover:-translate-y-1 rounded-lg flex items-center justify-center"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
@@ -185,7 +185,7 @@ export default function Home() {
               }}
               onClick={handleLogout}
             >
-              <LogOut className="h-4 w-4" style={{color: '#1D2915'}} />
+              <LogOut className="h-3 w-3" style={{color: '#1D2915'}} />
             </Button>
           </div>
         </div>
