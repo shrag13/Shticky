@@ -305,7 +305,6 @@ export default function Home() {
           <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 flex flex-col h-full" style={{borderRadius: '15px'}}>
             <CardContent className="p-6 flex flex-col flex-grow">
               <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
-              <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Track your progress towards the $5.00 minimum payout threshold</p>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
                 <span className="text-xl font-black" style={{color: '#A89182'}}>
