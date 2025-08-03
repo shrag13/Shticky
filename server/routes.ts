@@ -1,8 +1,10 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { getSession, isAuthenticated, hashPassword, verifyPassword } from "./auth";
-import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema } from "@shared/schema";
+import { getSession, isAuthenticated, isAdmin, hashPassword, verifyPassword } from "./auth";
+import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema, applications } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -101,19 +103,86 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin routes
-  app.get('/api/admin/applications', isAuthenticated, async (req, res) => {
+  // Admin login endpoint - separate from regular user login
+  app.post('/api/admin/login', async (req, res) => {
     try {
-      // TODO: Add admin role check
-      const applications = await storage.getPendingApplications();
+      const { username, password } = req.body;
+      
+      // Simple admin credentials for testing
+      if (username === 'Admin' && password === 'Admin') {
+        // Create or get admin user
+        let adminUser = await storage.getUserByEmail('admin@shticky.app');
+        if (!adminUser) {
+          const hashedPassword = await hashPassword('Admin');
+          adminUser = await storage.createUser({
+            email: 'admin@shticky.app',
+            passwordHash: hashedPassword,
+            firstName: 'Admin',
+            lastName: 'User',
+            isAdmin: true,
+          });
+        }
+        
+        req.session.userId = adminUser.id;
+        res.json({ message: "Admin login successful", user: { id: adminUser.id, email: adminUser.email, isAdmin: true } });
+      } else {
+        return res.status(401).json({ message: "Invalid admin credentials" });
+      }
+    } catch (error) {
+      console.error("Admin login error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Admin dashboard stats
+  app.get('/api/admin/stats', isAdmin, async (req, res) => {
+    try {
+      const stats = await storage.getAdminStats();
+      res.json(stats);
+    } catch (error) {
+      console.error("Error fetching admin stats:", error);
+      res.status(500).json({ message: "Failed to fetch admin stats" });
+    }
+  });
+
+  // Admin users management
+  app.get('/api/admin/users', isAdmin, async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      
+      // Get user stats for each user
+      const usersWithStats = await Promise.all(
+        users.map(async (user) => {
+          const stats = await storage.getUserStats(user.id);
+          const qrCodes = await storage.getUserQrCodes(user.id);
+          return {
+            ...user,
+            totalEarnings: stats.totalEarnings,
+            totalScans: stats.totalScans,
+            activeStickers: qrCodes.length,
+          };
+        })
+      );
+      
+      res.json(usersWithStats);
+    } catch (error) {
+      console.error("Error fetching admin users:", error);
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+
+  // Admin applications management
+  app.get('/api/admin/applications', isAdmin, async (req, res) => {
+    try {
+      const applications = await storage.getAllApplications();
       res.json(applications);
     } catch (error) {
-      console.error("Error fetching pending applications:", error);
+      console.error("Error fetching applications:", error);
       res.status(500).json({ message: "Failed to fetch applications" });
     }
   });
 
-  app.patch('/api/admin/applications/:id/review', isAuthenticated, async (req, res) => {
+  app.patch('/api/admin/applications/:id/review', isAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
@@ -124,7 +193,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get the application first
-      const applications = await storage.getPendingApplications();
+      const applications = await storage.getAllApplications();
       const application = applications.find(app => app.id === id);
       
       if (!application) {
@@ -142,12 +211,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           firstName: application.fullName.split(' ')[0],
           lastName: application.fullName.split(' ').slice(1).join(' ') || '',
           profileImageUrl: null,
+          isAdmin: false,
           lastDismissedAt: null,
           createdAt: new Date(),
           updatedAt: new Date(),
         });
         
-        // You could update the application with the new userId here if needed
+        // Link the application to the user  
+        await db.update(applications).set({ userId: newUser.id }).where(eq(applications.id, id));
       }
       
       res.json(reviewedApplication);

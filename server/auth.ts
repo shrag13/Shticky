@@ -33,6 +33,19 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
   next();
 };
 
+export const isAdmin: RequestHandler = async (req, res, next) => {
+  if (!req.session?.userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  
+  const user = await storage.getUser(req.session.userId);
+  if (!user || !user.isAdmin) {
+    return res.status(403).json({ message: "Admin access required" });
+  }
+  
+  next();
+};
+
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 12);
 }

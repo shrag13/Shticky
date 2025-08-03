@@ -73,6 +73,16 @@ export interface IStorage {
   getNotificationPreferences(
     userId: string,
   ): Promise<NotificationPreference | undefined>;
+
+  // Admin operations
+  getAllUsers(): Promise<User[]>;
+  getAllApplications(): Promise<Application[]>;
+  getAdminStats(): Promise<{
+    totalPaidOut: number;
+    totalToPayOutThisMonth: number;
+    totalActiveStickers: number;
+    totalScans: number;
+  }>;
   updateNotificationDismissal(userId: string): Promise<void>;
 }
 
@@ -328,6 +338,71 @@ export class DatabaseStorage implements IStorage {
           lastDismissedAt: new Date(),
         },
       });
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await db
+      .select()
+      .from(users)
+      .where(eq(users.isAdmin, false))
+      .orderBy(desc(users.createdAt));
+  }
+
+  async getAllApplications(): Promise<Application[]> {
+    return await db
+      .select()
+      .from(applications)
+      .orderBy(desc(applications.submittedAt));
+  }
+
+  async getAdminStats(): Promise<{
+    totalPaidOut: number;
+    totalToPayOutThisMonth: number;
+    totalActiveStickers: number;
+    totalScans: number;
+  }> {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+
+    // Get total paid out (completed payouts)
+    const paidOutResult = await db
+      .select({
+        total: sql<number>`COALESCE(SUM(${monthlyPayouts.amount}), 0)`,
+      })
+      .from(monthlyPayouts)
+      .where(eq(monthlyPayouts.status, "completed"));
+
+    // Get total to pay out this month (users with $5+ earnings)
+    const toPayOutResult = await db
+      .select({
+        total: sql<number>`COALESCE(SUM(${qrCodes.totalEarnings}), 0)`,
+      })
+      .from(qrCodes)
+      .innerJoin(users, eq(qrCodes.userId, users.id))
+      .where(sql`${qrCodes.totalEarnings} >= 5`);
+
+    // Get total active stickers
+    const activeStickersResult = await db
+      .select({
+        count: sql<number>`COUNT(*)`,
+      })
+      .from(qrCodes)
+      .where(eq(qrCodes.isActive, true));
+
+    // Get total scans
+    const totalScansResult = await db
+      .select({
+        count: sql<number>`COUNT(*)`,
+      })
+      .from(scans);
+
+    return {
+      totalPaidOut: Number(paidOutResult[0]?.total || 0),
+      totalToPayOutThisMonth: Number(toPayOutResult[0]?.total || 0),
+      totalActiveStickers: Number(activeStickersResult[0]?.count || 0),
+      totalScans: Number(totalScansResult[0]?.count || 0),
+    };
   }
 }
 

@@ -12,6 +12,7 @@ import Application from "@/pages/application";
 import ApplicationStatus from "@/pages/application-status";
 import SignIn from "@/pages/sign-in";
 import Admin from "@/pages/admin";
+import AdminPanel from "@/pages/admin-panel";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -24,6 +25,7 @@ function Router() {
           <Route path="/sign-in" component={SignIn} />
           <Route path="/application" component={Application} />
           <Route path="/application-status" component={ApplicationStatus} />
+          <Route path="/admin-panel" component={AdminPanel} />
         </>
       ) : (
         <>
@@ -32,6 +34,7 @@ function Router() {
           <Route path="/application" component={Application} />
           <Route path="/application-status" component={ApplicationStatus} />
           <Route path="/admin" component={Admin} />
+          <Route path="/admin-panel" component={AdminPanel} />
         </>
       )}
       <Route component={NotFound} />
