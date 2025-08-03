@@ -269,8 +269,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 md:items-stretch">
           <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 flex flex-col h-full" style={{borderRadius: '15px'}}>
             <CardContent className="p-6 flex flex-col flex-grow">
-              <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Add New Shticky</h3>
-              <p className="text-sm font-medium mb-4" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
+              <h3 className="text-lg font-black mb-2" style={{color: '#1D2915'}}>Add New Shticky</h3>
+              <p className="text-sm font-medium mb-3" style={{color: '#686346'}}>Scan or enter a QR code to claim a new Shticky</p>
               <div className="space-y-3 flex-grow flex flex-col justify-end">
                 <Button 
                   className="w-full font-bold hover:scale-105 transition-all h-12" 
@@ -304,14 +304,14 @@ export default function Home() {
 
           <Card className="bg-white/90 backdrop-blur-sm shadow-lg border-0 flex flex-col h-full" style={{borderRadius: '15px'}}>
             <CardContent className="p-6 flex flex-col flex-grow">
-              <h3 className="text-lg font-black mb-4" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
-              <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-black mb-2" style={{color: '#1D2915'}}>Monthly Auto-Payout</h3>
+              <div className="flex items-center justify-between mb-3">
                 <span className="text-sm font-medium" style={{color: '#686346'}}>Current earnings:</span>
                 <span className="text-xl font-black" style={{color: '#A89182'}}>
                   ${(userStats?.totalEarnings || 0).toFixed(2)}
                 </span>
               </div>
-              <div className="rounded-full h-8 mb-4 flex items-center flex-grow" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px', maxHeight: '32px'}}>
+              <div className="rounded-full h-8 mb-3 flex items-center flex-grow" style={{backgroundColor: 'rgba(168, 145, 130, 0.2)', borderRadius: '15px', maxHeight: '32px'}}>
                 <div 
                   className="h-8 rounded-full transition-all duration-300 flex items-center justify-center" 
                   style={{ 
