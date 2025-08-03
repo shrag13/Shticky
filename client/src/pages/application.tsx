@@ -10,11 +10,14 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { insertApplicationSchema, type InsertApplication } from "@shared/schema";
 import { CheckCircle, ArrowLeft, UserPlus } from "lucide-react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 
 export default function Application() {
+  usePageTitle("Apply");
+  
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
 

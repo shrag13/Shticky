@@ -15,6 +15,11 @@ Recent Changes (August 3, 2025):
 - ✓ Resolved login routing problem by properly linking applications to users in database
 - ✓ Created dedicated application status page for users with pending/rejected applications
 - ✓ Implemented sophisticated status handling with professional UI and clear messaging
+- ✓ Created dedicated Sign In page (/sign-in) with proper authentication flow
+- ✓ Updated application page to be application-only (removed login toggle functionality)
+- ✓ Fixed routing so Sign In button goes to /sign-in page or dashboard if authenticated
+- ✓ Updated favicon to use logo image and implemented dynamic page titles (Shticky - Home/Apply/Sign In/Dashboard)
+- ✓ Cleaned up all TypeScript errors and form references for proper separation of concerns
 - ✓ Test users: shrhersh@gmail.com/bluebird (approved), pending@test.com/bluebird (pending)
 
 # System Architecture

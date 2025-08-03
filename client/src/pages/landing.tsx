@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
 import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754177382824.png";
 import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754177382852.png";
@@ -38,6 +39,8 @@ function useScrollAnimation() {
 // Removed liquid glass magnification effect
 
 export default function Landing() {
+  usePageTitle("Home");
+  
   const heroAnimation = useScrollAnimation();
   const howItWorksAnimation = useScrollAnimation();
   const statsAnimation = useScrollAnimation();

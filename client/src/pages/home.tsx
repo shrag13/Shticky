@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -14,6 +15,8 @@ import NotificationBar from "@/components/notification-bar";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
 
 export default function Home() {
+  usePageTitle("Dashboard");
+  
   const { user, isLoading, isAuthenticated } = useAuth();
   const { toast } = useToast();
   const [showQrScanner, setShowQrScanner] = useState(false);

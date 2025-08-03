@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { apiRequest } from "@/lib/queryClient";
 import { ArrowLeft, LogIn } from "lucide-react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
@@ -21,6 +22,8 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function SignIn() {
+  usePageTitle("Sign In");
+  
   const { toast } = useToast();
   const { user, isLoading, isAuthenticated } = useAuth();
 
