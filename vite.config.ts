@@ -1,40 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-export default defineConfig(async () => {
-  const plugins = [react(), runtimeErrorOverlay()];
+// A more reliable way to get the current directory, regardless of how the build command is executed.
+const __dirname = path.resolve();
 
-  if (
-    process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-  ) {
-    const { default: replitPlugin } = await import(
-      "@replit/vite-plugin-cartographer"
-    );
-    plugins.push(replitPlugin().cartographer());
-  }
-
-  return {
-    plugins,
-    resolve: {
-      alias: {
-        // Corrected paths to point to the `client/` subdirectory
-        "@": path.resolve(import.meta.dirname, "client/src"),
-        "@shared": path.resolve(import.meta.dirname, "shared"), // This path was correct
-        "@assets": path.resolve(import.meta.dirname, "client/attached_assets"),
-      },
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      // Corrected paths to point to the `client/` subdirectory from the root
+      "@": path.resolve(__dirname, "client/src"),
+      "@shared": path.resolve(__dirname, "shared"),
+      "@assets": path.resolve(__dirname, "client/attached_assets"),
     },
-    build: {
-      outDir: "dist",
-      emptyOutDir: true,
+  },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+  },
+  server: {
+    fs: {
+      strict: true,
+      deny: ["**/.**"],
     },
-    server: {
-      fs: {
-        strict: true,
-        deny: ["**/.**"],
-      },
-    },
-  };
+  },
 });
