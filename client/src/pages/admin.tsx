@@ -35,10 +35,7 @@ export default function Admin() {
 
   const reviewMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
-      await apiRequest(`/api/admin/applications/${id}/review`, {
-        method: "PATCH",
-        body: { status },
-      });
+      await apiRequest("PATCH", `/api/admin/applications/${id}/review`, { status });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/applications"] });

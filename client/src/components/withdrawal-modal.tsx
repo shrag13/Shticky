@@ -68,7 +68,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
 
   const savePaymentMethodMutation = useMutation({
     mutationFn: async (data: PaymentMethodForm) => {
-      await apiRequest("/api/payment-methods", "POST", data);
+      await apiRequest("POST", "/api/payment-methods", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/payment-methods/me"] });

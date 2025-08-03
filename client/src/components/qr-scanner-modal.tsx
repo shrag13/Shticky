@@ -122,7 +122,7 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
 
   const claimQRMutation = useMutation({
     mutationFn: async (data: { claimCode: string; placementDescription: string }) => {
-      return await apiRequest("/api/qr-codes/claim", "POST", data);
+      return await apiRequest("POST", "/api/qr-codes/claim", data);
     },
     onSuccess: () => {
       toast({

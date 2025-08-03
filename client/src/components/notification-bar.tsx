@@ -20,7 +20,7 @@ export default function NotificationBar({ user, hasActiveStickers, hasPaymentMet
 
   const dismissMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest("/api/user/dismiss-notification", "POST");
+      return await apiRequest("POST", "/api/user/dismiss-notification");
     },
     onSuccess: () => {
       setIsDismissed(true);
