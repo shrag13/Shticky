@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState, useRef, useEffect } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { QrCode, Download } from "lucide-react";
+import { QrCode, Download, Camera, X, Keyboard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import QrScanner from "qr-scanner";
 
 interface QrScannerModalProps {
   open: boolean;
@@ -16,8 +17,85 @@ interface QrScannerModalProps {
 export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
   const [claimCode, setClaimCode] = useState("");
   const [placementDescription, setPlacementDescription] = useState("");
+  const [showCamera, setShowCamera] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const qrScannerRef = useRef<QrScanner | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  // Initialize QR Scanner
+  useEffect(() => {
+    if (showCamera && videoRef.current && !qrScannerRef.current) {
+      qrScannerRef.current = new QrScanner(
+        videoRef.current,
+        (result) => {
+          setClaimCode(result.data);
+          setShowCamera(false);
+          setIsScanning(false);
+          toast({
+            title: "QR Code Scanned",
+            description: "QR code successfully scanned!",
+          });
+        },
+        {
+          onDecodeError: (error) => {
+            console.log("QR decode error:", error);
+          },
+          highlightScanRegion: true,
+          highlightCodeOutline: true,
+        }
+      );
+    }
+
+    return () => {
+      if (qrScannerRef.current) {
+        qrScannerRef.current.stop();
+        qrScannerRef.current.destroy();
+        qrScannerRef.current = null;
+      }
+    };
+  }, [showCamera, toast]);
+
+  // Start/stop scanner when showCamera changes
+  useEffect(() => {
+    if (showCamera && qrScannerRef.current) {
+      setIsScanning(true);
+      qrScannerRef.current.start().catch((error) => {
+        console.error("Failed to start QR scanner:", error);
+        toast({
+          title: "Camera Error",
+          description: "Failed to access camera. Please check permissions.",
+          variant: "destructive",
+        });
+        setShowCamera(false);
+        setIsScanning(false);
+      });
+    } else if (!showCamera && qrScannerRef.current) {
+      qrScannerRef.current.stop();
+      setIsScanning(false);
+    }
+  }, [showCamera, toast]);
+
+  // Clean up on modal close
+  useEffect(() => {
+    if (!open) {
+      setShowCamera(false);
+      setIsScanning(false);
+      if (qrScannerRef.current) {
+        qrScannerRef.current.stop();
+      }
+    }
+  }, [open]);
+
+  const startScanning = () => {
+    setShowCamera(true);
+  };
+
+  const stopScanning = () => {
+    setShowCamera(false);
+    setIsScanning(false);
+  };
 
   const claimQRMutation = useMutation({
     mutationFn: async (data: { claimCode: string; placementDescription: string }) => {
@@ -57,58 +135,121 @@ export default function QrScannerModal({ open, onClose }: QrScannerModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md bg-card dark:bg-card">
+      <DialogContent className="max-w-md shadow-xl border-0 bg-white/90 backdrop-blur-sm" style={{borderRadius: '15px'}}>
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-foreground dark:text-foreground">
-            <QrCode className="h-5 w-5" />
-            Claim QR Code
+          <DialogTitle className="flex items-center gap-2 text-xl font-black" style={{color: '#1D2915'}}>
+            <QrCode className="h-6 w-6" style={{color: '#9A7B60'}} />
+            Scan Shticky QR Code
           </DialogTitle>
+          <DialogDescription className="text-base font-medium" style={{color: '#686346'}}>
+            Scan a QR code from your sticker or enter the claim code manually.
+          </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="claimCode" className="text-foreground dark:text-foreground">Claim Code</Label>
-            <Input
-              id="claimCode"
-              placeholder="Enter your claim code"
-              value={claimCode}
-              onChange={(e) => setClaimCode(e.target.value)}
-              className="bg-background dark:bg-background border-border dark:border-border"
-            />
-          </div>
+        <div className="space-y-6">
+          {showCamera ? (
+            <div className="space-y-4">
+              <div className="relative" style={{borderRadius: '15px', overflow: 'hidden', backgroundColor: '#F5F3F1'}}>
+                <video
+                  ref={videoRef}
+                  className="w-full h-64 object-cover"
+                  style={{borderRadius: '15px'}}
+                />
+                {isScanning && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <div className="text-white font-bold text-lg">Scanning for QR codes...</div>
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  onClick={stopScanning}
+                  variant="outline"
+                  className="flex-1 font-bold border-2"
+                  style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
+                >
+                  <X className="mr-2 h-4 w-4" />
+                  Stop Scanning
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex gap-2">
+                <Button 
+                  onClick={startScanning}
+                  className="flex-1 font-black text-white shadow-lg"
+                  style={{background: 'linear-gradient(135deg, #9A7B60, #A89182)', borderRadius: '15px'}}
+                >
+                  <Camera className="mr-2 h-4 w-4" />
+                  Scan with Camera
+                </Button>
+                <Button 
+                  onClick={() => setShowCamera(false)}
+                  variant="outline"
+                  className="font-bold border-2"
+                  style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
+                >
+                  <Keyboard className="mr-2 h-4 w-4" />
+                  Enter Code
+                </Button>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="claimCode" className="text-base font-bold" style={{color: '#1D2915'}}>
+                  Claim Code (if entering manually)
+                </Label>
+                <Input
+                  id="claimCode"
+                  placeholder="Enter your claim code from the sticker"
+                  value={claimCode}
+                  onChange={(e) => setClaimCode(e.target.value)}
+                  className="liquid-glass-input text-gray-900 font-medium"
+                />
+              </div>
+            </div>
+          )}
           
-          <div>
-            <Label htmlFor="placement" className="text-foreground dark:text-foreground">Where will you place this sticker?</Label>
+          <div className="space-y-2">
+            <Label htmlFor="placement" className="text-base font-bold" style={{color: '#1D2915'}}>
+              Where will you place this sticker? *
+            </Label>
             <Input
               id="placement"
-              placeholder="e.g., Coffee shop window, park bench"
+              placeholder="e.g., Coffee shop window, park bench, community board"
               value={placementDescription}
               onChange={(e) => setPlacementDescription(e.target.value)}
-              className="bg-background dark:bg-background border-border dark:border-border"
+              className="liquid-glass-input text-gray-900 font-medium"
             />
+            <p className="text-sm font-medium" style={{color: '#686346'}}>
+              Describe the specific location where this sticker is or will be placed.
+            </p>
           </div>
           
           <div className="flex gap-2 pt-4">
             <Button 
               onClick={handleClaim}
-              disabled={claimQRMutation.isPending}
-              className="flex-1 bg-primary dark:bg-primary text-primary-foreground dark:text-primary-foreground hover:bg-primary/90 dark:hover:bg-primary/90"
+              disabled={claimQRMutation.isPending || !claimCode.trim() || !placementDescription.trim()}
+              className="flex-1 font-black text-white text-lg py-3 shadow-xl transform hover:scale-105 transition-all duration-300"
+              style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
             >
-              {claimQRMutation.isPending ? "Claiming..." : "Claim QR Code"}
+              {claimQRMutation.isPending ? "CLAIMING..." : "CLAIM SHTICKY"}
             </Button>
             <Button 
               variant="outline" 
               onClick={onClose}
-              className="border-border dark:border-border text-foreground dark:text-foreground hover:bg-muted dark:hover:bg-muted"
+              className="border-2 font-bold py-3"
+              style={{borderColor: '#686346', color: '#686346', borderRadius: '15px'}}
             >
               Cancel
             </Button>
           </div>
           
-          <div className="text-center pt-2">
+          <div className="text-center pt-2 border-t border-gray-200">
             <Button 
               variant="link" 
-              className="text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground"
+              className="font-medium hover:no-underline"
+              style={{color: '#9A7B60'}}
               onClick={() => window.open('/api/qr-codes/download', '_blank')}
             >
               <Download className="h-4 w-4 mr-2" />
