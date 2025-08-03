@@ -147,7 +147,7 @@ export default function Application() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
-        <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+        <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm rounded-none">
           <CardHeader>
             <CardTitle className="text-2xl font-black" style={{color: '#1D2915'}}>Join Shticky</CardTitle>
             <p className="text-lg font-medium" style={{color: '#686346'}}>
@@ -321,7 +321,7 @@ export default function Application() {
               {/* Submit Button */}
               <Button 
                 type="submit" 
-                className="w-full font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+                className="w-full font-black text-xl px-12 py-6 shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
                 style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
                 disabled={submitApplicationMutation.isPending}
               >
@@ -332,7 +332,7 @@ export default function Application() {
         </Card>
 
         {/* Info Section */}
-        <Card className="mt-8 shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+        <Card className="mt-8 shadow-lg border-0 bg-white/90 backdrop-blur-sm rounded-none">
           <CardContent className="pt-6">
             <h3 className="font-black text-xl mb-3" style={{color: '#1D2915'}}>What happens next?</h3>
             <ul className="space-y-2 text-base font-medium" style={{color: '#686346'}}>
