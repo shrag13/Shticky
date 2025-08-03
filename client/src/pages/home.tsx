@@ -102,93 +102,16 @@ export default function Home() {
     );
   }
 
-  // Show application form if no application exists
+  // Redirect to application status page if no application exists
   if (!application) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="w-full max-w-md mx-4">
-          <CardHeader>
-            <CardTitle className="text-center">Welcome to Shticky!</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-gray-600 mb-4">
-              You need to submit an application to start earning with Shticky.
-            </p>
-            <Button 
-              onClick={() => window.location.href = '/application'}
-              className="w-full"
-            >
-              Submit Application
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    window.location.href = '/application-status';
+    return null;
   }
 
-  // Show application status if pending or rejected
+  // Redirect to application status page if not approved
   if (application.status !== 'approved') {
-    const statusConfig = {
-      pending: {
-        title: "Application Under Review",
-        description: "Your application is being reviewed. You'll receive an email once it's approved.",
-        color: "text-yellow-600",
-        bgColor: "bg-yellow-50 border-yellow-200"
-      },
-      rejected: {
-        title: "Application Not Approved",
-        description: "Unfortunately, your application was not approved at this time.",
-        color: "text-red-600",
-        bgColor: "bg-red-50 border-red-200"
-      }
-    };
-
-    const config = statusConfig[application.status as keyof typeof statusConfig];
-
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <header className="bg-white shadow-sm border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="flex items-center">
-                <h1 className="text-2xl font-bold text-primary">Shticky</h1>
-                <span className="ml-2 text-sm text-gray-500">Earn from QR scans</span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  {user?.profileImageUrl && (
-                    <img 
-                      src={user.profileImageUrl} 
-                      alt="Profile" 
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                  )}
-                  <span className="text-sm font-medium">
-                    {user?.firstName} {user?.lastName}
-                  </span>
-                </div>
-                <Button variant="ghost" size="sm" onClick={handleLogout}>
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Card className={`border ${config.bgColor}`}>
-            <CardContent className="pt-6">
-              <div className="text-center">
-                <h2 className={`text-xl font-semibold ${config.color} mb-2`}>
-                  {config.title}
-                </h2>
-                <p className="text-gray-600">{config.description}</p>
-              </div>
-            </CardContent>
-          </Card>
-        </main>
-      </div>
-    );
+    window.location.href = '/application-status';
+    return null;
   }
 
   // Main dashboard for approved users

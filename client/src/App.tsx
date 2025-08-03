@@ -10,6 +10,7 @@ import Landing from "@/pages/landing";
 import Login from "@/pages/login";
 import Home from "@/pages/home";
 import Application from "@/pages/application";
+import ApplicationStatus from "@/pages/application-status";
 import Admin from "@/pages/admin";
 
 function Router() {
@@ -22,11 +23,13 @@ function Router() {
           <Route path="/" component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/application" component={Application} />
+          <Route path="/application-status" component={ApplicationStatus} />
         </>
       ) : (
         <>
           <Route path="/" component={Home} />
           <Route path="/application" component={Application} />
+          <Route path="/application-status" component={ApplicationStatus} />
           <Route path="/admin" component={Admin} />
         </>
       )}
