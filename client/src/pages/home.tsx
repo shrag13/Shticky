@@ -177,7 +177,7 @@ export default function Home() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm"
+              className="liquid-glass-btn-morph liquid-glass-btn-outline px-3 py-1.5 h-auto"
               style={{
                 backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
@@ -185,8 +185,7 @@ export default function Home() {
               }}
               onClick={handleLogout}
             >
-              <LogOut className="mr-1 h-3 w-3" />
-              Log Out
+              <LogOut className="h-4 w-4" style={{color: '#1D2915'}} />
             </Button>
           </div>
         </div>
