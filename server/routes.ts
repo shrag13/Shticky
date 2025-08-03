@@ -160,7 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Payment method routes
   app.post('/api/payment-methods', isAuthenticated, async (req, res) => {
     try {
-      const userId = (req.session as any).userId;
+      const userId = req.session.userId;
       console.log("Saving payment method for user:", userId);
       console.log("Request body:", req.body);
       

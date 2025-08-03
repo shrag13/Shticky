@@ -54,14 +54,14 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
 
   // Set form values when existing payment method is loaded
   useEffect(() => {
-    if (existingPaymentMethod) {
+    if (existingPaymentMethod && typeof existingPaymentMethod === 'object') {
       form.reset({
-        type: existingPaymentMethod.type,
-        accountName: existingPaymentMethod.accountName || "",
-        routingNumber: existingPaymentMethod.routingNumber || "",
-        accountNumber: existingPaymentMethod.accountNumber || "",
-        cashtag: existingPaymentMethod.cashtag || "",
-        paypalEmail: existingPaymentMethod.paypalEmail || "",
+        type: (existingPaymentMethod as any).type || "bank",
+        accountName: (existingPaymentMethod as any).accountName || "",
+        routingNumber: (existingPaymentMethod as any).routingNumber || "",
+        accountNumber: (existingPaymentMethod as any).accountNumber || "",
+        cashtag: (existingPaymentMethod as any).cashtag || "",
+        paypalEmail: (existingPaymentMethod as any).paypalEmail || "",
       });
     }
   }, [existingPaymentMethod, form]);
@@ -146,7 +146,7 @@ export default function WithdrawalModal({ isOpen, onClose }: WithdrawalModalProp
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Available for next monthly payout:</span>
                 <span className="text-lg font-bold text-secondary">
-                  ${userStats?.totalEarnings?.toFixed(2) || '0.00'}
+                  ${(userStats as any)?.totalEarnings?.toFixed(2) || '0.00'}
                 </span>
               </div>
               <p className="text-xs text-gray-500 mt-1">
