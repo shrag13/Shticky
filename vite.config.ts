@@ -25,9 +25,8 @@ export default defineConfig(async () => {
         "@assets": path.resolve(import.meta.dirname, "attached_assets"),
       },
     },
-    root: path.resolve(import.meta.dirname, "client"),
     build: {
-      outDir: "../dist",
+      outDir: "dist", // Changed from "../dist"
       emptyOutDir: true,
     },
     server: {
