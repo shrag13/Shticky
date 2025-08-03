@@ -78,13 +78,23 @@ export default function AdminPanel() {
   useEffect(() => {
     const checkAdminAuth = async () => {
       try {
-        const response = await apiRequest("GET", "/api/admin/stats");
-        if (response) {
+        // First check if authenticated through main system as admin
+        const userResponse = await apiRequest("GET", "/api/auth/user");
+        if (userResponse && (userResponse as any).isAdmin) {
           setIsLoggedIn(true);
+          return;
         }
       } catch (error) {
-        // Not authenticated, stay on login form
-        setIsLoggedIn(false);
+        // Not authenticated through main system, try admin endpoint
+        try {
+          const response = await apiRequest("GET", "/api/admin/stats");
+          if (response) {
+            setIsLoggedIn(true);
+          }
+        } catch (adminError) {
+          // Not authenticated, stay on login form
+          setIsLoggedIn(false);
+        }
       }
     };
     checkAdminAuth();
