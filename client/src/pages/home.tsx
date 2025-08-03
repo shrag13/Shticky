@@ -33,7 +33,7 @@ export default function Home() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/sign-in";
       }, 500);
       return;
     }
@@ -164,15 +164,7 @@ export default function Home() {
                 console.log("Profile clicked");
               }}
             >
-              {user?.profileImageUrl ? (
-                <img 
-                  src={user.profileImageUrl} 
-                  alt="Profile" 
-                  className="w-4 h-4 rounded-full object-cover"
-                />
-              ) : (
-                <User className="h-3 w-3" style={{color: '#1D2915'}} />
-              )}
+              <User className="h-3 w-3" style={{color: '#1D2915'}} />
             </Button>
             <Button 
               variant="ghost" 
@@ -194,7 +186,7 @@ export default function Home() {
 
       {/* Notification Bar */}
       <NotificationBar 
-        user={user || { id: '', firstName: '', lastName: '', email: '', profileImageUrl: '', lastDismissedAt: null }} 
+        user={user} 
         hasActiveStickers={userStats?.activeStickers ? userStats.activeStickers > 0 : false} 
         hasPaymentMethod={!!paymentMethod} 
       />
@@ -203,7 +195,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="bg-white/90 backdrop-blur-sm shadow-lg p-6 mb-8" style={{borderRadius: '15px'}}>
           <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>
-            Welcome back, {user?.firstName}!
+            Welcome back, {user?.firstName || 'User'}!
           </h2>
           <p className="text-lg font-medium" style={{color: '#686346'}}>Here's your Shticky performance overview</p>
         </div>

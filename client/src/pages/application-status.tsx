@@ -22,7 +22,7 @@ export default function ApplicationStatus() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/application";
+        window.location.href = "/sign-in";
       }, 500);
       return;
     }
