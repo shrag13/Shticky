@@ -354,7 +354,8 @@ export default function Home() {
             <p className="text-sm font-medium" style={{color: '#686346'}}>Track performance of your claimed Shtickys</p>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="min-w-full">
                 <thead style={{backgroundColor: 'rgba(168, 145, 130, 0.1)', borderRadius: '15px 15px 0 0'}}>
                   <tr>
@@ -416,6 +417,52 @@ export default function Home() {
                   )}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {userQrCodes?.map((qr) => {
+                const tierInfo = getTierBadge(qr.scansCount || 0);
+                return (
+                  <div key={qr.id} className="bg-white/70 rounded-lg p-4 space-y-3" style={{borderRadius: '15px', border: '1px solid rgba(168, 145, 130, 0.2)'}}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 rounded flex items-center justify-center mr-3" style={{backgroundColor: 'rgba(29, 41, 21, 0.1)', borderRadius: '15px'}}>
+                          <QrCode className="text-sm" style={{color: '#1D2915'}} />
+                        </div>
+                        <span className="text-sm font-bold" style={{color: '#1D2915'}}>{qr.claimCode}</span>
+                      </div>
+                      <Badge className="font-bold" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)', color: '#9A7B60'}}>
+                        Active
+                      </Badge>
+                    </div>
+                    
+                    <div className="grid grid-cols-3 gap-3 text-center">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{color: '#686346'}}>Scans</p>
+                        <p className="text-sm font-medium" style={{color: '#1D2915'}}>{qr.scansCount?.toLocaleString() || '0'}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{color: '#686346'}}>Earnings</p>
+                        <p className="text-sm font-black" style={{color: '#A89182'}}>${qr.earnings?.toFixed(2) || '0.00'}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{color: '#686346'}}>Tier</p>
+                        <Badge className={tierInfo.color + " text-xs"}>
+                          {tierInfo.label}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {(!userQrCodes || userQrCodes.length === 0) && (
+                <div className="text-center py-8">
+                  <p className="text-sm font-medium" style={{color: '#686346'}}>
+                    No Shtickys claimed yet. Scan your first QR code to get started!
+                  </p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
