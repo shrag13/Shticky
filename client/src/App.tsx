@@ -10,6 +10,7 @@ import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import Application from "@/pages/application";
 import ApplicationStatus from "@/pages/application-status";
+import SignIn from "@/pages/sign-in";
 import Admin from "@/pages/admin";
 
 function Router() {
@@ -20,12 +21,14 @@ function Router() {
       {isLoading || !isAuthenticated ? (
         <>
           <Route path="/" component={Landing} />
+          <Route path="/sign-in" component={SignIn} />
           <Route path="/application" component={Application} />
           <Route path="/application-status" component={ApplicationStatus} />
         </>
       ) : (
         <>
           <Route path="/" component={Home} />
+          <Route path="/sign-in" component={Home} />
           <Route path="/application" component={Application} />
           <Route path="/application-status" component={ApplicationStatus} />
           <Route path="/admin" component={Admin} />

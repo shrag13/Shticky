@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -13,10 +13,12 @@ import { apiRequest } from "@/lib/queryClient";
 import { insertApplicationSchema, type InsertApplication } from "@shared/schema";
 import { CheckCircle, ArrowLeft, UserPlus } from "lucide-react";
 import logoPath from "@assets/IMG_20250628_212758_407_1754151926865.webp";
+import { z } from "zod";
 
 export default function Application() {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   const applicationForm = useForm<InsertApplication>({
     resolver: zodResolver(insertApplicationSchema),
@@ -33,6 +35,8 @@ export default function Application() {
     },
   });
 
+
+
   const submitApplicationMutation = useMutation({
     mutationFn: async (data: InsertApplication) => {
       await apiRequest("POST", "/api/applications", data);
@@ -40,14 +44,36 @@ export default function Application() {
     onSuccess: () => {
       setIsSubmitted(true);
       toast({
-        title: "Application submitted!",
-        description: "Thank you for your application. We'll review it within 2-3 business days.",
+        title: "Application Submitted",
+        description: "Your application has been submitted for review.",
+        variant: "default",
       });
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       toast({
-        title: "Submission failed",
-        description: error.message,
+        title: "Submission Failed",
+        description: error.message || "Failed to submit application",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const loginMutation = useMutation({
+    mutationFn: async (data: LoginForm) => {
+      return await apiRequest("POST", "/api/auth/login", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+        variant: "default",
+      });
+      window.location.href = '/';
+    },
+    onError: (error) => {
+      toast({
+        title: "Login Failed",
+        description: error.message || "Invalid email or password",
         variant: "destructive",
       });
     },
@@ -57,24 +83,57 @@ export default function Application() {
     submitApplicationMutation.mutate(data);
   };
 
+  const onSubmitLogin = (data: LoginForm) => {
+    loginMutation.mutate(data);
+  };
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
-        <Card className="max-w-md w-full shadow-xl border-0 bg-white/90 backdrop-blur-sm" style={{borderRadius: '15px'}}>
-          <CardContent className="p-8 text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{backgroundColor: 'rgba(154, 123, 96, 0.1)'}}>
-              <CheckCircle className="w-8 h-8" style={{color: '#9A7B60'}} />
+        {/* Liquid Glass Header */}
+        <header className="liquid-glass-morphing fixed top-0 left-0 right-0 z-50">
+          <div className="liquid-glass-content flex items-center justify-between px-6 py-2">
+            <div className="liquid-glass-brand flex items-center space-x-2.5">
+              <div className="liquid-glass-logo-morph">
+                <img src={logoPath} alt="Shticky" className="w-8 h-8 rounded-[10px] object-cover" />
+              </div>
+              <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
+                Shticky
+              </span>
             </div>
-            <h2 className="text-2xl font-black mb-4" style={{color: '#1D2915'}}>Application Submitted!</h2>
-            <p className="text-lg font-medium mb-6" style={{color: '#686346'}}>
-              Thank you for applying to Shticky. We'll review your application within 2-3 business days and notify you via email.
+            
+            <div className="liquid-glass-buttons flex items-center space-x-2.5">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm"
+                style={{
+                  backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                  WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
+                  background: 'rgba(255, 255, 255, 0.3)'
+                }}
+                onClick={() => window.location.href = '/'}
+              >
+                <ArrowLeft className="mr-1 h-3 w-3" />
+                Back to Home
+              </Button>
+            </div>
+          </div>
+        </header>
+
+        <Card className="w-full max-w-md mx-4 mt-20 shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+          <CardContent className="pt-6 text-center">
+            <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{color: '#9A7B60'}} />
+            <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>Application Submitted!</h2>
+            <p className="text-base font-medium mb-6" style={{color: '#686346'}}>
+              Thank you for your application. You'll receive an email once it's reviewed and approved.
             </p>
             <Button 
-              onClick={() => window.location.href = '/'}
-              className="font-black text-lg px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 text-white"
+              onClick={() => window.location.href = '/'} 
+              className="w-full font-black text-lg px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
               style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
             >
-              BACK TO HOME
+              RETURN TO HOME
             </Button>
           </CardContent>
         </Card>
@@ -94,6 +153,7 @@ export default function Application() {
             <span className="liquid-glass-text-morph text-lg font-semibold" style={{color: '#1D2915'}}>
               Shticky
             </span>
+            <span className="ml-2 text-sm" style={{color: '#686346'}}>{isSignIn ? 'Sign In' : 'Application'}</span>
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
@@ -106,10 +166,10 @@ export default function Application() {
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)'
               }}
-              onClick={() => window.location.href = '/'}
+              onClick={() => setIsSignIn(!isSignIn)}
             >
-              <ArrowLeft className="mr-1 h-3 w-3" />
-              Back
+              {isSignIn ? <UserPlus className="mr-1 h-3 w-3" /> : <LogIn className="mr-1 h-3 w-3" />}
+              {isSignIn ? 'Apply Instead' : 'Sign In Instead'}
             </Button>
             <Button 
               variant="ghost" 
@@ -120,27 +180,72 @@ export default function Application() {
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)'
               }}
-              onClick={() => window.location.href = '/sign-in'}
+              onClick={() => window.location.href = '/'}
             >
-              Sign In
+              <ArrowLeft className="mr-1 h-3 w-3" />
+              Back to Home
             </Button>
           </div>
         </div>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-28">
-        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm" style={{borderRadius: '15px'}}>
+        <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm" style={{borderRadius: '15px'}}>
           <CardHeader>
             <CardTitle className="text-2xl font-black" style={{color: '#1D2915'}}>
-              <UserPlus className="inline mr-2 h-6 w-6" style={{color: '#9A7B60'}} />
-              Join Shticky
+              {isSignIn ? 'Welcome Back' : 'Join Shticky'}
             </CardTitle>
             <p className="text-lg font-medium" style={{color: '#686346'}}>
-              Fill out this application to start earning money from QR code scans. We will review your application and get back to you soon.
+              {isSignIn 
+                ? 'Sign in to access your dashboard and manage your Shticky account.'
+                : 'Fill out this application to start earning money from QR code scans. We will review your application and get back to you soon.'
+              }
             </p>
           </CardHeader>
           <CardContent>
-            <form onSubmit={applicationForm.handleSubmit(onSubmitApplication)} className="space-y-6">
+            {isSignIn ? (
+              <form onSubmit={loginForm.handleSubmit(onSubmitLogin)} className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="login-email" className="text-base font-bold" style={{color: '#1D2915'}}>Email Address *</Label>
+                    <Input
+                      id="login-email"
+                      type="email"
+                      {...loginForm.register("email")}
+                      placeholder="Enter your email address"
+                      className="liquid-glass-input text-gray-900 font-medium"
+                    />
+                    {loginForm.formState.errors.email && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{loginForm.formState.errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="login-password" className="text-base font-bold" style={{color: '#1D2915'}}>Password *</Label>
+                    <Input
+                      id="login-password"
+                      type="password"
+                      {...loginForm.register("password")}
+                      placeholder="Enter your password"
+                      className="liquid-glass-input text-gray-900 font-medium"
+                    />
+                    {loginForm.formState.errors.password && (
+                      <p className="text-sm font-medium" style={{color: '#D2691E'}}>{loginForm.formState.errors.password.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  disabled={loginMutation.isPending}
+                  className="w-full font-black text-lg px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+                  style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
+                >
+                  {loginMutation.isPending ? 'SIGNING IN...' : 'SIGN IN'}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={applicationForm.handleSubmit(onSubmitApplication)} className="space-y-6">
               {/* Account Information */}
               <div className="space-y-4 p-6 border-2" style={{backgroundColor: '#F5F3F1', borderColor: '#9A7B60', borderRadius: '15px'}}>
                 <h3 className="text-xl font-black" style={{color: '#1D2915'}}>Account Information</h3>
@@ -239,7 +344,7 @@ export default function Application() {
                     <Input
                       id="zipCode"
                       {...applicationForm.register("zipCode")}
-                      placeholder="Zip"
+                      placeholder="Zip Code"
                       className="liquid-glass-input text-gray-900 font-medium"
                     />
                     {applicationForm.formState.errors.zipCode && (
@@ -319,6 +424,7 @@ export default function Application() {
                 {submitApplicationMutation.isPending ? "SUBMITTING..." : "SUBMIT APPLICATION"}
               </Button>
             </form>
+            )}
           </CardContent>
         </Card>
 
