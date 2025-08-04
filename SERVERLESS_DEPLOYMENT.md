@@ -92,13 +92,14 @@ This solution gives you the full GitHub integration you want while maintaining a
 
 1. **Prepare Repository**
    ```bash
-   # Build the application and copy to public folder
+   # Build the application and prepare for Vercel deployment
    npm run build
-   mkdir -p public && cp -r dist/public/* public/
+   cp dist/public/index.html index.html
+   cp -r dist/public/assets assets/
    
    # Commit all changes
    git add .
-   git commit -m "Fix Vercel deployment with proper static file routing"
+   git commit -m "Fix Vercel deployment - serve built files from root"
    git push origin main
    ```
 
@@ -127,3 +128,4 @@ This solution gives you the full GitHub integration you want while maintaining a
 ✅ TypeScript errors resolved for production build
 ✅ Fixed static file routing issue - site will display properly instead of code
 ✅ Resolved Vercel conflicting builds/functions configuration error
+✅ Fixed static file serving - moved built files to root directory for proper Vercel deployment
