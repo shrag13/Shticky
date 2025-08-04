@@ -16,7 +16,7 @@ class SecureAdminVault {
 
   constructor() {
     this.vaultPath = path.join(process.cwd(), 'secure-vault.enc');
-    // In production, this should come from environment variables
+    // Use environment variable for production security
     this.masterKey = process.env.ADMIN_VAULT_KEY || 'ShtickySuperSecureAdminKey2025!@#';
   }
 
@@ -111,11 +111,16 @@ class SecureAdminVault {
 
 export const secureVault = new SecureAdminVault();
 
-// Initialize with existing test credentials
+// Initialize with existing test credentials and production defaults
 export function initializeVault() {
   secureVault.updateCredential('Admin', 'Admin', 'admin', 'system');
   secureVault.updateCredential('shrhersh@gmail.com', 'bluebird', 'user', 'approved');
   secureVault.updateCredential('pending@test.com', 'bluebird', 'user', 'pending');
   secureVault.updateCredential('myname@myname.com', 'userpassword', 'user', 'pending');
   secureVault.updateCredential('admin@shticky.app', 'AdminSecure2025', 'admin', 'active');
+  
+  // Initialize production admin account if not exists
+  if (process.env.NODE_ENV === 'production' && process.env.PRODUCTION_ADMIN_EMAIL && process.env.PRODUCTION_ADMIN_PASSWORD) {
+    secureVault.updateCredential(process.env.PRODUCTION_ADMIN_EMAIL, process.env.PRODUCTION_ADMIN_PASSWORD, 'admin', 'production');
+  }
 }
