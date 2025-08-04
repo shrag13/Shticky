@@ -275,8 +275,8 @@ export async function registerRoutes(app: Express): Promise<Server | Express> {
       }
       
       // Get the application first
-      const applications = await storage.getAllApplications();
-      const application = applications.find(app => app.id === id);
+      const allApplications = await storage.getAllApplications();
+      const application = allApplications.find(app => app.id === id);
       
       if (!application) {
         return res.status(404).json({ message: "Application not found" });
