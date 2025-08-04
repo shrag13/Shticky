@@ -110,7 +110,7 @@ export default function Home() {
   // Handle application error or unauthorized
   if (applicationError || !application) {
     // If unauthorized or application doesn't exist, redirect to application page
-    window.location.href = "/apply";
+    window.location.href = "/application";
     return null;
   }
 
