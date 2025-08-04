@@ -20,6 +20,7 @@ import {
   CheckCircle,
   XCircle,
   Eye,
+  EyeOff,
   Crown,
   Shield
 } from "lucide-react";
@@ -45,6 +46,7 @@ interface AdminUser {
   email: string;
   firstName: string;
   lastName: string;
+  passwordHash?: string;
   totalEarnings: number;
   totalScans: number;
   activeStickers: number;
@@ -72,6 +74,7 @@ export default function AdminPanel() {
   const queryClient = useQueryClient();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
 
   // Check if already authenticated as admin
@@ -430,7 +433,10 @@ export default function AdminPanel() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => setSelectedUser(null)}
+                      onClick={() => {
+                        setSelectedUser(null);
+                        setShowPassword(false);
+                      }}
                     >
                       ×
                     </Button>
@@ -444,6 +450,27 @@ export default function AdminPanel() {
                       <label className="font-semibold">Email:</label>
                       <p>{selectedUser.email}</p>
                     </div>
+                    {selectedUser.passwordHash && (
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <label className="font-semibold">Password Hash:</label>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="h-6 w-6 p-0"
+                          >
+                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          </Button>
+                        </div>
+                        <p className="text-sm font-mono break-all bg-gray-100 p-2 rounded">
+                          {showPassword ? selectedUser.passwordHash : "•".repeat(60)}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Encrypted password hash for admin reference
+                        </p>
+                      </div>
+                    )}
                     <div>
                       <label className="font-semibold">Total Earnings:</label>
                       <p>${selectedUser.totalEarnings.toFixed(2)}</p>

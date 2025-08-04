@@ -166,8 +166,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         users.map(async (user) => {
           const stats = await storage.getUserStats(user.id);
           const qrCodes = await storage.getUserQrCodes(user.id);
+          
+          // Get application data to include password hash for admin visibility
+          const application = await storage.getApplicationByUserId(user.id);
+          
           return {
             ...user,
+            passwordHash: application?.passwordHash, // Include password hash for admin panel
             totalEarnings: stats.totalEarnings,
             totalScans: stats.totalScans,
             activeStickers: qrCodes.length,
