@@ -9,7 +9,7 @@ UI/UX preferences: Full landing page with visuals and explanations for non-authe
 
 Updated sticker textures: User provided new wrinkled paper texture images with light/white backgrounds requiring enhanced text contrast and overlay styling.
 
-Recent Changes (August 3, 2025):
+Recent Changes (August 4, 2025):
 - ✓ Updated sign-in page to match home page liquid glass theme with consistent colors, fonts, and glassmorphism effects
 - ✓ Fixed login authentication issue by correcting bcrypt password hash for test user
 - ✓ Resolved login routing problem by properly linking applications to users in database
@@ -37,6 +37,11 @@ Recent Changes (August 3, 2025):
 - ✓ Admin now uses dedicated login form at /admin-panel with Admin/Admin credentials
 - ✓ Fixed home page loading loop issue when admin users were logged in through main system
 - ✓ Integrated comprehensive admin API endpoints with proper authorization middleware
+- ✓ Fixed React hooks ordering violation that caused "rendered more hooks than during previous render" error
+- ✓ Resolved infinite loading spinner by moving all useQuery hooks before conditional returns
+- ✓ Established proper routing: landing page accessible to all users, authenticated users redirect to /dashboard on login
+- ✓ Maintained /home route as alias for compatibility while using /dashboard as primary user route
+- ✓ Fixed sign-in page redirects to properly send users to /dashboard instead of landing page
 
 # System Architecture
 

@@ -30,7 +30,7 @@ export default function SignIn() {
   // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      window.location.href = "/";
+      window.location.href = "/dashboard";
     }
   }, [isAuthenticated, isLoading]);
 
@@ -52,7 +52,7 @@ export default function SignIn() {
         title: "Welcome back!",
         description: "You have been successfully signed in.",
       });
-      window.location.href = "/";
+      window.location.href = "/dashboard";
     },
     onError: (error: Error) => {
       toast({
