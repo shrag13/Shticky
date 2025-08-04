@@ -30,11 +30,12 @@ export default function Home() {
     return null;
   }
 
-  const { data: application } = useQuery<{
+  const { data: application, isLoading: applicationLoading, error: applicationError } = useQuery<{
     status: string;
   }>({
     queryKey: ["/api/applications/me"],
     retry: false,
+    enabled: isAuthenticated, // Only fetch when authenticated
   });
 
   const { data: userStats } = useQuery<{
@@ -98,7 +99,7 @@ export default function Home() {
     return Math.min((userStats.totalEarnings / 5) * 100, 100);
   };
 
-  if (isLoading) {
+  if (isLoading || applicationLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
@@ -106,22 +107,17 @@ export default function Home() {
     );
   }
 
-  // Redirect to application status page if no application exists
-  if (!application) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
+  // Handle application error or unauthorized
+  if (applicationError || !application) {
+    // If unauthorized or application doesn't exist, redirect to application page
+    window.location.href = "/apply";
+    return null;
   }
 
   // Redirect to application status page if not approved
   if (application.status !== 'approved') {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
+    window.location.href = "/application-status";
+    return null;
   }
 
   // Main dashboard for approved users
@@ -174,7 +170,7 @@ export default function Home() {
 
       {/* Notification Bar */}
       <NotificationBar 
-        user={user && typeof user === 'object' && 'firstName' in user ? user : { lastDismissedAt: null }} 
+        user={user && typeof user === 'object' && 'lastDismissedAt' in user ? user : { lastDismissedAt: null }} 
         hasActiveStickers={userStats?.activeStickers ? userStats.activeStickers > 0 : false} 
         hasPaymentMethod={!!paymentMethod} 
       />
@@ -183,7 +179,7 @@ export default function Home() {
         {/* Welcome Section */}
         <div className="bg-white/90 backdrop-blur-sm shadow-lg p-6 mb-8" style={{borderRadius: '15px'}}>
           <h2 className="text-2xl font-black mb-2" style={{color: '#1D2915'}}>
-            Welcome back, {user && typeof user === 'object' && 'firstName' in user ? user.firstName : 'User'}!
+            Welcome back, {user && typeof user === 'object' && 'firstName' in user ? (user as any).firstName : 'User'}!
           </h2>
           <p className="text-lg font-medium" style={{color: '#686346'}}>Here's your Shticky performance overview</p>
         </div>
