@@ -104,19 +104,7 @@ export default function SignIn() {
               <ArrowLeft className="mr-1 h-3 w-3" />
               Back
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="liquid-glass-btn-morph liquid-glass-btn-outline px-4 py-1.5 h-auto text-sm ml-2"
-              style={{
-                backdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
-                WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
-                background: 'rgba(255, 255, 255, 0.3)'
-              }}
-              onClick={() => window.location.href = '/admin-panel'}
-            >
-              Admin
-            </Button>
+
           </div>
         </div>
       </header>

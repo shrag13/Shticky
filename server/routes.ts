@@ -59,7 +59,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "User not found" });
       }
 
-      res.json({ id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName });
+      res.json({ id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, isAdmin: user.isAdmin });
     } catch (error) {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
@@ -111,11 +111,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Simple admin credentials for testing
       if (username === 'Admin' && password === 'Admin') {
         // Create or get admin user
-        let adminUser = await storage.getUserByEmail('admin@shticky.app');
+        let adminUser = await storage.getUserByEmail('admin@admin.com');
         if (!adminUser) {
           const hashedPassword = await hashPassword('Admin');
           adminUser = await storage.createUser({
-            email: 'admin@shticky.app',
+            email: 'admin@admin.com',
             passwordHash: hashedPassword,
             firstName: 'Admin',
             lastName: 'User',
@@ -132,6 +132,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Admin login error:", error);
       res.status(500).json({ message: "Internal server error" });
     }
+  });
+
+  // Admin logout endpoint
+  app.post('/api/admin/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Failed to logout" });
+      }
+      res.clearCookie('connect.sid');
+      res.json({ message: "Admin logout successful" });
+    });
   });
 
   // Admin dashboard stats
