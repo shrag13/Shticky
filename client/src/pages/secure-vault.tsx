@@ -68,27 +68,28 @@ export default function SecureVault() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-3">
-            <Shield className="h-8 w-8 text-green-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Secure Admin Vault</h1>
+            <Shield className="h-8 w-8 text-gray-700" />
+            <h1 className="text-3xl font-bold text-gray-900">Administrative Credential Management</h1>
           </div>
           <Button
             onClick={() => generateBackupMutation.mutate()}
             disabled={generateBackupMutation.isPending}
-            className="flex items-center space-x-2"
+            variant="outline"
+            className="flex items-center space-x-2 border-gray-300 text-gray-700"
           >
             <Download className="h-4 w-4" />
-            <span>Download Encrypted Backup</span>
+            <span>Export Backup</span>
           </Button>
         </div>
 
         {/* Add New Credential */}
-        <Card className="mb-8">
+        <Card className="mb-8 border-gray-200">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
+            <CardTitle className="flex items-center space-x-2 text-gray-800">
               <Plus className="h-5 w-5" />
               <span>Add New Credential</span>
             </CardTitle>
@@ -129,9 +130,9 @@ export default function SecureVault() {
                 <Button
                   onClick={() => addCredentialMutation.mutate(newCredential)}
                   disabled={!newCredential.email || !newCredential.password || addCredentialMutation.isPending}
-                  className="w-full"
+                  className="w-full bg-gray-800 hover:bg-gray-900"
                 >
-                  Add to Vault
+                  Store Credential
                 </Button>
               </div>
             </div>
@@ -139,14 +140,14 @@ export default function SecureVault() {
         </Card>
 
         {/* Credentials List */}
-        <Card>
+        <Card className="border-gray-200">
           <CardHeader>
-            <CardTitle>Encrypted Credentials ({credentials?.length || 0})</CardTitle>
+            <CardTitle className="text-gray-800">Stored Credentials ({credentials?.length || 0})</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {credentials?.map((cred, index) => (
-                <div key={index} className="border rounded-lg p-4 bg-gray-50">
+                <div key={index} className="border rounded-lg p-4 bg-white border-gray-200">
                   <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
                     <div>
                       <Label className="text-sm font-semibold">Email</Label>
@@ -155,7 +156,7 @@ export default function SecureVault() {
                     <div>
                       <Label className="text-sm font-semibold">Password</Label>
                       <div className="flex items-center space-x-2">
-                        <p className="font-mono text-sm bg-white p-2 rounded border flex-1">
+                        <p className="font-mono text-sm bg-gray-50 p-2 rounded border flex-1">
                           {showPasswords[cred.email] ? cred.password : "•".repeat(cred.password.length)}
                         </p>
                         <Button
@@ -193,17 +194,17 @@ export default function SecureVault() {
           </CardContent>
         </Card>
 
-        <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <div className="mt-8 p-4 bg-gray-100 border border-gray-300 rounded-lg">
           <div className="flex items-start space-x-3">
-            <Shield className="h-5 w-5 text-yellow-600 mt-1" />
+            <Shield className="h-5 w-5 text-gray-600 mt-1" />
             <div>
-              <h3 className="font-semibold text-yellow-800">Security Features</h3>
-              <ul className="text-sm text-yellow-700 mt-2 space-y-1">
-                <li>• All credentials encrypted with AES-256 encryption</li>
-                <li>• Stored in encrypted file with master key protection</li>
-                <li>• Automatic backup generation with timestamp</li>
-                <li>• Password visibility controls for secure viewing</li>
-                <li>• File excluded from version control (.gitignore)</li>
+              <h3 className="font-semibold text-gray-800">Security Implementation</h3>
+              <ul className="text-sm text-gray-700 mt-2 space-y-1">
+                <li>• AES-256 encryption standard</li>
+                <li>• Master key authentication</li>
+                <li>• Encrypted backup system</li>
+                <li>• Access control mechanisms</li>
+                <li>• Version control exclusion</li>
               </ul>
             </div>
           </div>
