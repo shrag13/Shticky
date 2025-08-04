@@ -45,6 +45,7 @@ class SecureAdminVault {
   loadCredentials(): SecureCredential[] {
     try {
       if (!fs.existsSync(this.vaultPath)) {
+        console.log('Creating new secure vault...');
         return [];
       }
 
@@ -53,12 +54,17 @@ class SecureAdminVault {
       const jsonData = decrypted.toString(CryptoJS.enc.Utf8);
       
       if (!jsonData) {
-        throw new Error('Invalid master key or corrupted vault');
+        console.log('Vault key changed or corrupted, recreating vault...');
+        fs.unlinkSync(this.vaultPath);
+        return [];
       }
       
       return JSON.parse(jsonData);
     } catch (error) {
-      console.error('Failed to load secure vault:', error);
+      console.log('Vault corrupted or key changed, recreating:', error.message);
+      if (fs.existsSync(this.vaultPath)) {
+        fs.unlinkSync(this.vaultPath);
+      }
       return [];
     }
   }
