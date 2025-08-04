@@ -24,21 +24,7 @@ export default function Home() {
   const [showWithdrawal, setShowWithdrawal] = useState(false);
   const [showManualEntry, setShowManualEntry] = useState(false);
 
-  // Show loading while checking authentication
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  // Redirect if not authenticated
-  if (!isAuthenticated) {
-    window.location.href = "/sign-in";
-    return null;
-  }
-
+  // All hooks must be called before any early returns
   const { data: application, isLoading: applicationLoading, error: applicationError } = useQuery<{
     status: string;
   }>({
@@ -83,6 +69,21 @@ export default function Home() {
     enabled: application?.status === 'approved',
     retry: false,
   });
+
+  // Show loading while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  // Redirect if not authenticated
+  if (!isAuthenticated) {
+    window.location.href = "/sign-in";
+    return null;
+  }
 
   const handleLogout = async () => {
     if (confirm('Are you sure you want to log out?')) {
