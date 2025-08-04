@@ -2,13 +2,14 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { getSession, isAuthenticated, isAdmin, hashPassword, verifyPassword } from "./auth";
-import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema, applications } from "@shared/schema";
+import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema } from "@shared/schema";
+import { applications } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { secureVault, initializeVault } from "./secure-admin-vault";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<Server | Express> {
   // Session middleware
   app.use(getSession());
 
@@ -298,7 +299,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           updatedAt: new Date(),
         });
         
-        // Link the application to the user  
+        // Link the application to the user using table from imports
         await db.update(applications).set({ userId: newUser.id }).where(eq(applications.id, id));
       }
       
@@ -465,6 +466,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // For serverless deployment, return app directly
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    return app;
+  }
+  
+  // For development, return HTTP server
   const httpServer = createServer(app);
   return httpServer;
 }

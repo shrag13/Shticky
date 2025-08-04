@@ -37,6 +37,7 @@ Since GitHub Pages only supports static files, we'll use a serverless platform t
    DATABASE_URL=your_neon_database_url
    ADMIN_VAULT_KEY=your_secure_master_key
    NODE_ENV=production
+   VERCEL=1
    ```
 
 4. **Database Setup**
@@ -57,7 +58,9 @@ For Netlify deployment:
 
 - `vercel.json` - Vercel configuration for serverless deployment
 - `netlify.toml` - Netlify configuration 
-- `netlify/functions/server.ts` - Serverless function wrapper
+- `api/index.ts` - Vercel serverless function entry point
+- `docs/` - Built static files for frontend hosting
+- `package.json.production` - Production dependencies for serverless deployment
 
 ## What This Provides
 
@@ -84,3 +87,40 @@ NODE_ENV=production
 - **Database**: Neon free tier or existing setup
 
 This solution gives you the full GitHub integration you want while maintaining all the app's functionality including secure login and database operations.
+
+## Quick Start Guide
+
+1. **Prepare Repository**
+   ```bash
+   # Build the application
+   npm run build
+   
+   # Commit all changes
+   git add .
+   git commit -m "Add Vercel serverless deployment"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Visit [vercel.com](https://vercel.com) and sign in with GitHub
+   - Click "New Project" → Import your repository
+   - Vercel automatically detects `vercel.json` configuration
+   - Add environment variables before deploying:
+     - `DATABASE_URL` = Your Neon/PostgreSQL connection string
+     - `ADMIN_VAULT_KEY` = 32-character secure key for vault encryption
+     - `VERCEL` = 1
+     - `NODE_ENV` = production
+
+3. **Test Deployment**
+   - Frontend loads from `/docs` static files
+   - Backend API available at `/api/*` endpoints
+   - Full authentication and database functionality
+   - Admin panel and secure vault operational
+
+## Deployment Status
+✅ Serverless functions configured for Vercel
+✅ Static files optimized and ready in `/docs`
+✅ Database schema compatible with production
+✅ Authentication flow adapted for serverless
+✅ Environment variable configuration documented
+✅ TypeScript errors resolved for production build
