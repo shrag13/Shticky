@@ -42,6 +42,9 @@ Recent Changes (August 4, 2025):
 - ✓ Established proper routing: landing page accessible to all users, authenticated users redirect to /dashboard on login
 - ✓ Maintained /home route as alias for compatibility while using /dashboard as primary user route
 - ✓ Fixed sign-in page redirects to properly send users to /dashboard instead of landing page
+- ✓ Added password visibility feature to admin panel for both user management and application management
+- ✓ Enhanced admin users API to include password hashes for administrative access
+- ✓ Implemented toggle eye/eye-off buttons for secure password hash viewing in admin interface
 
 # System Architecture
 
