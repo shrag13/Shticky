@@ -243,15 +243,7 @@ export default function ApplicationStatus() {
                   </Button>
                 )}
                 
-                {showAsStandalone && (
-                  <Button 
-                    onClick={() => window.location.href = '/sign-in'}
-                    className="font-black text-lg px-8 py-4 shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
-                    style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
-                  >
-                    TRY SIGNING IN AGAIN
-                  </Button>
-                )}
+
                 
                 <Button 
                   variant="outline" 
