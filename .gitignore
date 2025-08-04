@@ -4,3 +4,13 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Admin credentials - KEEP SECURE
+admin-credentials.txt
+admin-cookies.txt
+admin-test.txt
+fresh-admin.txt
+test-admin.txt
+test-cookies.txt
+cookies.txt
+debug-admin.txt
