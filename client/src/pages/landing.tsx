@@ -5,6 +5,7 @@ import { QrCode, DollarSign, Star, Camera, ArrowRight, CheckCircle2 } from "luci
 import { useEffect, useRef, useState } from "react";
 import logoPath from "@assets/20250701_023412_0000_1754186769563.png";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useAuth } from "@/hooks/useAuth";
 import brickWallPath from "@assets/istockphoto-184099696-612x612_1754167496614.jpg";
 import starterStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182314_0000_1754177382824.png";
 import proStickerPath from "@assets/Untitled (1920 x 1080 px) (1080 x 1920 px) (1080 x 1500 px)_20250802_182327_0000_1754177382852.png";
@@ -41,11 +42,40 @@ function useScrollAnimation() {
 export default function Landing() {
   usePageTitle("Home");
   
+  const { user, isAuthenticated } = useAuth();
   const heroAnimation = useScrollAnimation();
   const howItWorksAnimation = useScrollAnimation();
   const statsAnimation = useScrollAnimation();
   const tiersAnimation = useScrollAnimation();
   const ctaAnimation = useScrollAnimation();
+  
+  // Smart navigation function that redirects authenticated users to appropriate dashboard
+  const handleSignInClick = () => {
+    if (isAuthenticated) {
+      // If user is already authenticated, check if they're admin and redirect appropriately
+      if (user && typeof user === 'object' && 'isAdmin' in user && user.isAdmin) {
+        window.location.href = '/admin-panel';
+      } else {
+        window.location.href = '/dashboard';
+      }
+    } else {
+      window.location.href = '/sign-in';
+    }
+  };
+
+  const handleStartEarningClick = () => {
+    if (isAuthenticated) {
+      // If already authenticated, go to dashboard
+      if (user && typeof user === 'object' && 'isAdmin' in user && user.isAdmin) {
+        window.location.href = '/admin-panel';
+      } else {
+        window.location.href = '/dashboard';
+      }
+    } else {
+      // If not authenticated, go to application page
+      window.location.href = '/application';
+    }
+  };
 
   // Liquid glass distortion removed to fix navbar glow artifacts
 
@@ -71,9 +101,9 @@ export default function Landing() {
                 WebkitBackdropFilter: 'blur(8px) saturate(180%) brightness(120%)',
                 background: 'rgba(255, 255, 255, 0.3)'
               }}
-              onClick={() => window.location.href = '/sign-in'}
+              onClick={handleSignInClick}
             >
-              Sign In
+              {isAuthenticated ? 'Dashboard' : 'Sign In'}
             </Button>
             <Button 
               size="sm" 
@@ -115,11 +145,11 @@ export default function Landing() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg"
-                onClick={() => window.location.href = '/application'}
+                onClick={handleStartEarningClick}
                 className="text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90"
                 style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
               >
-                START EARNING NOW
+                {isAuthenticated ? 'GO TO DASHBOARD' : 'START EARNING NOW'}
               </Button>
               <Button 
                 size="lg"

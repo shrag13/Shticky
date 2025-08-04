@@ -26,7 +26,7 @@ export default function Home() {
 
   // Redirect if not authenticated
   if (!isAuthenticated) {
-    window.location.href = "/";
+    window.location.href = "/sign-in";
     return null;
   }
 

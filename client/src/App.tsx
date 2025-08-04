@@ -15,28 +15,15 @@ import Admin from "@/pages/admin";
 import AdminPanel from "@/pages/admin-panel";
 
 function Router() {
-  const { isAuthenticated, isLoading } = useAuth();
-
   return (
     <Switch>
-      {isLoading || !isAuthenticated ? (
-        <>
-          <Route path="/" component={Landing} />
-          <Route path="/sign-in" component={SignIn} />
-          <Route path="/application" component={Application} />
-          <Route path="/application-status" component={ApplicationStatus} />
-          <Route path="/admin-panel" component={AdminPanel} />
-        </>
-      ) : (
-        <>
-          <Route path="/" component={Home} />
-          <Route path="/sign-in" component={Home} />
-          <Route path="/application" component={Application} />
-          <Route path="/application-status" component={ApplicationStatus} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/admin-panel" component={AdminPanel} />
-        </>
-      )}
+      <Route path="/" component={Landing} />
+      <Route path="/dashboard" component={Home} />
+      <Route path="/sign-in" component={SignIn} />
+      <Route path="/application" component={Application} />
+      <Route path="/application-status" component={ApplicationStatus} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/admin-panel" component={AdminPanel} />
       <Route component={NotFound} />
     </Switch>
   );
