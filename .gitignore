@@ -30,6 +30,7 @@ debug-admin.txt
 # Build outputs
 build/
 out/
+!public/
 
 # Local development
 .local

@@ -92,12 +92,13 @@ This solution gives you the full GitHub integration you want while maintaining a
 
 1. **Prepare Repository**
    ```bash
-   # Build the application
+   # Build the application and copy to public folder
    npm run build
+   mkdir -p public && cp -r dist/public/* public/
    
    # Commit all changes
    git add .
-   git commit -m "Add Vercel serverless deployment"
+   git commit -m "Fix Vercel deployment with proper static file routing"
    git push origin main
    ```
 
@@ -112,15 +113,16 @@ This solution gives you the full GitHub integration you want while maintaining a
      - `NODE_ENV` = production
 
 3. **Test Deployment**
-   - Frontend loads from `/docs` static files
+   - Frontend loads from `/public` static files (standard Vercel convention)
    - Backend API available at `/api/*` endpoints
    - Full authentication and database functionality
    - Admin panel and secure vault operational
 
 ## Deployment Status
 ✅ Serverless functions configured for Vercel
-✅ Static files optimized and ready in `/docs`
+✅ Static files optimized and ready in `/public` (Vercel standard)
 ✅ Database schema compatible with production
 ✅ Authentication flow adapted for serverless
 ✅ Environment variable configuration documented
 ✅ TypeScript errors resolved for production build
+✅ Fixed static file routing issue - site will display properly instead of code
