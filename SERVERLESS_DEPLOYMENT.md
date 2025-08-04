@@ -29,6 +29,7 @@ Since GitHub Pages only supports static files, we'll use a serverless platform t
    - Click "New Project"
    - Select your repository
    - Vercel will auto-detect the configuration from `vercel.json`
+   - Build settings are automatically configured
 
 3. **Configure Environment Variables**
    In Vercel dashboard, add these environment variables:

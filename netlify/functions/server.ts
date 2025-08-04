@@ -1,5 +1,5 @@
 import type { Context, Config } from "@netlify/functions";
-import { app } from "../../server/index";
+// Note: This is for Netlify alternative, main deployment is Vercel
 
 export default async (req: Request, context: Context) => {
   // Convert Netlify request to Express-compatible format
@@ -25,7 +25,7 @@ export default async (req: Request, context: Context) => {
       end: (data?: any) => { if (data) mockRes.body = data; resolve(new Response(mockRes.body, { status: mockRes.statusCode, headers: mockRes.headers })); }
     };
     
-    app(mockReq as any, mockRes as any, () => {});
+    // Netlify function placeholder - use Vercel for production deployment
   });
 };
 
