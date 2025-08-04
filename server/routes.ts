@@ -21,6 +21,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Email and password are required" });
       }
 
+      // First check if there's an application for this email
+      const application = await storage.getApplicationByEmail(email);
+      
+      // If no application exists, show generic error
+      if (!application) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      // Check if application is still pending
+      if (application.status === 'pending') {
+        return res.status(403).json({ 
+          message: "Application under review", 
+          redirectTo: "/application-status",
+          applicationStatus: "pending"
+        });
+      }
+
+      // Check if application was rejected
+      if (application.status === 'rejected') {
+        return res.status(403).json({ 
+          message: "Application not approved", 
+          redirectTo: "/application-status",
+          applicationStatus: "rejected"
+        });
+      }
+
+      // Application is approved, check user account
       const user = await storage.getUserByEmail(email);
       if (!user) {
         return res.status(401).json({ message: "Invalid email or password" });

@@ -52,6 +52,10 @@ Recent Changes (August 4, 2025):
 - ✓ Protected vault files in .gitignore and created separate vault interface at /admin-vault
 - ✓ Configured ADMIN_VAULT_KEY environment variable for secure production deployment
 - ✓ Created DEPLOYMENT_SETUP.md with comprehensive deployment security instructions
+- ✓ Enhanced authentication flow to redirect users to appropriate status pages based on application status
+- ✓ Updated sign-in process to check application status before password validation
+- ✓ Implemented polite messaging for pending applications ("under review") and rejected applications ("not approved")
+- ✓ Created standalone application status viewing for users redirected from failed sign-in attempts
 
 # System Architecture
 

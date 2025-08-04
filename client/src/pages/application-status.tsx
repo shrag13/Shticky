@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,26 +8,38 @@ import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { Clock, XCircle, CheckCircle, ArrowLeft, LogOut } from "lucide-react";
 import logoPath from "@assets/20250701_023412_0000_1754186769563.png";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function ApplicationStatus() {
+  usePageTitle("Application Status");
   const { user, isLoading, isAuthenticated } = useAuth();
   const { toast } = useToast();
+  const [showAsStandalone, setShowAsStandalone] = useState(false);
 
-  // Redirect if not authenticated
+  // Check if user came from sign-in redirect (not authenticated but should see status)
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromSignIn = urlParams.get('from') === 'signin';
+    
+    if (!isLoading && !isAuthenticated && !fromSignIn) {
+      // Only redirect if they didn't come from sign-in
       toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
-        variant: "destructive",
+        title: "Please sign in",
+        description: "Sign in to view your application status",
+        variant: "default",
       });
       setTimeout(() => {
-        window.location.href = "/application";
-      }, 500);
+        window.location.href = "/sign-in";
+      }, 1500);
       return;
+    }
+    
+    if (fromSignIn) {
+      setShowAsStandalone(true);
     }
   }, [isAuthenticated, isLoading, toast]);
 
+  // For authenticated users, get application from user endpoint
   const { data: application } = useQuery<{
     status: string;
     submittedAt: string;
@@ -36,7 +48,21 @@ export default function ApplicationStatus() {
   }>({
     queryKey: ["/api/applications/me"],
     retry: false,
+    enabled: isAuthenticated && !showAsStandalone,
   });
+
+  // For standalone mode, we'll use the same data structure but different display
+  const urlParams = new URLSearchParams(window.location.search);
+  const emailFromUrl = urlParams.get('email');
+  const statusFromUrl = urlParams.get('status');
+  
+  const displayApplication = showAsStandalone ? 
+    (emailFromUrl ? { 
+      status: statusFromUrl || 'pending',
+      submittedAt: new Date().toISOString(),
+      fullName: emailFromUrl,
+      placementDescription: 'Status Check'
+    } : null) : application;
 
   const handleLogout = async () => {
     if (confirm('Are you sure you want to log out?')) {
@@ -59,7 +85,7 @@ export default function ApplicationStatus() {
     );
   }
 
-  if (!application) {
+  if (!displayApplication) {
     return (
       <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #EFEFEE 0%, #A89182 50%, #9A7B60 100%)'}}>
         <main className="min-h-screen flex items-center justify-center px-4">
@@ -88,7 +114,7 @@ export default function ApplicationStatus() {
   }
 
   const getStatusConfig = () => {
-    switch (application.status) {
+    switch (displayApplication.status) {
       case 'pending':
         return {
           title: "Application Under Review",
@@ -134,11 +160,20 @@ export default function ApplicationStatus() {
           </div>
           
           <div className="liquid-glass-buttons flex items-center space-x-2.5">
-            <div className="flex items-center space-x-2">
-              <span className="text-sm font-medium" style={{color: '#1D2915'}}>
-                {user?.firstName} {user?.lastName}
-              </span>
-            </div>
+            {!showAsStandalone && user && (
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium" style={{color: '#1D2915'}}>
+                  {user.firstName} {user.lastName}
+                </span>
+              </div>
+            )}
+            {showAsStandalone && emailFromUrl && (
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium" style={{color: '#1D2915'}}>
+                  {emailFromUrl}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -162,20 +197,20 @@ export default function ApplicationStatus() {
               {statusConfig.description}
             </p>
             
-            {application.submittedAt && (
+            {displayApplication.submittedAt && !showAsStandalone && (
               <div className="bg-gray-50 rounded-lg p-4" style={{borderRadius: '15px'}}>
                 <h4 className="font-bold text-base mb-3" style={{color: '#1D2915'}}>Application Details</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="font-medium" style={{color: '#686346'}}>Submitted:</span>
                     <span className="font-bold" style={{color: '#1D2915'}}>
-                      {new Date(application.submittedAt).toLocaleDateString()}
+                      {new Date(displayApplication.submittedAt).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="font-medium" style={{color: '#686346'}}>Applicant:</span>
                     <span className="font-bold" style={{color: '#1D2915'}}>
-                      {application.fullName}
+                      {displayApplication.fullName}
                     </span>
                   </div>
                 </div>
@@ -188,7 +223,7 @@ export default function ApplicationStatus() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                {application.status === 'approved' && (
+                {displayApplication.status === 'approved' && !showAsStandalone && (
                   <Button 
                     onClick={() => window.location.href = '/'}
                     className="font-black text-lg px-8 py-4 shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
@@ -198,13 +233,23 @@ export default function ApplicationStatus() {
                   </Button>
                 )}
                 
-                {application.status === 'rejected' && (
+                {displayApplication.status === 'rejected' && (
                   <Button 
                     onClick={() => window.location.href = '/application'}
                     className="font-black text-lg px-8 py-4 shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
                     style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
                   >
                     SUBMIT NEW APPLICATION
+                  </Button>
+                )}
+                
+                {showAsStandalone && (
+                  <Button 
+                    onClick={() => window.location.href = '/sign-in'}
+                    className="font-black text-lg px-8 py-4 shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90 text-white"
+                    style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)', borderRadius: '15px'}}
+                  >
+                    TRY SIGNING IN AGAIN
                   </Button>
                 )}
                 

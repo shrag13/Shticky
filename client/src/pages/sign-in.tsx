@@ -44,8 +44,29 @@ export default function SignIn() {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginForm) => {
-      const response = await apiRequest("POST", "/api/auth/login", data);
-      return response;
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Check if this is an application status error
+        if (response.status === 403 && result.redirectTo) {
+          throw new Error(JSON.stringify({
+            message: result.message,
+            redirectTo: result.redirectTo,
+            applicationStatus: result.applicationStatus
+          }));
+        }
+        throw new Error(result.message || "Login failed");
+      }
+
+      return result;
     },
     onSuccess: () => {
       toast({
@@ -55,6 +76,31 @@ export default function SignIn() {
       window.location.href = "/dashboard";
     },
     onError: (error: Error) => {
+      try {
+        const errorData = JSON.parse(error.message);
+        if (errorData.redirectTo) {
+          // Show appropriate message based on application status
+          const statusMessage = errorData.applicationStatus === 'pending' 
+            ? "Your application is still under review. Redirecting to status page..."
+            : "Your application was not approved. Redirecting to status page...";
+          
+          toast({
+            title: errorData.applicationStatus === 'pending' ? "Application Under Review" : "Application Not Approved",
+            description: statusMessage,
+            variant: errorData.applicationStatus === 'pending' ? "default" : "destructive",
+          });
+          
+          // Redirect after showing toast with email for status lookup
+          setTimeout(() => {
+            const email = loginForm.getValues("email");
+            window.location.href = `${errorData.redirectTo}?from=signin&email=${encodeURIComponent(email)}&status=${errorData.applicationStatus}`;
+          }, 2000);
+          return;
+        }
+      } catch {
+        // Not a JSON error, handle normally
+      }
+
       toast({
         title: "Sign in failed",
         description: error.message,
