@@ -24,6 +24,15 @@ export default function Home() {
   const [showWithdrawal, setShowWithdrawal] = useState(false);
   const [showManualEntry, setShowManualEntry] = useState(false);
 
+  // Show loading while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
   // Redirect if not authenticated
   if (!isAuthenticated) {
     window.location.href = "/sign-in";
@@ -99,7 +108,7 @@ export default function Home() {
     return Math.min((userStats.totalEarnings / 5) * 100, 100);
   };
 
-  if (isLoading || applicationLoading) {
+  if (applicationLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
