@@ -56,7 +56,7 @@ export default function Landing() {
       if (user && typeof user === 'object' && 'isAdmin' in user && user.isAdmin) {
         window.location.href = '/admin-panel';
       } else {
-        window.location.href = '/dashboard';
+        window.location.href = '/home';
       }
     } else {
       window.location.href = '/sign-in';
@@ -65,11 +65,11 @@ export default function Landing() {
 
   const handleStartEarningClick = () => {
     if (isAuthenticated) {
-      // If already authenticated, go to dashboard
+      // If already authenticated, go to home dashboard
       if (user && typeof user === 'object' && 'isAdmin' in user && user.isAdmin) {
         window.location.href = '/admin-panel';
       } else {
-        window.location.href = '/dashboard';
+        window.location.href = '/home';
       }
     } else {
       // If not authenticated, go to application page
@@ -149,7 +149,7 @@ export default function Landing() {
                 className="text-white font-black text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 hover:opacity-90"
                 style={{background: 'linear-gradient(135deg, #9A7B60, #A89182, #686346)'}}
               >
-                {isAuthenticated ? 'GO TO DASHBOARD' : 'START EARNING NOW'}
+                {isAuthenticated ? 'GO TO HOME' : 'START EARNING NOW'}
               </Button>
               <Button 
                 size="lg"
