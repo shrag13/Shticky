@@ -6,6 +6,7 @@ import { insertApplicationSchema, insertPaymentMethodSchema, insertQrCodeSchema,
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { secureVault, initializeVault } from "./secure-admin-vault";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Session middleware
@@ -195,6 +196,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching applications:", error);
       res.status(500).json({ message: "Failed to fetch applications" });
+    }
+  });
+
+  // Secure vault management endpoints
+  app.get('/api/admin/vault/credentials', isAdmin, async (req, res) => {
+    try {
+      const credentials = secureVault.listCredentials();
+      res.json(credentials);
+    } catch (error) {
+      console.error("Error fetching vault credentials:", error);
+      res.status(500).json({ message: "Failed to fetch vault credentials" });
+    }
+  });
+
+  app.post('/api/admin/vault/add', isAdmin, async (req, res) => {
+    try {
+      const { email, password, role = 'user', status = 'active' } = req.body;
+      
+      if (!email || !password) {
+        return res.status(400).json({ message: "Email and password are required" });
+      }
+      
+      secureVault.updateCredential(email, password, role, status);
+      res.json({ message: "Credential saved to secure vault" });
+    } catch (error) {
+      console.error("Error saving to vault:", error);
+      res.status(500).json({ message: "Failed to save credential" });
+    }
+  });
+
+  app.get('/api/admin/vault/backup', isAdmin, async (req, res) => {
+    try {
+      const backup = secureVault.generateBackup();
+      res.json({ backup, timestamp: new Date().toISOString() });
+    } catch (error) {
+      console.error("Error generating backup:", error);
+      res.status(500).json({ message: "Failed to generate backup" });
     }
   });
 

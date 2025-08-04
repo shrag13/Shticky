@@ -13,6 +13,7 @@ import ApplicationStatus from "@/pages/application-status";
 import SignIn from "@/pages/sign-in";
 import Admin from "@/pages/admin";
 import AdminPanel from "@/pages/admin-panel";
+import SecureVault from "@/pages/secure-vault";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/application-status" component={ApplicationStatus} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin-panel" component={AdminPanel} />
+      <Route path="/admin-vault" component={SecureVault} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -309,7 +309,7 @@ export default function AdminPanel() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3" style={{backgroundColor: '#A89182'}}>
+          <TabsList className="grid w-full grid-cols-4" style={{backgroundColor: '#A89182'}}>
             <TabsTrigger 
               value="dashboard" 
               className="data-[state=active]:bg-white data-[state=active]:text-gray-900"
@@ -330,6 +330,13 @@ export default function AdminPanel() {
             >
               <FileText className="mr-2 h-4 w-4" />
               Applications
+            </TabsTrigger>
+            <TabsTrigger 
+              value="vault"
+              className="data-[state=active]:bg-white data-[state=active]:text-gray-900"
+            >
+              <Shield className="mr-2 h-4 w-4" />
+              Secure Vault
             </TabsTrigger>
           </TabsList>
 
@@ -674,6 +681,60 @@ export default function AdminPanel() {
                 </div>
               </Card>
             )}
+          </TabsContent>
+
+          {/* Secure Vault Tab */}
+          <TabsContent value="vault">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Shield className="h-5 w-5" />
+                  <span>Secure Credentials Vault</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Vault Interface will be embedded here */}
+                  <div className="text-center py-8">
+                    <Shield className="h-16 w-16 mx-auto mb-4 text-green-600" />
+                    <h3 className="text-xl font-semibold mb-2">Encrypted Password Vault</h3>
+                    <p className="text-gray-600 mb-4">
+                      Secure storage for admin credentials with AES-256 encryption
+                    </p>
+                    <Button
+                      onClick={() => window.open('/admin-vault', '_blank')}
+                      className="flex items-center space-x-2"
+                      style={{backgroundColor: '#1D2915', color: '#EFEFEE'}}
+                    >
+                      <Shield className="h-4 w-4" />
+                      <span>Open Secure Vault</span>
+                    </Button>
+                  </div>
+                  
+                  <div className="border-t pt-6">
+                    <h4 className="font-semibold mb-3">Security Features:</h4>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>AES-256 encryption for all stored passwords</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>Master key protection with secure verification</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>Encrypted backup generation with timestamps</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>File excluded from version control (.gitignore)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
