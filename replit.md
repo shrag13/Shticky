@@ -56,6 +56,8 @@ Recent Changes (August 4, 2025):
 - ✓ Updated sign-in process to check application status before password validation
 - ✓ Implemented polite messaging for pending applications ("under review") and rejected applications ("not approved")
 - ✓ Created standalone application status viewing for users redirected from failed sign-in attempts
+- ✓ Created GitHub Pages deployment setup with built static files in /docs folder
+- ✓ Generated comprehensive deployment guide explaining full-stack limitations on GitHub Pages
 
 # System Architecture
 
