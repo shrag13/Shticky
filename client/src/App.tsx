@@ -1,3 +1,4 @@
+// Shticky v1.0 - QR Code Monetization Platform
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
